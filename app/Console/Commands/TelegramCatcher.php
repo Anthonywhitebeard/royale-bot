@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Amp\Loop;
-use App\Jobs\Reactor;
+use App\Jobs\MessageParser;
 use App\Models\Message;
 use Illuminate\Console\Command;
 use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Update;
 
 class TelegramCatcher extends Command
 {
@@ -15,7 +15,7 @@ class TelegramCatcher extends Command
      *
      * @var string
      */
-    protected $signature = 'catch:telegram';
+    protected $signature = 'hook:telegram';
 
     /**
      * The console command description.
@@ -41,10 +41,12 @@ class TelegramCatcher extends Command
     /**
      * Execute the console command.
      *
-     * @param  Api $telegram
+     * @param Api $telegram
+     * @param Message $message
      * @return mixed
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function handle(Api $telegram): void
+    public function handle(Api $telegram, Message $message): void
     {
         while (true) {
             $offset = $this->message->latest('id')->first();
@@ -52,9 +54,9 @@ class TelegramCatcher extends Command
             $response = $telegram->getUpdates([
                 'offset' => $offset,
             ]);
-            foreach ($response as $message) {
-                Message::create(['update_id' => $message->getUpdateId()]);
-                Reactor::dispatch($message->getMessage()->toArray());
+            foreach ($response as $answer) {
+                $message->create(['update_id' => $answer->updateId]);
+                MessageParser::dispatch($answer->toArray());
             }
         }
     }
