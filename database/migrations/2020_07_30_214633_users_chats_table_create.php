@@ -16,9 +16,9 @@ class UsersChatsTableCreate extends Migration
         Schema::create('chats_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nickname');
-            $table->bigInteger('role_id');
-            $table->bigInteger('chat_id');
-            $table->bigInteger('user_id');
+            $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('chat_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('chat_id')->references('id')->on('chats');
         });
