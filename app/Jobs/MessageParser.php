@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Chat;
 use App\Models\Trigger;
 use App\Services\EventHandlers\EventHandler;
 use Illuminate\Bus\Queueable;
@@ -46,10 +47,10 @@ class MessageParser implements ShouldQueue
      */
     private function getReaction(string $trigger): void
     {
-
         $trigger = Trigger::where('reg_exp', $trigger)->first();
+        $chat = $this->getChat();
 
-        if (!$trigger) {
+        if (!$trigger || $chat->deviance < $trigger->deviance) {
             return;
         }
 
@@ -73,5 +74,16 @@ class MessageParser implements ShouldQueue
         $handler = app($event);
 
         return $handler;
+    }
+
+    /**
+     * @return Chat
+     */
+    private function getChat(): Chat
+    {
+        return Chat::firstOrCreate([
+            'tg_id' => $this->message->chat->id,
+            'name' => $this->message->chat->firstName,
+        ]);
     }
 }

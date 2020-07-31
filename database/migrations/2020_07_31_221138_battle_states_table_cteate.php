@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChatsTableCreate extends Migration
+class BattleStatesTableCteate extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('chats', function (Blueprint $table) {
+        Schema::create('battle_states', static function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tg_id');
-            $table->string('name');
-            $table->smallInteger('deviance')->default(0);
+            $table->bigInteger('battle_id')->unsigned();
+            $table->foreign('battle_id')->references('id')->on('battles');
+            $table->text('state');
             $table->timestamps();
         });
     }
@@ -27,8 +27,8 @@ class ChatsTableCreate extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('chats');
+        Schema::drop('battle_states');
     }
 }

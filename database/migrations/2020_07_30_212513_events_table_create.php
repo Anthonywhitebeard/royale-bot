@@ -18,7 +18,7 @@ class EventsTableCreate extends Migration
             $table->string('name');
             $table->string('text');
             $table->integer('weight');
-            $table->smallInteger('deviance');
+            $table->smallInteger('deviance')->default(0);
             $table->boolean('active');
             $table->timestamps();
         });

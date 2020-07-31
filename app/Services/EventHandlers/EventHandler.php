@@ -2,7 +2,6 @@
 
 namespace App\Services\EventHandlers;
 
-use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
 
 interface EventHandler
