@@ -13,6 +13,10 @@ class StartBattle implements EventHandler
     /** @var Api $telegram */
     private $telegram;
 
+    /**
+     * StartBattle constructor.
+     * @param Api $telegram
+     */
     public function __construct(Api $telegram)
     {
         $this->telegram = $telegram;
