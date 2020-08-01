@@ -3,14 +3,17 @@
 
 namespace App\Services\EventHandlers;
 
+use App\Jobs\BattleDriver;
 use App\Models\Battle;
+use App\Models\BattlesUsers;
 use App\Models\Chat;
 use App\Models\User;
+use App\Services\BattleProcess\BattleState;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
 
-class StartBattle implements EventHandler
+class LaunchBattle implements EventHandler
 {
     /** @var TelegramSender $telegram */
     private $telegram;
@@ -35,31 +38,31 @@ class StartBattle implements EventHandler
     {
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)
-            ->where('state', '<>', Battle::BATTLE_STATE_FINISHED)
+            ->where('state', Battle::BATTLE_STATE_NEW)
             ->first();
 
-        if ($lastBattle) {
-            $this->telegram->sendMessage($this->refuseBattleStartText($lastBattle), $message);
-
+        if (!$lastBattle) {
             return;
         }
 
-        $chat->battles()->create([
-            'state' => Battle::BATTLE_STATE_NEW,
-        ]);
-        $this->telegram->sendMessage('Метро приземлилось. Заходите!', $message);
+        $lastBattle->state = Battle::BATTLE_STATE_FINISHED;
+        $lastBattle->save();
+        $state = $this->initState($lastBattle);
+        app()->makeWith(BattleDriver::class, [
+            'state' => $state,
+            'battle' => $lastBattle,
+        ])->launchBattle();
     }
 
     /**
-     * @param Battle $lastBattle
-     * @return string
+     * @param Battle $battle
+     * @return BattleState
      */
-    private function refuseBattleStartText(Battle $lastBattle): string
+    private function initState(Battle $battle): BattleState
     {
-        if ($lastBattle->state === Battle::BATTLE_STATE_NEW) {
-            return 'Битва вот-вот начнется, запрыгивай!';
-        }
+        $state = app(BattleState::class);
+        $state->users = $battle->battleUsers;
 
-        return 'А все уже, раньше надо было';
+        return $state;
     }
 }

@@ -37,4 +37,18 @@ class TelegramSender
         }
         $this->telegramApi->sendMessage($params);
     }
+
+    /**
+     * @param string $text
+     * @param $tgChatId
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function sendChatMessage(string $text, string $tgChatId): void
+    {
+        $params = [
+            'text' => $text,
+            'chat_id' => $tgChatId,
+        ];
+        $this->telegramApi->sendMessage($params);
+    }
 }

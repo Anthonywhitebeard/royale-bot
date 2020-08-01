@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\BattleProcess\BattleDriver;
 use App\Services\EventHandlers\EventHandler;
+use App\Services\TelegramSender;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Telegram\Bot\Api;
@@ -32,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
             ->needs(Api::class)
             ->give(Api::class);
         $this->app->singleton(Api::class);
+        $this->app->when(BattleDriver::class)
+            ->needs(TelegramSender::class)
+            ->give(TelegramSender::class);
+        $this->app->singleton(TelegramSender::class);
     }
 }

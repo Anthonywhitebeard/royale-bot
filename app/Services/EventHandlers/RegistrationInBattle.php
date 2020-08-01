@@ -65,6 +65,7 @@ class RegistrationInBattle implements EventHandler
             'start_mmr' => $user->mmr,
             'start_rp' => $user->rp,
             'start_skill' => $user->skill,
+            'user_name' => $message->from->username ?? $message->from->firstName,
         ]);
 
         $newBattleUser->user()->associate($user)->save();
