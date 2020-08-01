@@ -12,6 +12,7 @@ interface EventHandler
     const TYPES = [
         'StartBattle' => StartBattle::class,
         'RegistrationInBattle' => RegistrationInBattle::class,
+        'DestroyBattle' => DestroyBattle::class,
     ];
 
     /**

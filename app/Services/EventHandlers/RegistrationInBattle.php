@@ -68,7 +68,6 @@ class RegistrationInBattle implements EventHandler
         ]);
 
         $newBattleUser->user()->associate($user)->save();
-
         $this->telegram->sendMessage('Добро пожаловать в метрополитен', $message);
     }
 }

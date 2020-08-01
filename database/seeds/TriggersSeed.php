@@ -21,6 +21,10 @@ class TriggersSeed extends Seeder
                 'reg_exp' => 'захожу на борт',
                 'event' => 'RegistrationInBattle',
             ],
+            [
+                'reg_exp' => 'Аллах акбар',
+                'event' => 'DestroyBattle',
+            ],
         ];
         Trigger::insertOrIgnore($rows);
     }
