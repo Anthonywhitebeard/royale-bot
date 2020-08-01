@@ -17,9 +17,10 @@ class UsersTableCreate extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('tg_id');
-            $table->integer('mmr');
-            $table->integer('rp');
-            $table->integer('skill');
+            $table->integer('mmr')->default(1200);
+            $table->integer('rp')->default(0);
+            $table->integer('skill')->default(1000);
+            $table->boolean('promo_lost')->default(0);
             $table->timestamps();
         });
     }

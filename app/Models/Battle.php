@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Battle
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $chat_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUsers[] $battleUsers
+ * @property-read int|null $battle_users_count
  * @property-read \App\Models\Chat $chat
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newQuery()
@@ -42,5 +45,13 @@ class Battle extends Model
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
+    }
+
+    /**
+     * @return HasMany|BattlesUsers[]
+     */
+    public function battleUsers(): HasMany
+    {
+        return $this->hasMany(BattlesUsers::class);
     }
 }

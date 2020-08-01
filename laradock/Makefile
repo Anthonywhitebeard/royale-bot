@@ -24,7 +24,7 @@ stop: # Stops containers
 up: # Start and run containers
 	docker-compose up -d --remove-orphans $(CONTAINERS)
 
-workspace: # Enter workspace
+w: # Enter workspace
 	docker-compose exec workspace bash
 
 shell: workspace # Alias to workspace

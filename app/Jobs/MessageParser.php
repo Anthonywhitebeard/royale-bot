@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Chat;
 use App\Models\Trigger;
+use App\Models\User;
 use App\Services\EventHandlers\EventHandler;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -49,13 +50,14 @@ class MessageParser implements ShouldQueue
     {
         $trigger = Trigger::searchTrigger($trigger)->first();
         $chat = $this->getChat();
+        $user = $this->getUser();
 
         if (!$trigger || $chat->deviance < $trigger->deviance) {
             return;
         }
 
         $event = $trigger->event;
-        $this->initHandler($event)->process($this->message);
+        $this->initHandler($event)->process($this->message, $chat, $user);
     }
 
     /**
@@ -84,6 +86,24 @@ class MessageParser implements ShouldQueue
         return Chat::firstOrCreate([
             'tg_id' => $this->message->chat->id,
             'name' => $this->message->chat->firstName,
+        ]);
+    }
+
+    /**
+     * @return User
+     */
+    private function getUser(): User
+    {
+        /** @var User $user */
+        $user = User::where('tg_id', $this->message->from->id)->first();
+
+        if ($user) {
+            return $user;
+        }
+
+        return User::create([
+            'tg_id' => $this->message->from->id,
+            'name' => $this->message->from->username,
         ]);
     }
 }
