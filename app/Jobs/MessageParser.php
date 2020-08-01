@@ -47,7 +47,7 @@ class MessageParser implements ShouldQueue
      */
     private function getReaction(string $trigger): void
     {
-        $trigger = Trigger::where('reg_exp', $trigger)->first();
+        $trigger = Trigger::searchTrigger($trigger)->first();
         $chat = $this->getChat();
 
         if (!$trigger || $chat->deviance < $trigger->deviance) {

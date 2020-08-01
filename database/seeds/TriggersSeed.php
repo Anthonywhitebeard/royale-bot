@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trigger;
 use Illuminate\Database\Seeder;
 
 class TriggersSeed extends Seeder
@@ -9,14 +10,18 @@ class TriggersSeed extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $rows = [
             [
-                'reg_exp' => '%начать битву%',
+                'reg_exp' => 'начать битву',
                 'event' => 'StartBattle',
             ],
+            [
+                'reg_exp' => 'захожу на борт',
+                'event' => 'RegistrationInBattle',
+            ],
         ];
-        \App\Models\Trigger::insert($rows);
+        Trigger::insertOrIgnore($rows);
     }
 }

@@ -19,6 +19,10 @@ class TriggersTableCreate extends Migration
             $table->smallInteger('deviance')->nullable(false)->default(0);
             $table->string('event');
             $table->timestamps();
+            $table->unique([
+                'reg_exp',
+                'event',
+            ], 'reg_exp_event');
         });
     }
 

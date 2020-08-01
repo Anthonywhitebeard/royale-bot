@@ -9,6 +9,7 @@ interface EventHandler
     /** @var string[] */
     const TYPES = [
         'StartBattle' => StartBattle::class,
+        'RegistrationInBattle' => RegistrationInBattle::class,
     ];
 
     /**

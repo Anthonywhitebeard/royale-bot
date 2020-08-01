@@ -25,7 +25,7 @@ up: # Start and run containers
 	docker-compose up -d --remove-orphans $(CONTAINERS)
 
 workspace: # Enter workspace
-	docker-compose exec -u 1000 workspace /bin/bash
+	docker-compose exec workspace bash
 
 shell: workspace # Alias to workspace
 
@@ -35,7 +35,7 @@ migrate: # Run Laravel migration
 migrate-status: # See Laravel migration status
 	docker-compose exec -u 1000 workspace php artisan migrate:status
 
-migrate-fresh: # Run Laravel Fresh migration
+update-db: # Run Laravel Fresh migration
 	docker-compose exec -u 1000 workspace php artisan migrate:fresh --seed
 
 migrate-rollback: # Rollback Laravel migration

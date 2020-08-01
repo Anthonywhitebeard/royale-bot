@@ -8,7 +8,7 @@ use App\Models\Chat;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
 
-class StartBattle implements EventHandler
+class RegistrationInBattle implements EventHandler
 {
     /** @var Api $telegram */
     private $telegram;
@@ -36,34 +36,9 @@ class StartBattle implements EventHandler
             ->where('state', '<>', Battle::BATTLE_STATE_FINISHED)
             ->first();
 
-        if ($lastBattle) {
-            $this->telegram->sendMessage([
-                'chat_id' => $message->chat->id,
-                'text' => $this->refuseBattleStartText($lastBattle),
-            ]);
-
-            return;
-        }
-
-        $chat->battles()->create([
-            'state' => 0,
-        ]);
         $this->telegram->sendMessage([
             'chat_id' => $message->chat->id,
-            'text' => 'Метро приземлилось. Заходите!',
+            'text' => 'Запрос на регистрацию принят',
         ]);
-    }
-
-    /**
-     * @param Battle $lastBattle
-     * @return string
-     */
-    private function refuseBattleStartText(Battle $lastBattle): string
-    {
-        if ($lastBattle->state === Battle::BATTLE_STATE_NEW) {
-            return 'Битва вот-вот начнется, запрыгивай!';
-        }
-
-        return 'Битва в самом разгаре';
     }
 }
