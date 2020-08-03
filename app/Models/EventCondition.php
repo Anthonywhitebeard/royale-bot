@@ -1,39 +1,45 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * App\Models\Event
+ * Class EventCondition
  *
  * @property int $id
- * @property string $name
- * @property string $text
- * @property int $weight
- * @property int $deviance
- * @property int $active
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereDeviance($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereText($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereWeight($value)
+ * @property int $event_id
+ * @property string $condition
+ * @property Event $event
+ * @package App\Models
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereCondition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereId($value)
  * @mixin \Eloquent
  */
 class EventCondition extends Model
 {
-    protected $fillable = [
-        'event_id',
-        'condition',
-    ];
+	protected $table = 'event_conditions';
+	public $timestamps = false;
+
+	protected $casts = [
+		'event_id' => 'int'
+	];
+
+	protected $fillable = [
+		'event_id',
+		'condition'
+	];
+
+	public function event()
+	{
+		return $this->belongsTo(Event::class);
+	}
 }

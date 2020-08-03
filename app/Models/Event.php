@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Event
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $text
  * @property int $weight
  * @property int $deviance
- * @property int $active
+ * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event newModelQuery()
@@ -30,16 +31,39 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereWeight($value)
  * @mixin Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventCondition[] $event_conditions
+ * @property-read int|null $event_conditions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $event_traits
+ * @property-read int|null $event_traits_count
+ * @mixin \Eloquent
  */
 class Event extends Model
 {
-    protected $fillable = [
-        'name',
-        'text',
-        'weight',
-        'deviance',
-        'active',
-    ];
+	protected $table = 'events';
+
+	protected $casts = [
+		'weight' => 'int',
+		'deviance' => 'int',
+		'active' => 'bool'
+	];
+
+	protected $fillable = [
+		'name',
+		'text',
+		'weight',
+		'deviance',
+		'active'
+	];
+
+	public function eventConditions()
+	{
+		return $this->hasMany(EventCondition::class);
+	}
+
+	public function eventTraits()
+	{
+		return $this->hasMany(EventTrait::class);
+	}
 
     /**
      * @return HasMany|EventOperation[]

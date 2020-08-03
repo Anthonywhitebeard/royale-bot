@@ -1,44 +1,42 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: fanto
- * Date: 30.01.2020
- * Time: 2:11
+ * Created by Reliese Model.
  */
 
 namespace App\Models;
 
-use Barryvdh\LaravelIdeHelper\Eloquent;
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Trigger
+ * Class Operation
  *
  * @property int $id
- * @property string $reg_exp
- * @property int $deviance
- * @property string $event
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger searchTrigger($trigger)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereDeviance($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereEvent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereRegExp($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereUpdatedAt($value)
- * @mixin Eloquent
+ * @property string $name
+ * @property string $params
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @package App\Models
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation whereParams($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Operation whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Operation extends Model
 {
-    protected $fillable = [
-        'name',
-    ];
+	protected $table = 'operations';
+
+	protected $fillable = [
+		'name',
+		'params'
+	];
 
     /**
      * @return BelongsTo|EventOperation

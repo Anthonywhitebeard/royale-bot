@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fanto
- * Date: 30.01.2020
- * Time: 2:11
- */
 
 namespace App\Models;
 
+use Carbon\Carbon;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,7 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Message extends Model
 {
-    protected $fillable = [
-        'update_id',
-    ];
+	protected $table = 'messages';
+
+	protected $fillable = [
+		'update_id'
+	];
 }

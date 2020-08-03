@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\BattleModels\BattleClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -32,8 +31,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereBattleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereClassId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereClassId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndMmr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndRp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndSkill($value)
