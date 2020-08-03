@@ -5,7 +5,7 @@ namespace App\Services\EventHandlers;
 
 use App\Jobs\BattleDriver;
 use App\Models\Battle;
-use App\Models\BattlesUsers;
+use App\Models\BattleModels\BattleClass;
 use App\Models\Chat;
 use App\Models\User;
 use App\Services\BattleProcess\BattleState;
@@ -62,6 +62,14 @@ class LaunchBattle implements EventHandler
     {
         $state = app(BattleState::class);
         $state->users = $battle->battleUsers;
+
+        foreach ($battle->battleUsers as $battleUser) {
+            $battleUser['hp'] = BattleClass::CLASS_DEFAULT_HP;
+            $battleUser['dmg'] = BattleClass::CLASS_DEFAULT_DMG;
+            $battleUser['condition'] = [
+                BattleClass::CLASS_DEFAULT_PLAYER_CONDITION,
+            ];
+        }
 
         return $state;
     }

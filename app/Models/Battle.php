@@ -55,7 +55,7 @@ class Battle extends Model
         return $this->belongsTo(Chat::class);
     }
 
-	public function battle_states()
+	public function battleStates()
 	{
 		return $this->hasMany(BattleState::class);
 	}

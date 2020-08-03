@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -63,15 +59,12 @@ class User extends Model
 
 	public function battles()
 	{
-		return $this->belongsToMany(Battle::class, 'battles_users')
-					->withPivot('id', 'user_name', 'start_mmr', 'start_rp', 'start_skill', 'end_mmr', 'end_rp', 'end_skill', 'place')
-					->withTimestamps();
+		return $this->belongsToMany(Battle::class, 'battles_users');
 	}
 
 	public function chats()
 	{
-		return $this->belongsToMany(Chat::class, 'chats_users')
-					->withPivot('id', 'nickname', 'role_id');
+		return $this->belongsToMany(Chat::class, 'chats_users');
 	}
 
     /**

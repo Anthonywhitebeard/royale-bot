@@ -1,13 +1,11 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,10 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventCondition[] $event_conditions
- * @property-read int|null $event_conditions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $event_traits
- * @property-read int|null $event_traits_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event query()
@@ -36,6 +30,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereWeight($value)
+ * @mixin Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventCondition[] $event_conditions
+ * @property-read int|null $event_conditions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $event_traits
+ * @property-read int|null $event_traits_count
  * @mixin \Eloquent
  */
 class Event extends Model
@@ -56,13 +55,21 @@ class Event extends Model
 		'active'
 	];
 
-	public function event_conditions()
+	public function eventConditions()
 	{
 		return $this->hasMany(EventCondition::class);
 	}
 
-	public function event_traits()
+	public function eventTraits()
 	{
 		return $this->hasMany(EventTrait::class);
 	}
+
+    /**
+     * @return HasMany|EventOperation[]
+     */
+    public function eventOperations(): HasMany
+    {
+        return $this->hasMany(EventOperation::class);
+    }
 }

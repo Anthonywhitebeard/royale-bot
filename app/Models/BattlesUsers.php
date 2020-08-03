@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\BattleModels\BattleClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\BattlesUsers
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $battle_id
  * @property int $user_id
  * @property string $user_name
+ * @property int $class_id
  * @property int $start_mmr
  * @property int $start_rp
  * @property int $start_skill
@@ -23,12 +25,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Battle $battle
+ * @property-read \App\Models\BattleModels\BattleClass|null $battleClass
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereBattleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereClassId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndMmr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndRp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUsers whereEndSkill($value)
@@ -70,5 +74,13 @@ class BattlesUsers extends Model
     public function battle(): BelongsTo
     {
         return $this->belongsTo(Battle::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function battleClass(): HasOne
+    {
+        return $this->hasOne(BattleClass::class);
     }
 }

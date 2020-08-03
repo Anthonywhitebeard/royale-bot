@@ -9,10 +9,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class BattleDriver implements ShouldQueue
 {
-    private $battle;
-    private $state;
-    private $telegram;
+    /** @var Battle $battle */
+    private Battle $battle;
+    /** @var BattleState $state */
+    private BattleState $state;
+    /** @var TelegramSender $telegram */
+    private TelegramSender $telegram;
 
+    /**
+     * BattleDriver constructor.
+     * @param Battle $battle
+     * @param BattleState $state
+     * @param TelegramSender $telegram
+     */
     public function __construct(Battle $battle, BattleState $state, TelegramSender $telegram)
     {
         $this->battle = $battle;
@@ -22,7 +31,7 @@ class BattleDriver implements ShouldQueue
 
     public function launchBattle()
     {
-        $this->telegram->sendChatMessage('Битва начинается', $this->battle->chat->tg_id);
+        $this->telegram->sendChatMessage(__('start_battle_text'), $this->battle->chat->tg_id);
         $this->gameLoop();
         $this->endGame();
     }
