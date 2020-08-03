@@ -59,9 +59,9 @@ composer-install: # Run composer install
 mem-composer-update: # Run composer update
 	docker-compose exec -u 1000 workspace php -dmemory_limit=-1 /usr/local/bin/composer update
 
-install: composer-install set-env eventstore-user-create migrate passport-install admin-register # Install Project
+install: composer-install # Install Project
 
 update: composer-install migrate # Update Project
 
 annotate-models: # Add annotations for Laravel Models
-	docker-compose exec -u 1000 workspace php artisan ide-helper:models -WR -D Models
+	docker-compose exec -u 1000 workspace php artisan ide-helper:model

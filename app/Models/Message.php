@@ -1,15 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: fanto
- * Date: 30.01.2020
- * Time: 2:11
+ * Created by Reliese Model.
  */
 
 namespace App\Models;
 
-
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,7 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Message extends Model
 {
-    protected $fillable = [
-        'update_id',
-    ];
+	protected $table = 'messages';
+
+	protected $fillable = [
+		'update_id'
+	];
 }

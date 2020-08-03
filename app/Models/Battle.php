@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,9 +21,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $chat_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUsers[] $battleUsers
- * @property-read int|null $battle_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleState[] $battle_states
+ * @property-read int|null $battle_states_count
  * @property-read \App\Models\Chat $chat
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle query()
@@ -34,10 +42,10 @@ class Battle extends Model
     public const BATTLE_STATE_IN_PROCESS = 1;
     public const BATTLE_STATE_FINISHED = 2;
 
-    protected $fillable = [
-        'state',
-        'chat_id',
-    ];
+	protected $fillable = [
+		'state',
+		'chat_id'
+	];
 
     /**
      * @return BelongsTo|Chat
@@ -46,6 +54,11 @@ class Battle extends Model
     {
         return $this->belongsTo(Chat::class);
     }
+
+	public function battle_states()
+	{
+		return $this->hasMany(BattleState::class);
+	}
 
     /**
      * @return HasMany|BattlesUsers[]

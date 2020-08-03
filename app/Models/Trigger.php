@@ -1,13 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: fanto
- * Date: 30.01.2020
- * Time: 2:11
+ * Created by Reliese Model.
  */
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger searchTrigger($trigger)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereDeviance($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereEvent($value)
@@ -34,11 +32,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Trigger extends Model
 {
-    protected $fillable = [
-        'reg_exp',
-        'event',
-        'deviance',
-    ];
+	protected $table = 'triggers';
+
+	protected $casts = [
+		'deviance' => 'int'
+	];
+
+	protected $fillable = [
+		'reg_exp',
+		'deviance',
+		'event'
+	];
 
     /**
      * @param Builder $builder

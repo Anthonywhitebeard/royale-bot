@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Battle[] $battles
  * @property-read int|null $battles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat query()
@@ -30,11 +37,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Chat extends Model
 {
-    protected $fillable = [
-        'tg_id',
-        'name',
-        'deviance',
-    ];
+	protected $table = 'chats';
+
+	protected $casts = [
+		'deviance' => 'int'
+	];
+
+	protected $fillable = [
+		'tg_id',
+		'name',
+		'deviance'
+	];
 
     /**
      * @return HasMany|Battle[]
@@ -42,5 +55,10 @@ class Chat extends Model
     public function battles(): HasMany
     {
         return $this->hasMany(Battle::class);
+    }
+
+	public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }
