@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EventConditionTableCreate extends Migration
+class EventOperationTableCreate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class EventConditionTableCreate extends Migration
      */
     public function up()
     {
-        Schema::create('event_conditions', function (Blueprint $table) {
+        Schema::create('event_operations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('event_id')->unsigned();
-            $table->string('condition');
+            $table->bigInteger('operation_id')->unsigned();
+            $table->string('params');
             $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('operation_id')->references('id')->on('operations');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class EventConditionTableCreate extends Migration
      */
     public function down()
     {
-        Schema::drop('event_conditions');
+        Schema::drop('event_operation');
     }
 }

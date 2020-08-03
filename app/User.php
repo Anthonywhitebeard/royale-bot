@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int $mmr
  * @property int $rp
  * @property int $skill
+ * @property int $promo_lost
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -26,6 +27,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMmr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePromoLost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSkill($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereTgId($value)
