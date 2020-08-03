@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUser whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUser whereUserName($value)
  * @mixin \Eloquent
+ * @property int $class_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUser whereClassId($value)
  */
 class BattlesUser extends Model
 {

@@ -32,6 +32,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereRegExp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trigger whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $event_id
+ * @property int $operation_id
+ * @property string $params
+ * @property-read \App\Models\Operation $operation
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereOperationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereParams($value)
  */
 class EventOperation extends Model
 {

@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereEventId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereId($value)
  * @mixin \Eloquent
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventCondition whereUpdatedAt($value)
  */
 class EventCondition extends Model
 {

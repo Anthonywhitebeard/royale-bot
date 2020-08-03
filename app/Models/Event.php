@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Event
@@ -36,17 +37,24 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $event_traits
  * @property-read int|null $event_traits_count
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventCondition[] $eventConditions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventOperation[] $eventOperations
+ * @property-read int|null $event_operations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $eventTraits
  */
 class Event extends Model
 {
+    /** @var string */
 	protected $table = 'events';
 
+	/** @var string[] */
 	protected $casts = [
 		'weight' => 'int',
 		'deviance' => 'int',
 		'active' => 'bool'
 	];
 
+	/** @var string[] */
 	protected $fillable = [
 		'name',
 		'text',
@@ -55,12 +63,18 @@ class Event extends Model
 		'active'
 	];
 
-	public function eventConditions()
+    /**
+     * @return HasMany
+     */
+	public function eventConditions(): HasMany
 	{
 		return $this->hasMany(EventCondition::class);
 	}
 
-	public function eventTraits()
+    /**
+     * @return HasMany
+     */
+	public function eventTraits(): HasMany
 	{
 		return $this->hasMany(EventTrait::class);
 	}
