@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $mmr
  * @property int $rp
  * @property int $skill
+ * @property int $promo_lost
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUsers[] $battleUsers
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereMmr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePromoLost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereSkill($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereTgId($value)

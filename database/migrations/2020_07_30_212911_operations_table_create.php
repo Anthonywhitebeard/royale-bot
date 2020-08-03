@@ -16,7 +16,6 @@ class OperationsTableCreate extends Migration
         Schema::create('operations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('params');
             $table->timestamps();
         });
     }
