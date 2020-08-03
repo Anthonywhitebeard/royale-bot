@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Models\Battle;
+use App\Models\BattlesUser;
+use App\Models\Event;
 use App\Services\BattleProcess\BattleState;
 use App\Services\TelegramSender;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,11 +31,17 @@ class BattleDriver implements ShouldQueue
         $this->telegram = $telegram;
     }
 
-    public function launchBattle()
+    /**
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function launchBattle(): void
     {
         $this->telegram->sendChatMessage(__('start_battle_text'), $this->battle->chat->tg_id);
-        $this->gameLoop();
-        $this->endGame();
+
+        /** @var BattlesUser $user */
+        foreach ($this->state->users as &$user) {
+            $this->doEvent($user->battleClass->event);
+        }
     }
 
     private function gameLoop(): void
@@ -59,8 +67,17 @@ class BattleDriver implements ShouldQueue
         }
     }
 
-    private function doEvent(): bool
+    private function doEvent(Event $event): bool
     {
+        $activeUsers = [
+            0 => 'qwe',
+            1 => 'qwe',
+            2 => 'qwe',
+            3 => 'qwe',
+            4 => 'qwe',
+            5 => 'qwe',
+        ];
+        var_dump($event->name);
         return true;
     }
 

@@ -20,7 +20,7 @@ class BattleUsersTableCreate extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('user_name');
-            $table->integer('class_id')->unsigned();
+            $table->integer('class_id')->unsigned()->nullable();
             $table->integer('start_mmr');
             $table->integer('start_rp');
             $table->integer('start_skill');

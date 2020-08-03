@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\BattleModels\BattleClass;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Barryvdh\LaravelIdeHelper\Eloquent;
@@ -45,39 +46,39 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Event extends Model
 {
     /** @var string */
-	protected $table = 'events';
+    protected $table = 'events';
 
-	/** @var string[] */
-	protected $casts = [
-		'weight' => 'int',
-		'deviance' => 'int',
-		'active' => 'bool'
-	];
+    /** @var string[] */
+    protected $casts = [
+        'weight' => 'int',
+        'deviance' => 'int',
+        'active' => 'bool'
+    ];
 
-	/** @var string[] */
-	protected $fillable = [
-		'name',
-		'text',
-		'weight',
-		'deviance',
-		'active'
-	];
-
-    /**
-     * @return HasMany
-     */
-	public function eventConditions(): HasMany
-	{
-		return $this->hasMany(EventCondition::class);
-	}
+    /** @var string[] */
+    protected $fillable = [
+        'name',
+        'text',
+        'weight',
+        'deviance',
+        'active'
+    ];
 
     /**
      * @return HasMany
      */
-	public function eventTraits(): HasMany
-	{
-		return $this->hasMany(EventTrait::class);
-	}
+    public function eventConditions(): HasMany
+    {
+        return $this->hasMany(EventCondition::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function eventTraits(): HasMany
+    {
+        return $this->hasMany(EventTrait::class);
+    }
 
     /**
      * @return HasMany|EventOperation[]
@@ -85,5 +86,13 @@ class Event extends Model
     public function eventOperations(): HasMany
     {
         return $this->hasMany(EventOperation::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function battleClass(): HasMany
+    {
+        return $this->hasMany(BattleClass::class);
     }
 }

@@ -6,8 +6,11 @@
 
 namespace App\Models;
 
+use App\Models\BattleModels\BattleClass;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class BattlesUser
@@ -47,6 +50,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $class_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlesUser whereClassId($value)
+ * @property-read \App\Models\BattleModels\BattleClass|null $battleClass
  */
 class BattlesUser extends Model
 {
@@ -77,13 +81,27 @@ class BattlesUser extends Model
 		'place'
 	];
 
-	public function battle()
-	{
-		return $this->belongsTo(Battle::class);
-	}
+    /**
+     * @return BelongsTo|User
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    /**
+     * @return BelongsTo|Battle
+     */
+    public function battle(): BelongsTo
+    {
+        return $this->belongsTo(Battle::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function battleClass(): BelongsTo
+    {
+        return $this->belongsTo(BattleClass::class, 'class_id');
+    }
 }

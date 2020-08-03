@@ -2,11 +2,13 @@
 
 namespace App\Models\BattleModels;
 
-use App\Models\BattlesUsers;
+use App\Models\BattlesUser;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\BattleModels\BattleClass
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property int $event_id
  * @property int $active
- * @property-read \App\Models\BattlesUsers $battleUsers
+ * @property-read \App\Models\BattlesUser $battleUsers
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass query()
@@ -24,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereName($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Event|null $event
  */
 class BattleClass extends Model
 {
@@ -41,10 +44,18 @@ class BattleClass extends Model
     ];
 
     /**
-     * @return BelongsTo|BattlesUsers
+     * @return HasMany|BattlesUser
      */
-    public function battleUsers(): BelongsTo
+    public function battleUsers(): HasMany
     {
-        return $this->belongsTo(BattlesUsers::class);
+        return $this->hasMany(BattlesUser::class);
+    }
+
+    /**
+     * @return BelongsTo|Event
+     */
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
     }
 }

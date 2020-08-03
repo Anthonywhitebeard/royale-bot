@@ -6,6 +6,7 @@ namespace App\Services\EventHandlers;
 use App\Jobs\BattleDriver;
 use App\Models\Battle;
 use App\Models\BattleModels\BattleClass;
+use App\Models\BattlesUser;
 use App\Models\Chat;
 use App\Models\User;
 use App\Services\BattleProcess\BattleState;
@@ -64,6 +65,7 @@ class LaunchBattle implements EventHandler
         $state->users = $battle->battleUsers;
 
         foreach ($battle->battleUsers as $battleUser) {
+            $this->addClassIfNotExist($battleUser);
             $battleUser['hp'] = BattleClass::CLASS_DEFAULT_HP;
             $battleUser['dmg'] = BattleClass::CLASS_DEFAULT_DMG;
             $battleUser['condition'] = [
@@ -72,5 +74,21 @@ class LaunchBattle implements EventHandler
         }
 
         return $state;
+    }
+
+    /**
+     * @param BattlesUser $battleUser
+     */
+    private function addClassIfNotExist(BattlesUser $battleUser): void
+    {
+        if ($battleUser->class) {
+            return;
+        }
+
+        $battleUser->class_id = BattleClass::where('active', 1)
+            ->inRandomOrder()
+            ->first()
+            ->id;
+        $battleUser->save();
     }
 }

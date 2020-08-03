@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereTgId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUsers[] $battleUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUser[] $battleUsers
  * @property-read int|null $battle_users_count
  */
 class User extends Model
@@ -70,10 +70,10 @@ class User extends Model
 	}
 
     /**
-     * @return HasMany|BattlesUsers[]
+     * @return HasMany|BattlesUser[]
      */
     public function battleUsers(): HasMany
     {
-        return $this->hasMany(BattlesUsers::class);
+        return $this->hasMany(BattlesUser::class);
     }
 }

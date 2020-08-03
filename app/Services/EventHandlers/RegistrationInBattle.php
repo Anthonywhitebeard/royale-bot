@@ -4,7 +4,7 @@
 namespace App\Services\EventHandlers;
 
 use App\Models\Battle;
-use App\Models\BattlesUsers;
+use App\Models\BattlesUser;
 use App\Models\Chat;
 use App\Models\User;
 use App\Services\TelegramSender;
@@ -51,7 +51,7 @@ class RegistrationInBattle implements EventHandler
             return;
         }
 
-        $oldBattleUser = BattlesUsers::where('battle_id', $lastBattle->id)
+        $oldBattleUser = BattlesUser::where('battle_id', $lastBattle->id)
             ->where('user_id', $user->id)->first();
 
         if ($oldBattleUser) {
@@ -60,7 +60,7 @@ class RegistrationInBattle implements EventHandler
             return;
         }
 
-        /** @var BattlesUsers $newBattleUser */
+        /** @var BattlesUser $newBattleUser */
         $newBattleUser = $lastBattle->battleUsers()->make([
             'start_mmr' => $user->mmr,
             'start_rp' => $user->rp,
