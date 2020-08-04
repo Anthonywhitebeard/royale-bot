@@ -29,9 +29,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \App\Models\Event|null $event
  * @property-read int|null $battle_users_count
  * @property-read int|null $battle_players_count
+ * @property string $flag
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereFlag($value)
  */
 class BattleClass extends Model
 {
+    /** @var string  */
+    const BATTLE_CLASS_PREFIX = 'class_';
+
     /** @var int */
     public const DEFAULT_HP = 100;
     /** @var int */

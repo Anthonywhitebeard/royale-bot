@@ -97,7 +97,6 @@ class LaunchBattle implements EventHandler
     private function fillWithBots(BattleState $state): BattleState
     {
         $botsCount = BattleState::PLAYERS_COUNT - count($state->players);
-        /** @var Player $realPlayer */
 
         $bots = Bot::where('active', 1)
             ->inRandomOrder()
@@ -125,7 +124,7 @@ class LaunchBattle implements EventHandler
         return [
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
-            'flags' => [$battlePlayer->battleClass->name],
+            'flags' => [BattleClass::BATTLE_CLASS_PREFIX . $battlePlayer->battleClass->flag],
             'name' => $battlePlayer->user_name,
         ];
     }

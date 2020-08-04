@@ -18,7 +18,7 @@ class BotsSeed extends Seeder
         for ($i = 0; $i < 10; $i++) {
             /** @var \App\Models\Player $player */
             $player = factory(\App\Models\Player::class)->create();
-            $randomClassId = rand(1,2)%2 ? \App\Models\BattleModels\BattleClass::inRandomOrder()->first()->id : null;
+            $randomClassId = random_int(0, 1) ? \App\Models\BattleModels\BattleClass::inRandomOrder()->first()->id : null;
             $player->bot()->create([
                 'battle_class_id' => $randomClassId,
                 'active' => 1
