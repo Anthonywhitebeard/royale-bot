@@ -14,7 +14,6 @@ class ModifyHPOperation implements OperationInterface
 
     public function __construct(Api $telegram)
     {
-
         $this->telegram = $telegram;
     }
 
