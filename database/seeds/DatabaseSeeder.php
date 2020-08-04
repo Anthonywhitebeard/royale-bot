@@ -13,5 +13,7 @@ class DatabaseSeeder extends Seeder
     {
          $this->call(TriggersSeed::class);
          $this->call(BattleSeed::class);
+         $this->call(EventsSeed::class);
+         $this->call(BotsSeed::class);
     }
 }

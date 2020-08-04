@@ -17,6 +17,7 @@ class BattleSeed extends Seeder
             'message' => 'Выбран дефолтный класс',
             'weight' => 100,
             'deviance' => 0,
+            'event_players_count' => 1,
         ],
     ];
 
@@ -99,6 +100,7 @@ class BattleSeed extends Seeder
                 'text' => $class['message'],
                 'weight' => $class['weight'],
                 'deviance' => $class['deviance'],
+                'players_count' => $class['event_players_count'],
             ];
 
             $eventCreateBaseClass = Event::create($eventCreateBaseClass);

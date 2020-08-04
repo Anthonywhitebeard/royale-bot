@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\Services\BattleProcess\BattleState;
 use Telegram\Bot\Api;
 
-class ModifyHPOperation implements OperationInterface
+class AddFlagOperation implements OperationInterface
 {
     /**
      * @var Api
@@ -30,6 +30,6 @@ class ModifyHPOperation implements OperationInterface
     //TODO:parse message
     private function parseMessage(string $params)
     {
-        return 'ModifyHp Operation: ' . $params;
+        return 'AddFLAG Operation: ' . $params;
     }
 }

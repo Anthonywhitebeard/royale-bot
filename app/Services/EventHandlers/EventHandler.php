@@ -3,7 +3,7 @@
 namespace App\Services\EventHandlers;
 
 use App\Models\Chat;
-use App\Models\User;
+use App\Models\Player;
 use Telegram\Bot\Objects\Message;
 
 interface EventHandler
@@ -19,7 +19,7 @@ interface EventHandler
     /**
      * @param Message $message
      * @param Chat $chat
-     * @param User $user
+     * @param Player $player
      */
-    public function process(Message $message, Chat $chat, User $user): void;
+    public function process(Message $message, Chat $chat, Player $player): void;
 }

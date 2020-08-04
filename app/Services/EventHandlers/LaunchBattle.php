@@ -6,11 +6,13 @@ namespace App\Services\EventHandlers;
 use App\Jobs\BattleDriver;
 use App\Models\Battle;
 use App\Models\BattleModels\BattleClass;
-use App\Models\BattlesUser;
+use App\Models\BattlePlayer;
+use App\Models\Bot;
 use App\Models\Chat;
-use App\Models\User;
+use App\Models\Player;
 use App\Services\BattleProcess\BattleState;
 use App\Services\TelegramSender;
+use Illuminate\Support\Arr;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
 
@@ -31,18 +33,18 @@ class LaunchBattle implements EventHandler
     /**
      * @param Message $message
      * @param Chat $chat
-     * @param User $user
+     * @param Player $player
      * @return void
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function process(Message $message, Chat $chat, User $user): void
+    public function process(Message $message, Chat $chat, Player $player): void
     {
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)
             ->where('state', Battle::BATTLE_STATE_NEW)
             ->first();
 
-        if (!$lastBattle) {
+        if (!$lastBattle || !$lastBattle->battlePlayers) {
             return;
         }
 
@@ -62,33 +64,69 @@ class LaunchBattle implements EventHandler
     private function initState(Battle $battle): BattleState
     {
         $state = app(BattleState::class);
-        $state->users = $battle->battleUsers;
-
-        foreach ($battle->battleUsers as $battleUser) {
-            $this->addClassIfNotExist($battleUser);
-            $battleUser['hp'] = BattleClass::CLASS_DEFAULT_HP;
-            $battleUser['dmg'] = BattleClass::CLASS_DEFAULT_DMG;
-            $battleUser['condition'] = [
-                BattleClass::CLASS_DEFAULT_PLAYER_CONDITION,
-            ];
+        foreach ($battle->battlePlayers as $battlePlayer) {
+            $battlePlayer = $this->addClassIfNotExist($battlePlayer);
+            $state->players[] = $this->getPlayerData($battlePlayer);
         }
+        $state->battleId = $battle->id;
+        $state = $this->fillWithBots($state);
 
+        dd($state);
         return $state;
     }
 
     /**
-     * @param BattlesUser $battleUser
+     * @param BattlePlayer $battlePlayer
+     * @return BattlePlayer
      */
-    private function addClassIfNotExist(BattlesUser $battleUser): void
+    private function addClassIfNotExist(BattlePlayer $battlePlayer): BattlePlayer
     {
-        if ($battleUser->class) {
-            return;
+        if ($battlePlayer->class) {
+            return $battlePlayer;
         }
 
-        $battleUser->class_id = BattleClass::where('active', 1)
+        $battlePlayer->class_id = BattleClass::where('active', 1)
             ->inRandomOrder()
             ->first()
             ->id;
-        $battleUser->save();
+        $battlePlayer->save();
+        return $battlePlayer;
+    }
+
+    //Todo: some cooler way to add bots
+    private function fillWithBots(BattleState $state): BattleState
+    {
+        $botsCount = BattleState::PLAYERS_COUNT - count($state->players);
+        /** @var Player $realPlayer */
+
+        $bots = Bot::where('active', 1)
+            ->inRandomOrder()
+            ->limit($botsCount)
+            ->get();
+        /** @var Bot $bot */
+        foreach ($bots as $bot) {
+            /** @var BattlePlayer $battlePlayer */
+            $battlePlayer = factory(BattlePlayer::class)->make([
+                'battle_id' => $state->battleId,
+                'user_name' => $bot->player->name,
+                'class_id' => $bot->battle_class_id
+            ]);
+            $battlePlayer->player()->associate($bot->player);
+            $battlePlayer = $this->addClassIfNotExist($battlePlayer);
+
+            $state->players[] = $this->getPlayerData($battlePlayer);
+        }
+        return $state;
+    }
+
+    private function getPlayerData(BattlePlayer $battlePlayer): array
+    {
+        //TODO: start class? bot flags?
+        return [
+            'hp' => BattleClass::DEFAULT_HP,
+            'dmg' => BattleClass::DEFAULT_DMG,
+            'flags' => [$battlePlayer->battleClass->name],
+            'name' => $battlePlayer->user_name,
+        ];
     }
 }

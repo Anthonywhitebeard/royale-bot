@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\BattleProcess\BattleDriver;
+use App\Models\BattlePlayer;
+use App\Observers\BattlePlayerObserver;
 use App\Services\EventHandlers\EventHandler;
 use App\Services\TelegramSender;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -31,13 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->when(EventHandler::class)
-            ->needs(Api::class)
-            ->give(Api::class);
         $this->app->singleton(Api::class);
-        $this->app->when(BattleDriver::class)
-            ->needs(TelegramSender::class)
-            ->give(TelegramSender::class);
         $this->app->singleton(TelegramSender::class);
+
+        BattlePlayer::observe(BattlePlayerObserver::class);
     }
 }

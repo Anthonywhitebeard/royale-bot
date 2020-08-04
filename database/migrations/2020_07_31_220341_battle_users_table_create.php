@@ -13,12 +13,12 @@ class BattleUsersTableCreate extends Migration
      */
     public function up()
     {
-        Schema::create('battles_users', function (Blueprint $table) {
+        Schema::create('battles_players', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('battle_id')->unsigned();
             $table->foreign('battle_id')->references('id')->on('battles');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('player_id')->unsigned();
+            $table->foreign('player_id')->references('id')->on('players');
             $table->string('user_name');
             $table->integer('class_id')->unsigned()->nullable();
             $table->integer('start_mmr');
@@ -39,6 +39,6 @@ class BattleUsersTableCreate extends Migration
      */
     public function down()
     {
-        Schema::drop('battles_users');
+        Schema::drop('battles_players');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Battle;
-use App\Models\BattlesUser;
+use App\Models\BattlePlayer;
 use App\Models\Event;
 use App\Services\BattleProcess\BattleState;
 use App\Services\TelegramSender;
@@ -38,9 +38,9 @@ class BattleDriver implements ShouldQueue
     {
         $this->telegram->sendChatMessage(__('start_battle_text'), $this->battle->chat->tg_id);
 
-        /** @var BattlesUser $user */
-        foreach ($this->state->users as &$user) {
-            $this->doEvent($user->battleClass->event);
+        /** @var BattlePlayer $user */
+        foreach ($this->state->players as &$player) {
+            $this->doEvent($player->battleClass->event);
         }
     }
 

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -22,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Battle[] $battles
  * @property-read int|null $battles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $users
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat newQuery()
@@ -34,6 +30,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat whereTgId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
+ * @property-read int|null $players_count
  */
 class Chat extends Model
 {
@@ -57,8 +55,8 @@ class Chat extends Model
         return $this->hasMany(Battle::class);
     }
 
-	public function users()
+	public function players()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Player::class);
     }
 }

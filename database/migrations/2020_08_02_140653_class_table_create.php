@@ -21,7 +21,7 @@ class ClassTableCreate extends Migration
             $table->foreign('event_id')->references('id')->on('events');
         });
 
-        Schema::table('battles_users', function (Blueprint $table) {
+        Schema::table('battles_players', function (Blueprint $table) {
             $table->foreign('class_id')->references('id')->on('battle_classes');
         });
     }
@@ -33,7 +33,7 @@ class ClassTableCreate extends Migration
      */
     public function down()
     {
-        Schema::table('battles_users', function (Blueprint $table) {
+        Schema::table('battles_players', function (Blueprint $table) {
             $table->dropForeign(['class_id']);
         });
         Schema::drop('battle_classes');

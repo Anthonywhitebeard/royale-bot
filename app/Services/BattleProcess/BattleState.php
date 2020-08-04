@@ -4,15 +4,24 @@ namespace App\Services\BattleProcess;
 
 class BattleState
 {
+
+    const PLAYERS_COUNT = 10;
+
+    /** @var string */
+    public string $chatId;
+
+    /** @var int */
+    public int $battleId;
+
     /** @var int $round */
-    public $round;
+    public int $round;
 
     /** @var int $turn */
-    public $turn;
+    public int $turn;
 
-    /** @var array $users */
-    public $users;
+    /** @var array $players */
+    public array $players;
 
     /** @var array $pendingUsers */
-    public $pendingUsers;
+    public array $pendingPlayers;
 }
