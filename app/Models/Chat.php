@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
  * @property-read int|null $players_count
+ * @property int $min_players
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat whereMinPlayers($value)
  */
 class Chat extends Model
 {

@@ -17,6 +17,8 @@ class ChatsTableCreate extends Migration
             $table->bigIncrements('id');
             $table->string('tg_id');
             $table->string('name');
+            $table->smallInteger('min_players')->default(10);
+            $table->boolean('allow_bots')->default(true);
             $table->smallInteger('deviance')->default(0);
             $table->timestamps();
         });

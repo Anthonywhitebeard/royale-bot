@@ -25,7 +25,6 @@ $factory->define(\App\Models\Event::class, function (Faker $faker) {
         'text' => $faker->unique()->realText(),
         'weight' => rand(0,10),
         'deviance' => rand(0,100),
-        'players_count' => rand(0,10),
         'active' => 1,
     ];
 });

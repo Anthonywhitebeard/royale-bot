@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\Services\BattleProcess\BattleState;
 use Telegram\Bot\Api;
 
-class ModifyHPOperation implements OperationInterface
+class ModifyHPOperation extends AbstractStateOperation implements OperationInterface
 {
     /**
      * @var Api
@@ -18,11 +18,11 @@ class ModifyHPOperation implements OperationInterface
     }
 
     //TODO: add operation
-    public function operate(BattleState $battleState, string $params): void
+    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
     {
         $this->telegram->sendMessage([
-            'chat_id' => $battleState->chatId,
-            'message' => $this->parseMessage($params),
+            'chat_id' => $battleState->tgId,
+            'text' => $this->parseMessage($params),
         ]);
     }
 

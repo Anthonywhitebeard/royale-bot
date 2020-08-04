@@ -18,7 +18,6 @@ class BattleSeed extends Seeder
             'message' => 'Выбран дефолтный класс',
             'weight' => 100,
             'deviance' => 0,
-            'event_players_count' => 1,
         ],
     ];
 
@@ -101,7 +100,6 @@ class BattleSeed extends Seeder
                 'text' => $class['message'],
                 'weight' => $class['weight'],
                 'deviance' => $class['deviance'],
-                'players_count' => $class['event_players_count'],
             ];
 
             $eventCreateBaseClass = Event::create($eventCreateBaseClass);
@@ -111,6 +109,11 @@ class BattleSeed extends Seeder
                 'condition' => 'setting_class',
             ];
 
+            $eventCreateBaseClass->eventTraits()->create(
+                [
+                    'trait' => 'class'
+                ]
+            );
             $conditionSetBaseClass = EventCondition::create($condition);
 
             $newClass = [
@@ -127,22 +130,23 @@ class BattleSeed extends Seeder
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->addFlagOperation->id,
-                    'params' => 'class_' . $class['name'],
+                    'params' => '0;class_' . $class['name'],
+                    'target' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->setHpOperation->id,
-                    'params' => $class['hp'],
+                    'params' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->setDmgOperation->id,
-                    'params' => $class['dmg'],
+                    'params' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->sendMessageOperation->id,
-                    'params' => $class['message'],
+                    'params' => 0,
                 ],
             ];
 

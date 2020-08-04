@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot searchTrigger(\App\Models\Chat $chat)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot culture(\App\Models\Chat $chat)
+ * @property int $deviance
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereDeviance($value)
  */
 class Bot extends Model
 {

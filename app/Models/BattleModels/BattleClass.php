@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $flag
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereFlag($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass culture(\App\Models\Chat $chat)
+ * @property int $deviance
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereDeviance($value)
  */
 class BattleClass extends Model
 {

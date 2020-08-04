@@ -18,11 +18,11 @@ class SendMessageOperation implements OperationInterface
         $this->telegram = $telegram;
     }
 
-    public function operate(BattleState $battleState, string $params): void
+    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
     {
         $this->telegram->sendMessage([
-            'chat_id' => $battleState->chatId,
-            'message' => $this->parseMessage($params),
+            'chat_id' => $battleState->tgId,
+            'text' => $this->parseMessage($params),
         ]);
     }
 

@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereEventId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereOperationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereParams($value)
+ * @property string|null $target
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EventOperation whereTarget($value)
  */
 class EventOperation extends Model
 {

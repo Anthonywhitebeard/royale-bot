@@ -5,25 +5,11 @@ namespace App\Services\Operations;
 use App\Services\BattleProcess\BattleState;
 use Telegram\Bot\Api;
 
-class RemoveFlagOperation implements OperationInterface
+class RemoveFlagOperation extends AbstractStateOperation implements OperationInterface
 {
-    /**
-     * @var Api
-     */
-    private Api $telegram;
 
-    public function __construct(Api $telegram)
+    public function operate(BattleState $battleState,  array $activePlayers, string $params): BattleState
     {
-        $this->telegram = $telegram;
-    }
-
-    //TODO: add operation
-    public function operate(BattleState $battleState, string $params): void
-    {
-        $this->telegram->sendMessage([
-            'chat_id' => $battleState->chatId,
-            'message' => $this->parseMessage($params),
-        ]);
     }
 
     //TODO:parse message

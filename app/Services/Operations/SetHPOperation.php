@@ -3,32 +3,37 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
+use App\Services\BattleProcess\Turn;
+use Illuminate\Console\Scheduling\Schedule;
 use Telegram\Bot\Api;
 
-class SetHPOperation implements OperationInterface
+class SetHPOperation extends AbstractStateOperation implements OperationInterface
 {
+    private string $hp;
+
+    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
+    {
+        /** @var Schedule $schedule */
+        $this->parseParams($params);
+        $player = $this->getPlayer($battleState);
+        $player->setHP($this->hp);
+        $battleState->updatePlayer($this->playerIndex, $player);
+        return $battleState;
+    }
+
     /**
-     * @var Api
+     * Parse map: [$playerId, $hp];
+     * $playerIndex - index from list of active players
+     * $flag - flag to add
+     *
+     * @param string $params
      */
-    private Api $telegram;
-
-    public function __construct(Api $telegram)
+    private function parseParams(string $params): void
     {
-        $this->telegram = $telegram;
-    }
+        [$this->playerIndex, $this->hp] = explode(';', $params);
 
-    //TODO: add operation
-    public function operate(BattleState $battleState, string $params): void
-    {
-        $this->telegram->sendMessage([
-            'chat_id' => $battleState->chatId,
-            'message' => $this->parseMessage($params),
-        ]);
-    }
-
-    //TODO:parse message
-    private function parseMessage(string $params)
-    {
-        return 'SetHp Operation: ' . $params;
+        if ($this->playerIndex === null || $this->hp === null) {
+            $this->logError($params);
+        }
     }
 }
