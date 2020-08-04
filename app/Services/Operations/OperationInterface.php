@@ -16,5 +16,5 @@ interface OperationInterface
         'SEND_MSG' => SendMessageOperation::class,
     ];
 
-    public function operate(BattleState $battleState, string $params): void;
+    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState;
 }

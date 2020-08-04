@@ -4,6 +4,8 @@
 namespace App\Services\EventHandlers;
 
 use App\Jobs\BattleDriver;
+use App\Jobs\BattleDriver\BattleStart;
+use App\Jobs\MessageParser;
 use App\Models\Battle;
 use App\Models\BattleModels\BattleClass;
 use App\Models\BattlePlayer;
@@ -11,6 +13,7 @@ use App\Models\Bot;
 use App\Models\Chat;
 use App\Models\Player;
 use App\Services\BattleProcess\BattleState;
+use App\Services\BattleProcess\PlayerState;
 use App\Services\TelegramSender;
 use Illuminate\Support\Arr;
 use Telegram\Bot\Api;
@@ -51,10 +54,8 @@ class LaunchBattle implements EventHandler
         $lastBattle->state = Battle::BATTLE_STATE_FINISHED;
         $lastBattle->save();
         $state = $this->initState($lastBattle, $chat);
-        app()->makeWith(BattleDriver::class, [
-            'state' => $state,
-            'battle' => $lastBattle,
-        ])->launchBattle();
+
+        BattleStart::dispatch($lastBattle, $state);
     }
 
     /**
@@ -69,9 +70,10 @@ class LaunchBattle implements EventHandler
             $state->players[] = $this->getPlayerData($battlePlayer);
         }
         $state->battleId = $battle->id;
+        $state->tgId = $chat->tg_id;
+        $state->deviance = $chat->deviance;
         $state = $this->fillWithBots($state, $chat);
 
-        dd($state);
         return $state;
     }
 
@@ -96,7 +98,7 @@ class LaunchBattle implements EventHandler
     //Todo: some cooler way to add bots
     private function fillWithBots(BattleState $state, Chat $chat): BattleState
     {
-        $botsCount = BattleState::PLAYERS_COUNT - count($state->players);
+        $botsCount = $chat->min_players - count($state->players);
 
         $bots = Bot::culture($chat)
             ->inRandomOrder()
@@ -113,19 +115,18 @@ class LaunchBattle implements EventHandler
             $battlePlayer->player()->associate($bot->player);
             $battlePlayer = $this->addClassIfNotExist($battlePlayer, $chat);
 
-            $state->players[] = $this->getPlayerData($battlePlayer);
+            $state->players[] = $this->getPlayerData($battlePlayer, true);
         }
         return $state;
     }
 
-    private function getPlayerData(BattlePlayer $battlePlayer): array
+    private function getPlayerData(BattlePlayer $battlePlayer, $bot = false): PlayerState
     {
-        //TODO: start class? bot flags?
-        return [
+        return app()->make(PlayerState::class, [
+            'battlePlayer' => $battlePlayer,
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
-            'flags' => [BattleClass::BATTLE_CLASS_PREFIX . $battlePlayer->battleClass->flag],
-            'name' => $battlePlayer->user_name,
-        ];
+            'flags' =>[$bot ? PlayerState::FLAG_BOT : PlayerState::FLAG_PLAYER]
+        ]);
     }
 }

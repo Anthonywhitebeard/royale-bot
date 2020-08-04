@@ -19,7 +19,6 @@ class EventsTableCreate extends Migration
             $table->string('text');
             $table->integer('weight');
             $table->smallInteger('deviance')->default(0);
-            $table->smallInteger('players_count')->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

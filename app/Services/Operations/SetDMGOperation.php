@@ -5,30 +5,23 @@ namespace App\Services\Operations;
 use App\Services\BattleProcess\BattleState;
 use Telegram\Bot\Api;
 
-class SetDMGOperation implements OperationInterface
+class SetDMGOperation extends AbstractStateOperation implements OperationInterface
 {
-    /**
-     * @var Api
-     */
-    private Api $telegram;
+    private string $dmg;
 
-    public function __construct(Api $telegram)
+    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
     {
-        $this->telegram = $telegram;
+        $this->parseMessage($params);
+
+
     }
 
-    //TODO: add operation
-    public function operate(BattleState $battleState, string $params): void
-    {
-        $this->telegram->sendMessage([
-            'chat_id' => $battleState->chatId,
-            'message' => $this->parseMessage($params),
-        ]);
-    }
-
-    //TODO:parse message
     private function parseMessage(string $params)
     {
-        return 'SetDMG Operation: ' . $params;
+        [$this->playerIndex, $this->dmg] = explode(';', $params);
+
+        if ($this->playerIndex === null || $this->dmg === null) {
+            $this->logError($params);
+        }
     }
 }

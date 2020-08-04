@@ -17,6 +17,7 @@ class EventOperationTableCreate extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('event_id')->unsigned();
             $table->bigInteger('operation_id')->unsigned();
+            $table->string('target')->nullable();
             $table->string('params');
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('operation_id')->references('id')->on('operations');

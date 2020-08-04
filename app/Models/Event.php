@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleModels\BattleClass[] $battleClass
  * @property-read int|null $battle_class_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event wherePlayersCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event culture(\App\Models\Chat $chat)
  */
 class Event extends Model
 {
