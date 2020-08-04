@@ -5,7 +5,7 @@ namespace App\Services\EventHandlers;
 
 use App\Models\Battle;
 use App\Models\Chat;
-use App\Models\User;
+use App\Models\Player;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
@@ -27,11 +27,11 @@ class StartBattle implements EventHandler
     /**
      * @param Message $message
      * @param Chat $chat
-     * @param User $user
+     * @param Player $player
      * @return void
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function process(Message $message, Chat $chat, User $user): void
+    public function process(Message $message, Chat $chat, Player $player): void
     {
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)

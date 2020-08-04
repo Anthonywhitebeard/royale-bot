@@ -17,12 +17,15 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(\App\Models\Event::class, function (Faker $faker) {
+    $lorem = new \Faker\Provider\Lorem(new Faker());
+    $faker->addProvider($lorem);
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'name' => $faker->unique()->name(),
+        'text' => $faker->unique()->realText(),
+        'weight' => rand(0,10),
+        'deviance' => rand(0,100),
+        'players_count' => rand(0,10),
+        'active' => 1,
     ];
 });

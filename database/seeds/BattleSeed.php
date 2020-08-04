@@ -12,11 +12,13 @@ class BattleSeed extends Seeder
     private const BATTLE_CLASSES_SEED = [
         [
             'name' => 'default',
+            'flag' => 'default',
             'hp' => '100',
             'dmg' => '20',
             'message' => 'Выбран дефолтный класс',
             'weight' => 100,
             'deviance' => 0,
+            'event_players_count' => 1,
         ],
     ];
 
@@ -99,6 +101,7 @@ class BattleSeed extends Seeder
                 'text' => $class['message'],
                 'weight' => $class['weight'],
                 'deviance' => $class['deviance'],
+                'players_count' => $class['event_players_count'],
             ];
 
             $eventCreateBaseClass = Event::create($eventCreateBaseClass);
@@ -114,6 +117,7 @@ class BattleSeed extends Seeder
                 [
                     'name' => $class['name'],
                     'event_id' => $eventCreateBaseClass->id,
+                    'flag' => $class['flag']
                 ],
             ];
 

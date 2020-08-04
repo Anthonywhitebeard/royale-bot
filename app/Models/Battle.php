@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
@@ -24,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleState[] $battle_states
  * @property-read int|null $battle_states_count
  * @property-read \App\Models\Chat $chat
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $users
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle newQuery()
@@ -36,8 +32,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Battle whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleState[] $battleStates
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlesUser[] $battleUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlePlayer[] $battlePlayers
  * @property-read int|null $battle_users_count
+ * @property-read int|null $battle_players_count
  */
 class Battle extends Model
 {
@@ -64,10 +61,10 @@ class Battle extends Model
 	}
 
     /**
-     * @return HasMany|BattlesUser[]
+     * @return HasMany|BattlePlayer[]
      */
-    public function battleUsers(): HasMany
+    public function battlePlayers(): HasMany
     {
-        return $this->hasMany(BattlesUser::class);
+        return $this->hasMany(BattlePlayer::class);
     }
 }

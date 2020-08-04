@@ -330,17 +330,17 @@ return [
         |
         | 'related'     Use the related table as the relation name.
         |               (post.author --> user.id)
-                            generates Post::user() and User::posts()
+                            generates Post::user() and Player::posts()
         |
         | 'foreign_key' Use the foreign key as the relation name.
         |                   (post.author --> user.id)
-        |                       generates Post::author() and User::posts_author()
+        |                       generates Post::author() and Player::posts_author()
         |               Column id's are ignored.
         |                   (post.author_id --> user.id)
         |                       generates the same as above.
         |               When the foreign key is redundant, it is omited.
         |                   (post.user_id --> user.id)
-        |                       generates User::posts() and not User::posts_user()
+        |                       generates Player::posts() and not Player::posts_user()
         */
 
         'relation_name_strategy' => 'related',
@@ -358,7 +358,7 @@ return [
          | that later can be used in QueryBuilder like
          |
          | ...
-         | $builder->select([User::USER_NAME])->where(User::AGE, '<=', 18);
+         | $builder->select([Player::USER_NAME])->where(Player::AGE, '<=', 18);
          | ...
          |
          | that helps to avoid typos in strings when typing field names and allows to use

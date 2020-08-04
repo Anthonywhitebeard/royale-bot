@@ -42,6 +42,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventOperation[] $eventOperations
  * @property-read int|null $event_operations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTrait[] $eventTraits
+ * @property int $players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleModels\BattleClass[] $battleClass
+ * @property-read int|null $battle_class_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event wherePlayersCount($value)
  */
 class Event extends Model
 {

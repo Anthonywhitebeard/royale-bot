@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $nickname
  * @property int $role_id
  * @property int $chat_id
- * @property int $user_id
+ * @property int $player_id
  * @property Chat $chat
- * @property User $user
+ * @property Player $user
  * @package App\Models
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatsUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatsUser newQuery()
@@ -31,20 +31,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ChatsUser extends Model
 {
-	protected $table = 'chats_users';
+	protected $table = 'chats_players';
 	public $timestamps = false;
 
 	protected $casts = [
 		'role_id' => 'int',
 		'chat_id' => 'int',
-		'user_id' => 'int'
+		'player_id' => 'int'
 	];
 
 	protected $fillable = [
 		'nickname',
 		'role_id',
 		'chat_id',
-		'user_id'
+		'player_id'
 	];
 
 	public function chat()
@@ -54,6 +54,6 @@ class ChatsUser extends Model
 
 	public function user()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(Player::class);
 	}
 }

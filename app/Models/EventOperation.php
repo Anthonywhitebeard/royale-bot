@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fanto
+ * Player: fanto
  * Date: 30.01.2020
  * Time: 2:11
  */

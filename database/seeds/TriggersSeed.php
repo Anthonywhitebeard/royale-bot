@@ -14,19 +14,19 @@ class TriggersSeed extends Seeder
     {
         $rows = [
             [
-                'reg_exp' => 'начать битву',
+                'reg_exp' => '1',
                 'event' => 'StartBattle',
             ],
             [
-                'reg_exp' => 'захожу на борт',
+                'reg_exp' => '2',
                 'event' => 'RegistrationInBattle',
             ],
             [
-                'reg_exp' => 'Аллах акбар',
+                'reg_exp' => '0',
                 'event' => 'DestroyBattle',
             ],
             [
-                'reg_exp' => 'Да начнется битва',
+                'reg_exp' => '3',
                 'event' => 'LaunchBattle',
             ],
         ];

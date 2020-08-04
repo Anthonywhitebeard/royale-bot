@@ -2,7 +2,7 @@
 
 namespace App\Models\BattleModels;
 
-use App\Models\BattlesUser;
+use App\Models\BattlePlayer;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $name
  * @property int $event_id
  * @property int $active
- * @property-read \App\Models\BattlesUser $battleUsers
+ * @property-read \App\Models\BattlePlayer $battlePlayers
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass query()
@@ -27,13 +27,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereName($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Event|null $event
+ * @property-read int|null $battle_users_count
+ * @property-read int|null $battle_players_count
+ * @property string $flag
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereFlag($value)
  */
 class BattleClass extends Model
 {
+    /** @var string  */
+    const BATTLE_CLASS_PREFIX = 'class_';
+
     /** @var int */
-    public const CLASS_DEFAULT_HP = 100;
+    public const DEFAULT_HP = 100;
     /** @var int */
-    public const CLASS_DEFAULT_DMG = 20;
+    public const DEFAULT_DMG = 20;
     /** @var int */
     public const CLASS_DEFAULT_PLAYER_CONDITION = 20;
 
@@ -44,11 +51,11 @@ class BattleClass extends Model
     ];
 
     /**
-     * @return HasMany|BattlesUser
+     * @return HasMany|BattlePlayer
      */
-    public function battleUsers(): HasMany
+    public function battlePlayers(): HasMany
     {
-        return $this->hasMany(BattlesUser::class);
+        return $this->hasMany(BattlePlayer::class);
     }
 
     /**

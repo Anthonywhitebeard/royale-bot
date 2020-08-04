@@ -4,9 +4,9 @@
 namespace App\Services\EventHandlers;
 
 use App\Models\Battle;
-use App\Models\BattlesUser;
+use App\Models\BattlePlayer;
 use App\Models\Chat;
-use App\Models\User;
+use App\Models\Player;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
@@ -28,11 +28,11 @@ class RegistrationInBattle implements EventHandler
     /**
      * @param Message $message
      * @param Chat $chat
-     * @param User $user
+     * @param Player $player
      * @return void
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function process(Message $message, Chat $chat, User $user): void
+    public function process(Message $message, Chat $chat, Player $player): void
     {
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)
@@ -51,24 +51,21 @@ class RegistrationInBattle implements EventHandler
             return;
         }
 
-        $oldBattleUser = BattlesUser::where('battle_id', $lastBattle->id)
-            ->where('user_id', $user->id)->first();
+        $oldBattlePlayer = BattlePlayer::where('battle_id', $lastBattle->id)
+            ->where('player_id', $player->id)->first();
 
-        if ($oldBattleUser) {
+        if ($oldBattlePlayer) {
             $this->telegram->sendMessage('Двічі в одну річку не ввійдеш', $message);
 
             return;
         }
 
-        /** @var BattlesUser $newBattleUser */
-        $newBattleUser = $lastBattle->battleUsers()->make([
-            'start_mmr' => $user->mmr,
-            'start_rp' => $user->rp,
-            'start_skill' => $user->skill,
-            'user_name' => $message->from->username ?? $message->from->firstName,
+        /** @var BattlePlayer $newBattlePlayer */
+        $newBattlePlayer = $lastBattle->battlePlayers()->make([
+            'user_name' => $message->from->playername ?? $message->from->firstName,
         ]);
 
-        $newBattleUser->user()->associate($user)->save();
+        $newBattlePlayer->player()->associate($player)->save();
         $this->telegram->sendMessage('Добро пожаловать в метрополитен', $message);
     }
 }
