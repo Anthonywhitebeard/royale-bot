@@ -3,36 +3,24 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
-use Telegram\Bot\Api;
 
-class AddFlagOperation extends AbstractStateOperation implements OperationInterface
+class AddFlagOperation extends AbstractStateOperation
 {
-    public string $flag;
-
-
-    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
-    {
-        $this->parseParams($params);
-        $player = $this->getPlayer($battleState);
-        $player->addFlag($this->flag);
-
-        $battleState->updatePlayer($this->playerIndex, $player);
-        return  $battleState;
-    }
-
     /**
-     * Parse map: [$playerIndex, $flag];
-     * $playerIndex - index from list of active players
-     * $flag - flag to add
-     *
+     * @param BattleState $battleState
+     * @param array $activePlayers
      * @param string $params
+     * @param string $target
      */
-    private function parseParams(string $params): void
-    {
-        [$this->playerIndex, $this->flag] = explode(';', $params);
+    public function operate(
+        BattleState $battleState,
+        array $activePlayers,
+        string $params,
+        string $target
+    ): BattleState {
+        $player = $this->getPlayer($battleState, $target);
+        $player->addFlag($params);
 
-        if ($this->playerIndex === null || $this->flag === null) {
-            $this->logError($params);
-        }
+        return $battleState->updatePlayer((int)$target, $player);
     }
 }

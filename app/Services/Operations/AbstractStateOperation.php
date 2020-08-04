@@ -2,16 +2,16 @@
 
 namespace App\Services\Operations;
 
+use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
 
 abstract class AbstractStateOperation implements OperationInterface
 {
-    public string $playerIndex;
-
-    public function getPlayer($battleState): PlayerState
+    public function getPlayer(BattleState $battleState, string $target): PlayerState
     {
-        $players = $battleState->players;
-        return $players[$this->playerIndex];
+        $players = $battleState->turnPlayers;
+
+        return $players[$target];
     }
 
     public function logError($params) {

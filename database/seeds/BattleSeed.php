@@ -130,23 +130,26 @@ class BattleSeed extends Seeder
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->addFlagOperation->id,
-                    'params' => '0;class_' . $class['name'],
+                    'params' => 'class_' . $class['flag'],
                     'target' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->setHpOperation->id,
-                    'params' => 0,
+                    'params' => 100,
+                    'target' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->setDmgOperation->id,
-                    'params' => 0,
+                    'params' => 20,
+                    'target' => 0,
                 ],
                 [
                     'event_id' => $eventCreateBaseClass->id,
                     'operation_id' => $this->sendMessageOperation->id,
-                    'params' => 0,
+                    'params' => 'Выбран дефолтный класс',
+                    'target' => 0,
                 ],
             ];
 

@@ -7,33 +7,24 @@ use App\Services\BattleProcess\Turn;
 use Illuminate\Console\Scheduling\Schedule;
 use Telegram\Bot\Api;
 
-class SetHPOperation extends AbstractStateOperation implements OperationInterface
+class SetHPOperation extends AbstractStateOperation
 {
-    private string $hp;
-
-    public function operate(BattleState $battleState, array $activePlayers, string $params): BattleState
-    {
-        /** @var Schedule $schedule */
-        $this->parseParams($params);
-        $player = $this->getPlayer($battleState);
-        $player->setHP($this->hp);
-        $battleState->updatePlayer($this->playerIndex, $player);
-        return $battleState;
-    }
-
     /**
-     * Parse map: [$playerId, $hp];
-     * $playerIndex - index from list of active players
-     * $flag - flag to add
-     *
+     * @param BattleState $battleState
+     * @param array $activePlayers
      * @param string $params
+     * @param string $target
      */
-    private function parseParams(string $params): void
-    {
-        [$this->playerIndex, $this->hp] = explode(';', $params);
+    public function operate(
+        BattleState $battleState,
+        array $activePlayers,
+        string $params,
+        string $target
+    ): BattleState {
+        $player = $this->getPlayer($battleState, $target);
+        $player->setHP($params);
+        $battleState->updatePlayer((int)$target, $player);
 
-        if ($this->playerIndex === null || $this->hp === null) {
-            $this->logError($params);
-        }
+        return $battleState;
     }
 }

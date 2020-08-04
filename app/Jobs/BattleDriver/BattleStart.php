@@ -6,6 +6,7 @@ use App\Models\Battle;
 use App\Models\Event;
 use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
+use App\Services\BattleProcess\Turn;
 use App\Services\Operations\OperationInterface;
 use App\Services\TelegramSender;
 use Illuminate\Bus\Queueable;
@@ -38,31 +39,22 @@ class BattleStart implements ShouldQueue
         $this->state = $state;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function handle() {
         $this->preBattle();
+        $this->battle->battleState()->create([
+            'state' => $this->state->toJson(),
+        ]);
+        BattleTurn::dispatch($this->battle);
     }
 
     private function preBattle() {
         foreach ($this->state->players as $index => &$player) {
             $activePlayers = [$index];
-            $this->doEvent($activePlayers, $player->battlePlayer->battleClass->event);
-        }
-
-    }
-
-    private function doEvent($activePlayers, Event $event): void
-    {
-        $operations = $event->eventOperations;
-        foreach ($operations as $eventOperation) {
-            $operationModel = $eventOperation->operation;
-            $operationName = Arr::get(OperationInterface::OPERATIONS, $operationModel->name);
-            if (!$operationName) {
-                Log::error(__('No operation for operation model:' . $operationModel->name));
-                continue;
-            }
-            /** @var OperationInterface $operation */
-            $operation = app($operationName);
-            $this->state = $operation->operate($this->state, $activePlayers, $eventOperation->params);
+            $this->state->turnPlayers = $this->state->shakePlayers($player);
+            Turn::doEvent($activePlayers, $player->battlePlayer->battleClass->event, $this->state);
         }
     }
 }

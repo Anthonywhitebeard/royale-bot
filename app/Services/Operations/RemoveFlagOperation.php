@@ -7,9 +7,23 @@ use Telegram\Bot\Api;
 
 class RemoveFlagOperation extends AbstractStateOperation implements OperationInterface
 {
+    /**
+     * @param BattleState $battleState
+     * @param array $activePlayers
+     * @param string $params
+     * @param string $target
+     */
+    public function operate(
+        BattleState $battleState,
+        array $activePlayers,
+        string $params,
+        string $target
+    ): BattleState {
+        $player = $this->getPlayer($battleState, $target);
+        $player->modifyDMG($params);
+        $battleState->updatePlayer((int)$target, $player);
 
-    public function operate(BattleState $battleState,  array $activePlayers, string $params): BattleState
-    {
+        return $battleState;
     }
 
     //TODO:parse message

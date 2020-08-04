@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Battle
@@ -55,9 +56,12 @@ class Battle extends Model
         return $this->belongsTo(Chat::class);
     }
 
-	public function battleStates()
+    /**
+     * @return HasOne| BattleState
+     */
+	public function battleState(): HasOne
 	{
-		return $this->hasMany(BattleState::class);
+		return $this->hasOne(BattleState::class);
 	}
 
     /**

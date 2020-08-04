@@ -3,6 +3,7 @@
 namespace App\Services\BattleProcess;
 
 use App\Models\BattlePlayer;
+use Illuminate\Support\Arr;
 
 class PlayerState
 {
@@ -38,7 +39,13 @@ class PlayerState
     public function modifyHP(string $hp) {
         $this->hp = $this->hp + (int)$hp;
     }
+
     public function modifyDMG(string $dmg) {
-        $this->dmg = $this->$dmg + (int)$dmg;
+        $this->dmg = $this->dmg + (int)$dmg;
+    }
+
+    public function removeFlag(string $flag)
+    {
+        Arr::forget($this->flags, $flag);
     }
 }
