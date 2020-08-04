@@ -3,6 +3,8 @@
 namespace App\Models\BattleModels;
 
 use App\Models\BattlePlayer;
+use App\Models\Chat;
+use App\Models\Culture;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -31,9 +33,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read int|null $battle_players_count
  * @property string $flag
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereFlag($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass culture(\App\Models\Chat $chat)
  */
 class BattleClass extends Model
 {
+    use Culture;
+
     /** @var string  */
     const BATTLE_CLASS_PREFIX = 'class_';
 

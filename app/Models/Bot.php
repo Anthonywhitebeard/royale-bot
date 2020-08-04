@@ -5,6 +5,7 @@
 namespace App\Models;
 
 use App\Models\BattleModels\BattleClass;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,9 +28,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot wherePlayerId($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot searchTrigger(\App\Models\Chat $chat)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot culture(\App\Models\Chat $chat)
  */
 class Bot extends Model
 {
+    use Culture;
+
     /** @var string  */
 	protected $table = 'bots';
 

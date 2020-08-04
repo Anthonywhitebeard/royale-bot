@@ -50,7 +50,7 @@ class LaunchBattle implements EventHandler
 
         $lastBattle->state = Battle::BATTLE_STATE_FINISHED;
         $lastBattle->save();
-        $state = $this->initState($lastBattle);
+        $state = $this->initState($lastBattle, $chat);
         app()->makeWith(BattleDriver::class, [
             'state' => $state,
             'battle' => $lastBattle,
@@ -61,15 +61,15 @@ class LaunchBattle implements EventHandler
      * @param Battle $battle
      * @return BattleState
      */
-    private function initState(Battle $battle): BattleState
+    private function initState(Battle $battle, Chat $chat): BattleState
     {
         $state = app(BattleState::class);
         foreach ($battle->battlePlayers as $battlePlayer) {
-            $battlePlayer = $this->addClassIfNotExist($battlePlayer);
+            $battlePlayer = $this->addClassIfNotExist($battlePlayer, $chat);
             $state->players[] = $this->getPlayerData($battlePlayer);
         }
         $state->battleId = $battle->id;
-        $state = $this->fillWithBots($state);
+        $state = $this->fillWithBots($state, $chat);
 
         dd($state);
         return $state;
@@ -79,13 +79,13 @@ class LaunchBattle implements EventHandler
      * @param BattlePlayer $battlePlayer
      * @return BattlePlayer
      */
-    private function addClassIfNotExist(BattlePlayer $battlePlayer): BattlePlayer
+    private function addClassIfNotExist(BattlePlayer $battlePlayer, Chat $chat): BattlePlayer
     {
         if ($battlePlayer->class) {
             return $battlePlayer;
         }
 
-        $battlePlayer->class_id = BattleClass::where('active', 1)
+        $battlePlayer->class_id = BattleClass::culture($chat)
             ->inRandomOrder()
             ->first()
             ->id;
@@ -94,11 +94,11 @@ class LaunchBattle implements EventHandler
     }
 
     //Todo: some cooler way to add bots
-    private function fillWithBots(BattleState $state): BattleState
+    private function fillWithBots(BattleState $state, Chat $chat): BattleState
     {
         $botsCount = BattleState::PLAYERS_COUNT - count($state->players);
 
-        $bots = Bot::where('active', 1)
+        $bots = Bot::culture($chat)
             ->inRandomOrder()
             ->limit($botsCount)
             ->get();
@@ -111,7 +111,7 @@ class LaunchBattle implements EventHandler
                 'class_id' => $bot->battle_class_id
             ]);
             $battlePlayer->player()->associate($bot->player);
-            $battlePlayer = $this->addClassIfNotExist($battlePlayer);
+            $battlePlayer = $this->addClassIfNotExist($battlePlayer, $chat);
 
             $state->players[] = $this->getPlayerData($battlePlayer);
         }

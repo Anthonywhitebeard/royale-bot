@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Event extends Model
 {
+    use Culture;
+
     /** @var string */
     protected $table = 'events';
 
@@ -99,4 +101,6 @@ class Event extends Model
     {
         return $this->hasMany(BattleClass::class);
     }
+
+
 }
