@@ -17,7 +17,9 @@ class BotsTableCreate extends Migration
             $table->increments('id');
             $table->integer('battle_class_id')->unsigned()->nullable();
             $table->bigInteger('player_id')->unsigned();
+            $table->smallInteger('deviance')->default(0);
             $table->boolean('active');
+
 
             $table->foreign('battle_class_id')->references('id')->on('battle_classes');
             $table->foreign('player_id')->references('id')->on('players');

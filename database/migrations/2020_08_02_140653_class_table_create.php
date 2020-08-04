@@ -17,6 +17,7 @@ class ClassTableCreate extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('flag');
+            $table->smallInteger('deviance')->default(0);
             $table->bigInteger('event_id')->unsigned();
             $table->boolean('active')->default(1);
             $table->foreign('event_id')->references('id')->on('events');
