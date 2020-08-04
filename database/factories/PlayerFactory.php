@@ -26,6 +26,5 @@ $factory->define(Player::class, function (Faker $faker) {
         'rp' => 0,
         'skill' => Player::DEFAULT_SKILL,
         'promo_lost' => 0,
-        'bot' => 1,
     ];
 });

@@ -21,7 +21,6 @@ class UsersTableCreate extends Migration
             $table->integer('rp')->default(0);
             $table->integer('skill')->default(1000);
             $table->boolean('promo_lost')->default(0);
-            $table->boolean('bot')->default(0);
             $table->timestamps();
         });
     }
