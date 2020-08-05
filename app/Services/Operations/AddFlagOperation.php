@@ -8,19 +8,24 @@ class AddFlagOperation extends AbstractStateOperation
 {
     /**
      * @param BattleState $battleState
-     * @param array $activePlayers
      * @param string $params
      * @param string $target
+     * @return BattleState
      */
     public function operate(
         BattleState $battleState,
-        array $activePlayers,
         string $params,
         string $target
     ): BattleState {
-        $player = $this->getPlayer($battleState, $target);
-        $player->addFlag($params);
+        $player = $this->getAlivePlayer($battleState, $target);
 
-        return $battleState->updatePlayer((int)$target, $player);
+        if (!$player) {
+            return $battleState;
+        }
+
+        $player->addFlag($params);
+        $battleState->updatePlayer((int)$target, $player);
+
+        return $battleState;
     }
 }

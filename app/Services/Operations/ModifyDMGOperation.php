@@ -9,19 +9,23 @@ class ModifyDMGOperation extends AbstractStateOperation
 {
     /**
      * @param BattleState $battleState
-     * @param array $activePlayers
      * @param string $params
      * @param string $target
      */
     public function operate(
         BattleState $battleState,
-        array $activePlayers,
         string $params,
         string $target
     ): BattleState {
-        $player = $this->getPlayer($battleState, $target);
-        $player->modifyDMG($params);
+        $player = $this->getAlivePlayer($battleState, $target);
 
-        return $battleState->updatePlayer((int)$target, $player);
+        if (!$player) {
+            return $battleState;
+        }
+
+        $player->modifyDMG($params);
+        $battleState->updatePlayer((int)$target, $player);
+
+        return $battleState;
     }
 }

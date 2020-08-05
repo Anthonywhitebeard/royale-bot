@@ -1,23 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs\BattleDriver;
 
+
 use App\Models\Battle;
-use App\Models\Event;
 use App\Services\BattleProcess\BattleState;
-use App\Services\BattleProcess\PlayerState;
-use App\Services\BattleProcess\Turn;
-use App\Services\Operations\OperationInterface;
 use App\Services\TelegramSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 
-class BattleStart implements ShouldQueue
+class BattleEnd implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -39,21 +36,17 @@ class BattleStart implements ShouldQueue
         $this->state = $state;
     }
 
-    /**
-     * @throws \JsonException
-     */
-    public function handle() {
-        $this->preBattle();
-        $this->battle->battleState()->create([
-            'state' => $this->state->toJson(),
-        ]);
-        BattleTurn::dispatch($this->battle);
+    public function handle(TelegramSender $telegram) {
+        $this->telegram = $telegram;
+        $state = json_decode($this->battle->battleState->state, true);
+        $this->state = app()->make(BattleState::class, $state);
     }
 
-    private function preBattle() {
-        foreach ($this->state->players as $index => &$player) {
-            $this->state->shakePlayers($player);
-            Turn::doEvent($player->battlePlayer->battleClass->event, $this->state);
-        }
+    /**
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    private function endGame(): void
+    {
+        $this->telegram->sendChatMessage('Наконец то', $this->state->chat->tg_id);
     }
 }

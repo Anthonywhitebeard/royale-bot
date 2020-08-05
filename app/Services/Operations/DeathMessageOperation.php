@@ -3,9 +3,12 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
+use App\Services\BattleProcess\PlayerState;
+use App\Services\BattleProcess\Turn;
+use Illuminate\Console\Scheduling\Schedule;
 use Telegram\Bot\Api;
 
-class SendMessageOperation implements OperationInterface
+class DeathMessageOperation extends AbstractStateOperation
 {
     /**
      * @var Api
@@ -33,22 +36,20 @@ class SendMessageOperation implements OperationInterface
         string $params,
         string $target
     ): BattleState {
-        $this->telegram->sendMessage([
-            'chat_id' => $battleState->chat->tg_id,
-            'text' => $this->parseMessage($params),
-        ]);
+        if ($this->checkCondition($target)) {
+            $this->formatMessage($params, $target);
+        }
 
         return $battleState;
     }
 
-    /**
-     * @param string $params
-     * @return string
-     */
-    private function parseMessage(string $params): string
+    private function checkCondition($target): bool
     {
-        return $params;
-//        $params = explode(';', $params);
-//        return printf(array_shift(explode($params)), $params);
+        return true;
+    }
+
+    private function formatMessage()
+    {
+
     }
 }

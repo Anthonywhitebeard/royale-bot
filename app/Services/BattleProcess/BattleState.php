@@ -3,6 +3,7 @@
 namespace App\Services\BattleProcess;
 
 use App\Models\BattlePlayer;
+use App\Models\Chat;
 use Illuminate\Support\Arr;
 
 class BattleState
@@ -12,8 +13,8 @@ class BattleState
     /** @var string */
     public ?string $stateId;
 
-    /** @var string */
-    public ?string $tgId;
+    /** @var Chat $chat */
+    public Chat $chat;
 
     /** @var int */
     public ?int $battleId;
@@ -28,25 +29,44 @@ class BattleState
     public array $players;
 
     /** @var PlayerState[] $turnPlayers */
-    public array $turnPlayers;
+    public array $turnAlivePlayers = [];
+
+    /** @var PlayerState[] $turnPlayers */
+    public array $turnDeadPlayers = [];
 
     /** @var int $deviance */
     public ?int $deviance;
 
     /** @var array $pendingUsers */
-    public ?array $pendingPlayers;
+    public array $pendingPlayers = [];
 
-    public function __construct(?string $tgId = null,
+    /**
+     * BattleState constructor.
+     * @param string|null $tgId
+     * @param int|null $battleId
+     * @param array $players
+     * @param int|null $deviance
+     * @param Chat|null $chat
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function __construct(
         ?int $battleId = null,
         array $players = [],
-        ?int $deviance = null
+        ?int $deviance = null,
+        array $chat = []
     ) {
-        $this->tgId = $tgId;
+        if ($chat) {
+            $this->chat = app()->make(Chat::class, $chat);
+            $this->chat->fill($chat);
+        }
+
         $this->battleId = $battleId;
         $this->deviance = $deviance;
 
         foreach ($players as $player) {
-            $player['battlePlayer'] = app()->make(BattlePlayer::class, $player['battlePlayer']);
+            $playerModel = app()->make(BattlePlayer::class, $player['battlePlayer']);
+            $playerModel->fill($player['battlePlayer']);
+            $player['battlePlayer'] = $playerModel;
             $this->players[] = app()->make(PlayerState::class, $player);
         }
     }
@@ -70,22 +90,109 @@ class BattleState
 
     /**
      * @param PlayerState|null $firstPlayer
-     * @return array
      */
-    public function shakePlayers(?PlayerState $firstPlayer = null): array
+    public function shakePlayers(?PlayerState $firstPlayer = null): void
     {
         $players = [];
 
         foreach ($this->players as $player) {
-            if ($player === $firstPlayer) {
-                continue;
+            if ($player !== $firstPlayer && $player->isAlive()) {
+                $players[] = $player;
             }
 
-            $players[] = $player;
+            if (!$player->isAlive()) {
+                $this->turnDeadPlayers[] = $player;
+            }
         }
 
+        shuffle($this->turnDeadPlayers);
         shuffle($players);
 
-        return [$firstPlayer, ...$players];
+        $this->turnAlivePlayers =  [$firstPlayer, ...$players];
+    }
+
+    /**
+     * @param int $index
+     * @return PlayerState|null
+     */
+    public function getAlivePlayer(int $index): ?PlayerState
+    {
+        $player = $this->turnAlivePlayers[$index];
+
+        if (!$player || !$player->isAlive()) {
+            return null;
+        }
+
+        return $player;
+
+    }
+
+    /**
+     * @param int $index
+     * @return BattlePlayer|null
+     */
+    public function getDeadPlayer(int $index): ?BattlePlayer
+    {
+        $player = $this->turnAlivePlayers[$index];
+
+        if (!$player || $player->isAlive()) {
+            return null;
+        }
+
+        return $player;
+
+    }
+
+//    /**
+//     * @param PlayerState|null $firstPlayer
+//     */
+//    public function shakePlayers(?PlayerState $firstPlayer = null): void
+//    {
+//        $players = [];
+//
+//        foreach ($this->players as $player) {
+//            if ($player === $firstPlayer || !$player->isAlive()) {
+//                continue;
+//            }
+//
+//            $players[] = $player;
+//        }
+//
+//        shuffle($players);
+//
+//        $this->turnPlayers =  [$firstPlayer, ...$players];
+//    }
+
+    /**
+     * @return PlayerState
+     */
+    public function rollPlayers(): PlayerState
+    {
+        if (!$this->pendingPlayers) {
+            $this->setPendingPlayers();
+        }
+
+        $result = $this->pendingPlayers[0];
+        array_shift($this->pendingPlayers);
+
+        return $result;
+    }
+
+    public function winCondition(): bool
+    {
+        return count($this->turnAlivePlayers) < 2;
+    }
+
+    private function setPendingPlayers(): void
+    {
+        $this->pendingPlayers = [];
+
+        foreach ($this->players as $player) {
+            if ($player->isAlive()) {
+                $this->pendingPlayers[] = $player;
+            }
+        }
+
+        shuffle($this->pendingPlayers);
     }
 }

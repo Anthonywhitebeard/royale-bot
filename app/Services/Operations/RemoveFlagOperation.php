@@ -9,17 +9,20 @@ class RemoveFlagOperation extends AbstractStateOperation implements OperationInt
 {
     /**
      * @param BattleState $battleState
-     * @param array $activePlayers
      * @param string $params
      * @param string $target
      */
     public function operate(
         BattleState $battleState,
-        array $activePlayers,
         string $params,
         string $target
     ): BattleState {
-        $player = $this->getPlayer($battleState, $target);
+        $player = $this->getAlivePlayer($battleState, $target);
+
+        if (!$player) {
+            return $battleState;
+        }
+
         $player->modifyDMG($params);
         $battleState->updatePlayer((int)$target, $player);
 

@@ -60,6 +60,7 @@ class LaunchBattle implements EventHandler
 
     /**
      * @param Battle $battle
+     * @param Chat $chat
      * @return BattleState
      */
     private function initState(Battle $battle, Chat $chat): BattleState
@@ -70,7 +71,7 @@ class LaunchBattle implements EventHandler
             $state->players[] = $this->getPlayerData($battlePlayer);
         }
         $state->battleId = $battle->id;
-        $state->tgId = $chat->tg_id;
+        $state->chat = $chat;
         $state->deviance = $chat->deviance;
         $state = $this->fillWithBots($state, $chat);
 

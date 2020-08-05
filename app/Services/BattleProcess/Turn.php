@@ -22,11 +22,10 @@ class Turn
     }
 
     /**
-     * @param $activePlayers
      * @param Event $event
      * @param BattleState $state
      */
-    public static function doEvent($activePlayers, Event $event, BattleState $state): void
+    public static function doEvent(Event $event, BattleState $state): void
     {
         $operations = $event->eventOperations;
 
@@ -39,7 +38,7 @@ class Turn
             }
             /** @var OperationInterface $operation */
             $operation = app($operationName);
-            $state = $operation->operate($state, $activePlayers, $eventOperation->params, $eventOperation->target);
+            $state = $operation->operate($state, $eventOperation->params, $eventOperation->target);
         }
     }
 }

@@ -7,11 +7,9 @@ use App\Services\BattleProcess\PlayerState;
 
 abstract class AbstractStateOperation implements OperationInterface
 {
-    public function getPlayer(BattleState $battleState, string $target): PlayerState
+    public function getAlivePlayer(BattleState $battleState, string $target): ?PlayerState
     {
-        $players = $battleState->turnPlayers;
-
-        return $players[$target];
+        return $battleState->getAlivePlayer((int)$target);
     }
 
     public function logError($params) {

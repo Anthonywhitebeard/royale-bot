@@ -9,17 +9,21 @@ class SetDMGOperation extends AbstractStateOperation
 {
     /**
      * @param BattleState $battleState
-     * @param array $activePlayers
      * @param string $params
      * @param string $target
+     * @return BattleState
      */
     public function operate(
         BattleState $battleState,
-        array $activePlayers,
         string $params,
         string $target
     ): BattleState {
-        $player = $this->getPlayer($battleState, $target);
+        $player = $this->getAlivePlayer($battleState, $target);
+
+        if (!$player) {
+            return $battleState;
+        }
+
         $player->setDMG($params);
         $battleState->updatePlayer((int)$target, $player);
 

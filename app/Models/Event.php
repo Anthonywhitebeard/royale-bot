@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BattleModels\BattleClass;
+use App\Services\BattleProcess\PlayerState;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Barryvdh\LaravelIdeHelper\Eloquent;
@@ -103,5 +104,23 @@ class Event extends Model
         return $this->hasMany(BattleClass::class);
     }
 
+    /**\
+     * @param \App\Services\BattleProcess\BattleState $state
+     * @return Event
+     */
+    public static function rollEvent(\App\Services\BattleProcess\BattleState $state): Event
+    {
+        $chat = $state->chat;
+        /** @var PlayerState $player */
+        $player = $state->getAlivePlayer(0);
 
+        /** @var Event $event */
+        $event = self::culture($chat)->inRandomOrder()
+            ->doesntHave('eventConditions', 'and',
+                function(Builder $builder) use ($player) {
+                $builder->whereNotIn('condition', $player->getFlags());
+            })
+            ->first();
+        return $event;
+    }
 }

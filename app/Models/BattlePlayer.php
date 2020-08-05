@@ -61,6 +61,7 @@ class BattlePlayer extends Model
 	protected $casts = [
 		'battle_id' => 'int',
 		'player_id' => 'int',
+        'class_id' => 'int',
 		'start_mmr' => 'int',
 		'start_rp' => 'int',
 		'start_skill' => 'int',
@@ -73,6 +74,7 @@ class BattlePlayer extends Model
 	protected $fillable = [
 		'battle_id',
 		'player_id',
+		'class_id',
 		'user_name',
 		'start_mmr',
 		'start_rp',

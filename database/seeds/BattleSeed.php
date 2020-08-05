@@ -35,6 +35,8 @@ class BattleSeed extends Seeder
     private Operation $addFlagOperation;
     /** @var Operation */
     private Operation $removeFlagOperation;
+    /** @var Operation */
+    private Operation $updateStateOperation;
 
     /**
      * Run the database seeds.
@@ -90,6 +92,12 @@ class BattleSeed extends Seeder
         ];
 
         $this->sendMessageOperation = Operation::firstOrCreate($sendMessageOperation);
+
+        $updateStateOperation = [
+            'name' => 'UPDATE_STATE',
+        ];
+
+        $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
     }
 
     private function addClasses(): void

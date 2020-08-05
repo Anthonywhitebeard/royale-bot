@@ -14,11 +14,12 @@ interface OperationInterface
         'ADD_FLAG' => AddFlagOperation::class,
         'REMOVE_FLAG' => RemoveFlagOperation::class,
         'SEND_MSG' => SendMessageOperation::class,
+        'UPDATE_STATE' => UpdateStateInChatOperation::class,
+        'DEATH_MESSAGE' => DeathMessageOperation::class,
     ];
 
     public function operate(
         BattleState $battleState,
-        array $activePlayers,
         string $params,
         string $target
     ): BattleState;

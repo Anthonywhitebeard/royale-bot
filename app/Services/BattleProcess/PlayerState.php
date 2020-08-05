@@ -9,6 +9,7 @@ class PlayerState
 {
     const FLAG_BOT = 'bot';
     const FLAG_PLAYER = 'player';
+    const FLAG_DEAD = 'dead';
 
     public BattlePlayer $battlePlayer;
 
@@ -47,5 +48,26 @@ class PlayerState
     public function removeFlag(string $flag)
     {
         Arr::forget($this->flags, $flag);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAlive(): bool
+    {
+        return !$this->hasFlag(self::FLAG_DEAD);
+    }
+
+    public function hasFlag(string $flag): bool
+    {
+        return array_search($flag, $this->flags, true);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFlags(): array
+    {
+        return $this->flags;
     }
 }
