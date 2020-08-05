@@ -75,10 +75,6 @@ class BattleState
 
     }
 
-    public function updatePlayer(int $index, PlayerState $playerState) {
-        $this->players[$index] = $playerState;
-    }
-
     /**
      * @return string
      * @throws \JsonException
@@ -108,7 +104,7 @@ class BattleState
         shuffle($this->turnDeadPlayers);
         shuffle($players);
 
-        $this->turnAlivePlayers =  [$firstPlayer, ...$players];
+        $this->turnAlivePlayers = [$firstPlayer, ...$players];
     }
 
     /**
@@ -117,7 +113,7 @@ class BattleState
      */
     public function getAlivePlayer(int $index): ?PlayerState
     {
-        $player = $this->turnAlivePlayers[$index];
+        $player = Arr::get($this->turnAlivePlayers, $index);
 
         if (!$player || !$player->isAlive()) {
             return null;
@@ -129,9 +125,9 @@ class BattleState
 
     /**
      * @param int $index
-     * @return BattlePlayer|null
+     * @return PlayerState|null
      */
-    public function getDeadPlayer(int $index): ?BattlePlayer
+    public function getDeadPlayer(int $index): ?PlayerState
     {
         $player = $this->turnAlivePlayers[$index];
 
@@ -180,7 +176,14 @@ class BattleState
 
     public function winCondition(): bool
     {
-        return count($this->turnAlivePlayers) < 2;
+        $alivePlayers = 0;
+        $players = $this->players;
+        foreach ($players as $player) {
+            if ($player->isAlive()) {
+                $alivePlayers++;
+            }
+        }
+        return $alivePlayers < 2;
     }
 
     private function setPendingPlayers(): void

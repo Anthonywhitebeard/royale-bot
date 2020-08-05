@@ -25,8 +25,6 @@ class SetDMGOperation extends AbstractStateOperation
         }
 
         $player->setDMG($params);
-        $battleState->updatePlayer((int)$target, $player);
-
         return $battleState;
     }
 }

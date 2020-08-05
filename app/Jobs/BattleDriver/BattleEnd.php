@@ -30,16 +30,17 @@ class BattleEnd implements ShouldQueue
      * @param Battle $battle
      * @param BattleState $state
      */
-    public function __construct(Battle $battle, BattleState $state)
+    public function __construct(Battle $battle)
     {
         $this->battle = $battle;
-        $this->state = $state;
     }
 
     public function handle(TelegramSender $telegram) {
         $this->telegram = $telegram;
         $state = json_decode($this->battle->battleState->state, true);
         $this->state = app()->make(BattleState::class, $state);
+
+        $this->endGame();
     }
 
     /**

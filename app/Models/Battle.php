@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattlePlayer[] $battlePlayers
  * @property-read int|null $battle_users_count
  * @property-read int|null $battle_players_count
+ * @property-read \App\Models\BattleState|null $battleState
  */
 class Battle extends Model
 {

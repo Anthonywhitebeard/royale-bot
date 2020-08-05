@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $players_count
  * @property int $min_players
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat whereMinPlayers($value)
+ * @property int $allow_bots
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chat whereAllowBots($value)
  */
 class Chat extends Model
 {
