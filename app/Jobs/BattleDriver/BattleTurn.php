@@ -58,21 +58,23 @@ class BattleTurn implements ShouldQueue
 
     private function turn(): void
     {
-        $event = Event::rollEvent($this->state);
+        $event = Event::rollEvent($this->state)->first();
         Turn::doEvent($event, $this->state);
     }
 
     private function postTurn(): void
     {
-        if ($this->state->winCondition()) {
-            BattleEnd::dispatch($this->battle);
-
-            return;
-        }
+        $battleStateModel = \App\Models\BattleState::where('battle_id', $this->state->battleId)->first();
+        $battleStateModel->update(['state' => $this->state->toJson()]);
 
         /** @var OperationInterface $operation */
         $operation = app(UpdateStateInChatOperation::class);
         $operation->operate($this->state, '', '');
+
+        if ($this->state->winCondition()) {
+            BattleEnd::dispatch($this->battle);
+            return;
+        }
         self::dispatch($this->battle);
     }
 }

@@ -24,8 +24,6 @@ class RemoveFlagOperation extends AbstractStateOperation implements OperationInt
         }
 
         $player->modifyDMG($params);
-        $battleState->updatePlayer((int)$target, $player);
-
         return $battleState;
     }
 

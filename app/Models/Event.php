@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $battle_class_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event wherePlayersCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event culture(\App\Models\Chat $chat)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event rollEvent(\App\Services\BattleProcess\BattleState $battleState)
  */
 class Event extends Model
 {
@@ -104,23 +105,19 @@ class Event extends Model
         return $this->hasMany(BattleClass::class);
     }
 
-    /**\
-     * @param \App\Services\BattleProcess\BattleState $state
-     * @return Event
+    /**
+     * @param Builder|self $builder
+     * @param \App\Services\BattleProcess\BattleState $battleState
+     * @return mixed
      */
-    public static function rollEvent(\App\Services\BattleProcess\BattleState $state): Event
+    public function scopeRollEvent(Builder $builder, \App\Services\BattleProcess\BattleState $battleState)
     {
-        $chat = $state->chat;
-        /** @var PlayerState $player */
-        $player = $state->getAlivePlayer(0);
-
-        /** @var Event $event */
-        $event = self::culture($chat)->inRandomOrder()
+        $chat = $battleState->chat;
+        $player = $battleState->getAlivePlayer(0);
+        return $builder->culture($chat)->inRandomOrder()
             ->doesntHave('eventConditions', 'and',
-                function(Builder $builder) use ($player) {
-                $builder->whereNotIn('condition', $player->getFlags());
-            })
-            ->first();
-        return $event;
+                function (Builder $builder) use ($player) {
+                    $builder->whereNotIn('condition', $player->getFlags());
+                });
     }
 }

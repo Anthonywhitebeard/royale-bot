@@ -27,7 +27,6 @@ class SetHPOperation extends AbstractStateOperation
         }
 
         $player->setHP($params);
-        $battleState->updatePlayer((int)$target, $player);
 
         return $battleState;
     }

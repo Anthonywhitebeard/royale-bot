@@ -24,8 +24,6 @@ class AddFlagOperation extends AbstractStateOperation
         }
 
         $player->addFlag($params);
-        $battleState->updatePlayer((int)$target, $player);
-
         return $battleState;
     }
 }
