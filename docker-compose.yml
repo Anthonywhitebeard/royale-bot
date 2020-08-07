@@ -1,0 +1,98 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
+  redis:
+    driver: local
+  docker-in-docker:
+    driver: local
+
+services:
+
+### Workspace Utilities ##################################
+    workspace:
+      build:
+        context: ./docker/workspace
+        args:
+          - UBUNTU_SOURCE=aliyun
+          - BASE_IMAGE_TAG_PREFIX=latest
+          - LARADOCK_PHP_VERSION=7.4
+          - INSTALL_XDEBUG=true
+          - INSTALL_PHPREDIS=true
+          - NVM_NODEJS_ORG_MIRROR=false
+          - http_proxy
+          - https_proxy
+          - no_proxy
+      volumes:
+        - ../:/var/www/:cached
+        - docker-in-docker:/certs/client
+        - ./php-worker/supervisord.d:/etc/supervisord.d
+      extra_hosts:
+        - "dockerhost:10.0.75.1"
+      ports:
+        - "2222:22"
+        - "3000:3000"
+        - "3001:3001"
+      tty: true
+      environment:
+        - PHP_IDE_CONFIG=serverName=laradock
+        - DOCKER_HOST=tcp://docker-in-docker:2376
+        - DOCKER_TLS_VERIFY=1
+        - DOCKER_TLS_CERTDIR=/certs
+        - DOCKER_CERT_PATH=/certs/client
+      networks:
+        - frontend
+        - backend
+      links:
+        - docker-in-docker
+
+### MySQL ################################################
+    mysql:
+      build:
+        context: ./docker/mysql
+        args:
+          - MYSQL_VERSION=latest
+      environment:
+        - MYSQL_DATABASE=latest
+        - MYSQL_USER=royale
+        - MYSQL_PASSWORD=111
+        - MYSQL_ROOT_PASSWORD=root
+        - TZ=UTC
+      volumes:
+        - ~/.docker/data/mysql:/var/lib/mysql
+        - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      ports:
+        - "3306:3306"
+      networks:
+        - backend
+
+### Redis ################################################
+    redis:
+      build: ./docker/redis
+      volumes:
+        - ~/.docker/data/redis:/data
+      ports:
+        - "6379:6379"
+      networks:
+        - backend
+
+### Docker-in-Docker ################################################
+    docker-in-docker:
+      image: docker:19.03-dind
+      environment:
+        DOCKER_TLS_SAN: DNS:docker-in-docker
+      privileged: true
+      volumes:
+        - ../:/var/www
+        - docker-in-docker:/certs/client
+      expose:
+        - 2375
+      networks:
+        - backend
