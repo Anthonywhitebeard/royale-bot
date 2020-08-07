@@ -33,7 +33,6 @@ services:
       volumes:
         - ../:/var/www/:cached
         - docker-in-docker:/certs/client
-        - ./php-worker/supervisord.d:/etc/supervisord.d
       extra_hosts:
         - "dockerhost:10.0.75.1"
       ports:
@@ -67,7 +66,6 @@ services:
         - TZ=UTC
       volumes:
         - ~/.docker/data/mysql:/var/lib/mysql
-        - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       ports:
         - "3306:3306"
       networks:
