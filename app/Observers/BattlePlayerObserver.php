@@ -15,14 +15,14 @@ class BattlePlayerObserver
      */
     public function saving(BattlePlayer $battlePlayer)
     {
-        if ($battlePlayer->start_mmr === null) {
+        if (!isset($battlePlayer->start_mmr)) {
             $battlePlayer->setAttribute('start_mmr', $battlePlayer->player->mmr);
         }
 
-        if ($battlePlayer->start_rp === null) {
+        if (!isset($battlePlayer->start_rp)) {
             $battlePlayer->setAttribute('start_rp', $battlePlayer->player->rp);
         }
-        if ($battlePlayer->start_skill === null) {
+        if (!isset($battlePlayer->start_skill)) {
             $battlePlayer->setAttribute('start_skill', $battlePlayer->player->skill);
         }
     }

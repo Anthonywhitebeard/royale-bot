@@ -56,6 +56,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class BattlePlayer extends Model
 {
+    public const ABILITY_STATUS_CAN_USE = 0;
+    public const ABILITY_STATUS_REQUESTED = 0;
+    public const ABILITY_STATUS_USED = 0;
+
 	protected $table = 'battles_players';
 
 	protected $casts = [
@@ -74,8 +78,10 @@ class BattlePlayer extends Model
 	protected $fillable = [
 		'battle_id',
 		'player_id',
+		'tg_message_id',
 		'class_id',
 		'user_name',
+		'ability_status',
 		'start_mmr',
 		'start_rp',
 		'start_skill',

@@ -29,6 +29,10 @@ class TriggersSeed extends Seeder
                 'reg_exp' => '3',
                 'event' => 'LaunchBattle',
             ],
+            [
+                'reg_exp' => '4',
+                'event' => 'UseAbility',
+            ],
         ];
         Trigger::insertOrIgnore($rows);
     }

@@ -8,6 +8,7 @@ use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
 use App\Services\BattleProcess\Turn;
 use App\Services\Operations\OperationInterface;
+use App\Services\Operations\UpdateStateInChatOperation;
 use App\Services\TelegramSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +43,8 @@ class BattleStart implements ShouldQueue
     /**
      * @throws \JsonException
      */
-    public function handle() {
+    public function handle(): void
+    {
         $this->preBattle();
         $this->battle->battleState()->create([
             'state' => $this->state->toJson(),
@@ -50,10 +52,15 @@ class BattleStart implements ShouldQueue
         BattleTurn::dispatch($this->battle);
     }
 
-    private function preBattle() {
+    private function preBattle(): void
+    {
         foreach ($this->state->players as $index => &$player) {
             $this->state->shakePlayers($player);
             Turn::doEvent($player->battlePlayer->battleClass->event, $this->state);
         }
+
+        /** @var OperationInterface $operation */
+        $operation = app(UpdateStateInChatOperation::class);
+        $operation->operate($this->state, '', '');
     }
 }

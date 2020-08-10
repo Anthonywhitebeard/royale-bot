@@ -9,6 +9,7 @@ use App\Models\Player;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Objects\Update;
 
 class StartBattle implements EventHandler
 {
@@ -25,14 +26,15 @@ class StartBattle implements EventHandler
     }
 
     /**
-     * @param Message $message
+     * @param Update $update
      * @param Chat $chat
      * @param Player $player
      * @return void
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function process(Message $message, Chat $chat, Player $player): void
+    public function process(Update $update, Chat $chat, Player $player): void
     {
+        $message = $update->getMessage();
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)
             ->where('state', '<>', Battle::BATTLE_STATE_FINISHED)

@@ -16,7 +16,7 @@ class ClassTableCreate extends Migration
         Schema::create('battle_classes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('flag');
+            $table->string('flag')->unique();
             $table->smallInteger('deviance')->default(0);
             $table->bigInteger('event_id')->unsigned();
             $table->boolean('active')->default(1);

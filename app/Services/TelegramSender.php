@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use Telegram\Bot\Api;
+use Telegram\Bot\Keyboard\Keyboard as TelegramKeyboard;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Message as MessageObject;
 
@@ -50,5 +51,51 @@ class TelegramSender
             'chat_id' => $tgChatId,
         ];
         $this->telegramApi->sendMessage($params);
+    }
+
+    /**
+     * @param $text
+     * @param $queryId
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function notification($text, $queryId): void
+    {
+        $this->telegramApi->answerCallbackQuery([
+            'callback_query_id' => $queryId,
+            'text' => $text,
+        ]);
+    }
+
+    public function sendStandartMessage($params)
+    {
+        $this->telegramApi->sendMessage($params);
+    }
+
+    /**
+     * @param string $chatId
+     * @param string $message
+     * @param string $replyTo
+     * @param TelegramKeyboard $keyboard
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function sendKeyboardMessage(
+        string $chatId,
+        string $message,
+        string $replyTo,
+        TelegramKeyboard $keyboard
+    ): void {
+        $this->telegramApi->sendMessage([
+            'chat_id' => $chatId,
+            'text' => $message,
+            'reply_to_message_id' => $replyTo,
+            'reply_markup' => $keyboard,
+        ]);
+    }
+
+    public function virtualKeyboard(): void
+    {
+//        $this->telegramApi->
+
+
     }
 }

@@ -20,7 +20,10 @@ class MessageParser implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /** @var Message */
-    private $message;
+    private Message $message;
+
+    /** @var Update */
+    private Update $update;
 
     /**
      * Create a new job instance.
@@ -29,7 +32,8 @@ class MessageParser implements ShouldQueue
      */
     public function __construct(array $answer)
     {
-        $this->message = (new Update($answer))->getMessage();
+        $this->update = (new Update($answer));
+        $this->message = $this->update->getMessage();
     }
 
     /**
@@ -57,7 +61,7 @@ class MessageParser implements ShouldQueue
         }
 
         $event = $trigger->event;
-        $this->initHandler($event)->process($this->message, $chat, $player);
+        $this->initHandler($event)->process($this->update, $chat, $player);
     }
 
     /**
@@ -85,7 +89,9 @@ class MessageParser implements ShouldQueue
     {
         return Chat::firstOrCreate([
             'tg_id' => $this->message->chat->id,
-            'name' => $this->message->chat->firstName,
+            'name' => $this->message->chat->title
+                ?? $this->message->chat->username
+                ?? $this->message->chat->firstName,
         ]);
     }
 

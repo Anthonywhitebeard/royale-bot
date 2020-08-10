@@ -18,6 +18,7 @@ class BattleUsersTableCreate extends Migration
             $table->bigInteger('battle_id')->unsigned();
             $table->foreign('battle_id')->references('id')->on('battles');
             $table->bigInteger('player_id')->unsigned();
+            $table->string('tg_message_id')->nullable()->unique();
             $table->foreign('player_id')->references('id')->on('players');
             $table->string('user_name');
             $table->integer('class_id')->unsigned()->nullable();
@@ -27,6 +28,7 @@ class BattleUsersTableCreate extends Migration
             $table->integer('end_mmr')->nullable();
             $table->integer('end_rp')->nullable();
             $table->integer('end_skill')->nullable();
+            $table->smallInteger('ability_status')->default(0);
             $table->smallInteger('place')->unsigned()->nullable();
             $table->timestamps();
         });
