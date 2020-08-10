@@ -33,15 +33,48 @@ class EventsSeed extends Seeder
 //                $operations->event()->associate($event)->save();
 //            }
 //        }
+
+        $modifyHp = \App\Models\Operation::where('name', 'MODIFY_HP')->first();
+        $hit = \App\Models\Operation::where('name', 'HIT')->first();
+        $message = \App\Models\Operation::where('name', 'SEND_MSG')->first();
+
+
+        /** 1 event */
         $event = factory(\App\Models\Event::class)->create([
             'name' => 'test_dmg',
             'deviance' => 0,
 
         ]);
-        $op = \App\Models\Operation::where('name', 'MODIFY_HP')->first();
         $operations = factory(EventOperation::class)->make([
-            'operation_id' => $op->id,
+            'operation_id' => $modifyHp->id,
             'params' => '-100',
+            'target' => '1',
+        ]);
+        $operations->event()->associate($event)->save();
+        $operations = factory(EventOperation::class)->make([
+            'operation_id' => $message->id,
+            'params' => 'Какой-то игрок по необъяснимой причине потерял 100 здоровья. Аккуратнее в следующий раз',
+            'target' => '1',
+        ]);
+        $operations->event()->associate($event)->save();
+
+
+        /** 2 event */
+        $event = factory(\App\Models\Event::class)->create([
+            'name' => 'Hit enemy',
+            'deviance' => 0,
+
+        ]);
+        $operations = factory(EventOperation::class)->make([
+            'operation_id' => $hit->id,
+            'params' => '1',
+            'target' => '1',
+        ]);
+        $operations->event()->associate($event)->save();
+
+        $operations = factory(EventOperation::class)->make([
+            'operation_id' => $message->id,
+            'params' => 'Один из игроков ударил другого. Парсинг игроков я не сделал :(',
             'target' => '1',
         ]);
         $operations->event()->associate($event)->save();

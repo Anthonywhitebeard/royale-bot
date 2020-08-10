@@ -66,6 +66,9 @@ update: composer-install migrate # Update Project
 annotate-models: # Add annotations for Laravel Models
 	docker-compose exec -u 1000 workspace php artisan ide-helper:model
 
+r: # Add annotations for Laravel Models
+	docker-compose exec -u 1000 workspace php artisan queue:work
+
 mf: update-db
 
 am: annotate-models

@@ -3,20 +3,22 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
+use App\Services\TelegramSender;
 use Telegram\Bot\Api;
+use Telegram\Bot\Exceptions\TelegramOtherException;
 
 class SendMessageOperation implements OperationInterface
 {
     /**
-     * @var Api
+     * @var TelegramSender
      */
-    private Api $telegram;
+    private TelegramSender $telegram;
 
     /**
      * SendMessageOperation constructor.
-     * @param Api $telegram
+     * @param TelegramSender $telegram
      */
-    public function __construct(Api $telegram)
+    public function __construct(TelegramSender $telegram)
     {
         $this->telegram = $telegram;
     }
@@ -32,11 +34,14 @@ class SendMessageOperation implements OperationInterface
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState {
-        $this->telegram->sendMessage([
-            'chat_id' => $battleState->chat->tg_id,
-            'text' => $this->parseMessage($params),
-        ]);
+    ): BattleState
+    {
+        try {
+            $this->telegram->sendChatMessage($this->parseMessage($params), $battleState->chat->tg_id);
+
+        } catch (TelegramOtherException $e) {
+            //need to handle to many request exception
+        }
 
         return $battleState;
     }

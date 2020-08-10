@@ -93,6 +93,8 @@ class BattleSeed extends Seeder
 
         $this->sendMessageOperation = Operation::firstOrCreate($sendMessageOperation);
 
+        Operation::firstOrCreate(['name'=> 'HIT']);
+
         $updateStateOperation = [
             'name' => 'UPDATE_STATE',
         ];

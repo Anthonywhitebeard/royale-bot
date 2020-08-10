@@ -42,6 +42,7 @@ class Battle extends Model
 {
     public const BATTLE_STATE_NEW = 0;
     public const BATTLE_STATE_IN_PROCESS = 1;
+    public const BATTLE_STATE_CLASS_SELECT = 3;
     public const BATTLE_STATE_FINISHED = 2;
 
 	protected $fillable = [

@@ -8,6 +8,7 @@ use Telegram\Bot\Api;
 use Telegram\Bot\Keyboard\Keyboard as TelegramKeyboard;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Message as MessageObject;
+use Telegram\Bot\Objects\Update;
 
 class TelegramSender
 {
@@ -78,12 +79,13 @@ class TelegramSender
      * @param TelegramKeyboard $keyboard
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function sendKeyboardMessage(
+    public function sendKeyboardReplyMessage(
         string $chatId,
         string $message,
         string $replyTo,
         TelegramKeyboard $keyboard
-    ): void {
+    ): void
+    {
         $this->telegramApi->sendMessage([
             'chat_id' => $chatId,
             'text' => $message,
@@ -92,10 +94,32 @@ class TelegramSender
         ]);
     }
 
-    public function virtualKeyboard(): void
+
+    /**
+     * @param string $chatId
+     * @param string $message
+     * @param TelegramKeyboard $keyboard
+     * @return MessageObject
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function sendKeyboardMessage(
+        string $chatId,
+        string $message,
+        TelegramKeyboard $keyboard
+    ): Message {
+        return $this->telegramApi->sendMessage([
+            'chat_id' => $chatId,
+            'text' => $message,
+            'reply_markup' => $keyboard,
+        ]);
+    }
+
+    public function notify(Update $update, string $text): void
     {
-//        $this->telegramApi->
-
-
+        $this->telegramApi->answerCallbackQuery([
+            'callback_query_id' => $update->callbackQuery->id,
+            'text' => $text,
+            'alert' => true,
+        ]);
     }
 }
