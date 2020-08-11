@@ -8,6 +8,7 @@ namespace App\Models;
 
 use App\Models\BattleModels\BattleClass;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -53,6 +54,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \App\Models\BattleModels\BattleClass|null $battleClass
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer wherePlayerId($value)
  * @property-read \App\Models\Player $player
+ * @property string|null $tg_message_id
+ * @property int $ability_status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer whereAbilityStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer whereTgMessageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer battlePlayer(\App\Models\Chat $chat, \App\Models\Player $player)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer byChatAndPlayer(\App\Models\Chat $chat, \App\Models\Player $player)
  */
 class BattlePlayer extends Model
 {
@@ -60,36 +67,36 @@ class BattlePlayer extends Model
     public const ABILITY_STATUS_REQUESTED = 0;
     public const ABILITY_STATUS_USED = 0;
 
-	protected $table = 'battles_players';
+    protected $table = 'battles_players';
 
-	protected $casts = [
-		'battle_id' => 'int',
-		'player_id' => 'int',
+    protected $casts = [
+        'battle_id' => 'int',
+        'player_id' => 'int',
         'class_id' => 'int',
-		'start_mmr' => 'int',
-		'start_rp' => 'int',
-		'start_skill' => 'int',
-		'end_mmr' => 'int',
-		'end_rp' => 'int',
-		'end_skill' => 'int',
-		'place' => 'int'
-	];
+        'start_mmr' => 'int',
+        'start_rp' => 'int',
+        'start_skill' => 'int',
+        'end_mmr' => 'int',
+        'end_rp' => 'int',
+        'end_skill' => 'int',
+        'place' => 'int'
+    ];
 
-	protected $fillable = [
-		'battle_id',
-		'player_id',
-		'tg_message_id',
-		'class_id',
-		'user_name',
-		'ability_status',
-		'start_mmr',
-		'start_rp',
-		'start_skill',
-		'end_mmr',
-		'end_rp',
-		'end_skill',
-		'place'
-	];
+    protected $fillable = [
+        'battle_id',
+        'player_id',
+        'tg_message_id',
+        'class_id',
+        'user_name',
+        'ability_status',
+        'start_mmr',
+        'start_rp',
+        'start_skill',
+        'end_mmr',
+        'end_rp',
+        'end_skill',
+        'place'
+    ];
 
     /**
      * @return BelongsTo|Player
@@ -113,5 +120,14 @@ class BattlePlayer extends Model
     public function battleClass(): BelongsTo
     {
         return $this->belongsTo(BattleClass::class, 'class_id');
+    }
+
+    public function scopeByChatAndPlayer(Builder $builder, Chat $chat, Player $player)
+    {
+        return $builder->where('player_id', $player->id)
+            ->whereHas('battle', function (Builder $builder) use ($chat) {
+                $builder->where('chat_id', $chat->id)
+                    ->where('state', Battle::BATTLE_STATE_CLASS_SELECT);
+            });
     }
 }

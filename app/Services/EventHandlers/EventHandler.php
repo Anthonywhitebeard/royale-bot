@@ -15,6 +15,7 @@ interface EventHandler
         'RegistrationInBattle' => RegistrationInBattle::class,
         'DestroyBattle' => DestroyBattle::class,
         'LaunchBattle' => LaunchBattle::class,
+        'SelectClass' => SelectClass::class,
     ];
 
     /**

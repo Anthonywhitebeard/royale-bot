@@ -16,7 +16,9 @@ class Keyboard
      */
     public static function battleClasses(Chat $chat): TelegramKeyboard
     {
-        $keyboard = TelegramKeyboard::make()->inline();
+        $keyboard = TelegramKeyboard::make()
+            ->inline()
+            ->setSelective(true);
         $battleClasses = BattleClass::culture($chat)->get()->toArray();
         foreach (array_chunk($battleClasses, 4) as $chunk) {
             $row = [];

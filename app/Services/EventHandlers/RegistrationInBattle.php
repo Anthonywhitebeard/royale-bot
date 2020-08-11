@@ -71,16 +71,5 @@ class RegistrationInBattle implements EventHandler
 
         $newBattlePlayer->player()->associate($player)->save();
         $this->telegram->sendMessage('Добро пожаловать в метрополитен', $message);
-        $this->telegram->sendKeyboardMessage(
-            $chat->tg_id,
-            'Выберитеваш класс',
-            $message->messageId,
-            Keyboard::battleClasses($chat),
-        );
-    }
-
-    private function genereteClassKeybord()
-    {
-
     }
 }

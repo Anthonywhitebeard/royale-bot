@@ -75,6 +75,6 @@ class BattleTurn implements ShouldQueue
             BattleEnd::dispatch($this->battle);
             return;
         }
-        self::dispatch($this->battle);
+        self::dispatch($this->battle)->delay(Turn::getDelay());
     }
 }

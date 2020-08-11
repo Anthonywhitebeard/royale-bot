@@ -14,7 +14,9 @@ use App\Models\Chat;
 use App\Models\Player;
 use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
+use App\Services\Keyboard;
 use App\Services\TelegramSender;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
@@ -51,12 +53,16 @@ class LaunchBattle implements EventHandler
         if (!$lastBattle || !$lastBattle->battlePlayers) {
             return;
         }
-
-        $lastBattle->state = Battle::BATTLE_STATE_FINISHED;
-        $lastBattle->save();
         $state = $this->initState($lastBattle, $chat);
 
-        BattleStart::dispatch($lastBattle, $state);
+        $classMessage = $this->telegram->sendKeyboardMessage(
+            $chat->tg_id,
+        __('Выберите ваш класс'),
+            Keyboard::battleClasses($chat),
+        );
+        $lastBattle->state = Battle::BATTLE_STATE_CLASS_SELECT;
+        $lastBattle->save();
+        BattleStart::dispatch($lastBattle, $state, $classMessage)->delay(Carbon::now()->addSeconds(20));
     }
 
     /**

@@ -16,6 +16,7 @@ interface OperationInterface
         'SEND_MSG' => SendMessageOperation::class,
         'UPDATE_STATE' => UpdateStateInChatOperation::class,
         'DEATH_MESSAGE' => DeathMessageOperation::class,
+        'HIT' => HitOperation::class,
     ];
 
     public function operate(

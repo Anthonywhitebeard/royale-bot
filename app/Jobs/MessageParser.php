@@ -43,7 +43,7 @@ class MessageParser implements ShouldQueue
      */
     public function handle()
     {
-        $messageText = $this->message->get('text');
+        $messageText = $this->update->callbackQuery->data ?? $this->message->get('text');;
         $this->getReaction($messageText);
     }
 
@@ -101,7 +101,7 @@ class MessageParser implements ShouldQueue
     private function getPlayers(): Player
     {
         /** @var Player $player */
-        $player = Player::where('tg_id', $this->message->from->id)->first();
+        $player = Player::where('tg_id', $this->update->callbackQuery->from->id ?? $this->message->from->id)->first();
 
         if ($player) {
             return $player;
