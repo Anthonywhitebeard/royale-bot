@@ -48,6 +48,8 @@ class BattleEnd implements ShouldQueue
      */
     private function endGame(): void
     {
+        $this->battle->state = Battle::BATTLE_STATE_FINISHED;
+        $this->battle->save();
         $this->telegram->sendChatMessage('Наконец то', $this->state->chat->tg_id);
     }
 }

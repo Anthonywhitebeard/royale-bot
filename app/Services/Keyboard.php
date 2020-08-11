@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\BattleModels\BattleClass;
+use App\Models\BattlePlayer;
 use App\Models\Chat;
 use Telegram\Bot\Keyboard\Keyboard as TelegramKeyboard;
 
@@ -29,9 +30,26 @@ class Keyboard
                 ]);
                 $keyboard->row($row);
             }
-
-//            $keyboard->row($row);
         }
+
+        return $keyboard;
+    }
+
+    /**
+     * @param Chat $chat
+     * @return TelegramKeyboard
+     */
+    public static function useAbility(BattlePlayer $battlePlayer): ?TelegramKeyboard
+    {
+        if (!$battlePlayer->tg_message_id) {
+            return null;
+        }
+        $keyboard = TelegramKeyboard::make()
+            ->setSelective(true);
+        $row = TelegramKeyboard::button([
+            'text' => 'ability'
+        ]);
+        $keyboard->row($row);
 
         return $keyboard;
     }
