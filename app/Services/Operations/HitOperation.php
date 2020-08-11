@@ -12,6 +12,7 @@ class HitOperation extends AbstractStateOperation
      * @param BattleState $battleState
      * @param string $params
      * @param string $target
+     * @return BattleState
      */
     public function operate(
         BattleState $battleState,
@@ -19,17 +20,18 @@ class HitOperation extends AbstractStateOperation
         string $target
     ): BattleState
     {
-        $player = $this->getAlivePlayer($battleState, $target);
-        $source = $this->getAlivePlayer($battleState, 0);
-        if (!$player) {
+        [$source, $scale] = explode(';', $params);
+        $target = $this->getAlivePlayer($battleState, $target);
+        $source = $this->getAlivePlayer($battleState, $source);
+        if (!$target || !$source) {
             return $battleState;
         }
 
-        $hitDamage = $source->dmg * $params * -1;
+        $hitDamage = $source->dmg * (float)$scale * -1;
 
-        $player->modifyHP($hitDamage);
-        if ($player->hp <= 0) {
-            $player->addFlag(PlayerState::FLAG_DEAD);
+        $target->modifyHP($hitDamage);
+        if ($target->hp <= 0) {
+            $target->addFlag(PlayerState::FLAG_DEAD);
         }
 
         return $battleState;

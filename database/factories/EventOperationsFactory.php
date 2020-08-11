@@ -36,6 +36,8 @@ $factory->define(\App\Models\EventOperation::class, function (Faker $faker) {
         'REMOVE_FLAG' => $faker->realText(),
         'SEND_MSG' => $faker->realText(),
         'UPDATE_STATE' => $faker->realText(),
+        'DEATH_MESSAGE' => $faker->realText(),
+        'ALIVE_MESSAGE' => $faker->realText(),
     ];
 
     /** @var Operation $operation */

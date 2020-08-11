@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
-class DeathMessageOperation extends AbstractStateOperation
+class AliveMessageOperation extends AbstractStateOperation
 {
     /**
      * @var TelegramSender
@@ -61,8 +61,8 @@ class DeathMessageOperation extends AbstractStateOperation
 
     private function checkCondition(array $targets, BattleState $battleState): bool
     {
-        foreach ($battleState->getAlivePlayers() as $index => $player) {
-            if ($player->hasFlag(PlayerState::FLAG_DEAD) xor array_search($index, $targets) !== false) {
+        foreach ($targets as $index) {
+            if (!$battleState->getAlivePlayer($index)) {
                 return false;
             }
         }

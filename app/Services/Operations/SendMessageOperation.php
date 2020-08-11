@@ -3,6 +3,7 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
+use App\Services\MessageFormer;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramOtherException;
@@ -37,23 +38,13 @@ class SendMessageOperation implements OperationInterface
     ): BattleState
     {
         try {
-            $this->telegram->sendChatMessage($this->parseMessage($params), $battleState->chat->tg_id);
+            $this->telegram->sendChatMessage(MessageFormer::formOperationText($params, $battleState),
+                $battleState->chat->tg_id);
 
         } catch (TelegramOtherException $e) {
             //need to handle to many request exception
         }
 
         return $battleState;
-    }
-
-    /**
-     * @param string $params
-     * @return string
-     */
-    private function parseMessage(string $params): string
-    {
-        return $params;
-//        $params = explode(';', $params);
-//        return printf(array_shift(explode($params)), $params);
     }
 }

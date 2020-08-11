@@ -28,7 +28,6 @@ class BattleUsersTableCreate extends Migration
             $table->integer('end_mmr')->nullable();
             $table->integer('end_rp')->nullable();
             $table->integer('end_skill')->nullable();
-            $table->smallInteger('ability_status')->default(0);
             $table->smallInteger('place')->unsigned()->nullable();
             $table->timestamps();
         });
