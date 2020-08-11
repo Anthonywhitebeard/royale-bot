@@ -2,13 +2,18 @@
 
 namespace App\Services\BattleProcess;
 
+use App\Models\Battle;
 use App\Models\BattlePlayer;
 use App\Models\Chat;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Telegram\Bot\Objects\Message;
+use App\Traits\ArrayAccess;
 
-class BattleState
+class BattleState implements Arrayable, \ArrayAccess
 {
+    use ArrayAccess;
+
     const PLAYERS_COUNT = 10;
 
     /** @var string */
@@ -41,6 +46,8 @@ class BattleState
     /** @var array $pendingUsers */
     public array $pendingPlayers = [];
 
+    public array $turnConditions = [];
+
     /**
      * BattleState constructor.
      * @param string|null $tgId
@@ -55,7 +62,8 @@ class BattleState
         array $players = [],
         ?int $deviance = null,
         array $chat = []
-    ) {
+    )
+    {
         if ($chat) {
             $this->chat = app()->make(Chat::class, $chat);
             $this->chat->fill($chat);
@@ -72,8 +80,11 @@ class BattleState
         }
     }
 
-    public function save() {
+    public function updateTurnConditions()
+    {
+        $this->turnConditions = [];
 
+        $this->turnConditions = [...$this->turnConditions, ...BattleConditions::getAlivePlayersConditions($this)];
     }
 
     /**
@@ -122,6 +133,14 @@ class BattleState
 
         return $player;
 
+    }
+
+    /**
+     * @return PlayerState[]|null
+     */
+    public function getAlivePlayers(): ?array
+    {
+        return $this->turnAlivePlayers;
     }
 
     /**
@@ -198,5 +217,10 @@ class BattleState
         }
 
         shuffle($this->pendingPlayers);
+    }
+
+    public function toArray()
+    {
+        return get_object_vars($this);
     }
 }

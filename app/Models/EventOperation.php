@@ -48,6 +48,7 @@ class EventOperation extends Model
         'event_id',
         'operation_id',
         'params',
+        'target',
     ];
 
     /**

@@ -114,10 +114,11 @@ class Event extends Model
     {
         $chat = $battleState->chat;
         $player = $battleState->getAlivePlayer(0);
+        $conditions = [...$player->getFlags(), ...$battleState->turnConditions];
         return $builder->culture($chat)->inRandomOrder()
             ->doesntHave('eventConditions', 'and',
-                function (Builder $builder) use ($player) {
-                    $builder->whereNotIn('condition', $player->getFlags());
+                function (Builder $builder) use ($conditions) {
+                    $builder->whereNotIn('condition', $conditions);
                 });
     }
 }

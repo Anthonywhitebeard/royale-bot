@@ -15,6 +15,7 @@ class AbilityTableCreate extends Migration
     {
         Schema::create('abilities', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->integer('battle_class_id')->unsigned()->nullable();
             $table->bigInteger('event_id')->unsigned();
             $table->boolean('active');

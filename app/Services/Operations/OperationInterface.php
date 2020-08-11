@@ -16,6 +16,7 @@ interface OperationInterface
         'SEND_MSG' => SendMessageOperation::class,
         'UPDATE_STATE' => UpdateStateInChatOperation::class,
         'DEATH_MESSAGE' => DeathMessageOperation::class,
+        'ALIVE_MESSAGE' => AliveMessageOperation::class,
         'HIT' => HitOperation::class,
     ];
 
