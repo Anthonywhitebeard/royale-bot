@@ -12,11 +12,6 @@ return [
             'params' => '200',
         ],
         [
-            'operation' => 'MODIFY_DMG',
-            'target' => '0',
-            'params' => '0',
-        ],
-        [
             'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% почувствовав опасность, стал в защитную стойку, готовясь к возможному нападению',

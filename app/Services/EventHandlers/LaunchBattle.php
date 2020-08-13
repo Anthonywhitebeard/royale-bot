@@ -130,12 +130,13 @@ class LaunchBattle implements EventHandler
 
     private function getPlayerData(BattlePlayer $battlePlayer, $bot = false): PlayerState
     {
+        $flag = $bot ? PlayerState::FLAG_BOT : PlayerState::FLAG_PLAYER;
         return app()->make(PlayerState::class, [
             'battlePlayer' => $battlePlayer,
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
             'name' => $battlePlayer->user_name,
-            'flags' => [$bot ? PlayerState::FLAG_BOT : PlayerState::FLAG_PLAYER]
+            'flags' => [$flag => true]
         ]);
     }
 }

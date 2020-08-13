@@ -12,11 +12,6 @@ return [
             'params' => '-200;50',
         ],
         [
-            'operation' => 'MODIFY_DMG',
-            'target' => '0',
-            'params' => '0',
-        ],
-        [
             'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% пережил этот ход, а время действия усиления подошло к концу',

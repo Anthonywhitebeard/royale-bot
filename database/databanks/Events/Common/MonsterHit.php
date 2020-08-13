@@ -22,7 +22,9 @@ return [
             'params' => 'После зверской атаки %turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% раненый, но не сломленый, отступил',
         ],
     ],
-    'conditions' => [],
+    'conditions' => [
+        "2_players"
+    ],
     'traits' => [
         "damage", "hit",
     ]

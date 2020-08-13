@@ -24,14 +24,14 @@ return [
         [
             'operation' => 'REMOVE_FLAG',
             'target' => '0',
-            'params' => 'first-wind',
+            'params' => 'first_wind',
         ],
     ],
     'conditions' => [
         'fighter_class',
-        'first-wind'
+        'first_wind'
     ],
     'traits' => [
-        "heal", "self", "fighter", "event-chain-begin",
+        "heal", "self", "fighter", "event_chain_begin",
     ]
 ];

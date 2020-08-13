@@ -36,6 +36,6 @@ return [
         'third_wind', 'fighter_class'
     ],
     'traits' => [
-        "heal", "self", "dmg-buff", "ultimate"
+        "heal", "self", "dmg_buff", "ultimate"
     ]
 ];

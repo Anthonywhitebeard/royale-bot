@@ -32,7 +32,7 @@ class ClassesBankSeeder extends Seeder
             'target' => 0,
             'params' => $eventData['dmg'],
         ]);
-        $eventOperation->operation()->associate($this->getOperation('SET_HP'));
+        $eventOperation->operation()->associate($this->getOperation('SET_DMG'));
         $eventOperation->save();
 
         //Send MSG

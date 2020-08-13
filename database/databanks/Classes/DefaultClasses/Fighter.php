@@ -9,7 +9,7 @@ return
         'dmg' => '50',
         'msg' => '%turnAlivePlayers.0.name% найдя кем-то брошенную мотыгу и кусок доски, решает стать Воином',
         'conditions' => ['get_fighter_class'],
-        'flags' => ['first-wind'],
+        'flags' => ['first_wind'],
         'traits' => ['class', 'fighter'],
         'active' => 1
     ];

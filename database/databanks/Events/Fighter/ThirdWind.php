@@ -33,9 +33,9 @@ return [
         ],
     ],
     'conditions' => [
-        "second-wind", 'fighter_class'
+        "second_wind", 'fighter_class'
     ],
     'traits' => [
-        "heal", "self", "event-chain-begin", "dmg-buff"
+        "heal", "self", "event_chain_begin", "dmg_buff"
     ]
 ];

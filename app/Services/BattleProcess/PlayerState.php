@@ -35,7 +35,7 @@ class PlayerState implements \ArrayAccess
 
     public function addFlag(string $flag)
     {
-        $this->flags[] = $flag;
+        $this->flags[$flag] = true;
     }
 
     public function setHP(string $hp)
@@ -83,7 +83,7 @@ class PlayerState implements \ArrayAccess
 
     public function hasFlag(string $flag): bool
     {
-        return array_search($flag, $this->flags, true);
+        return Arr::get($this->flags, $flag, false);
     }
 
     /**
@@ -91,6 +91,6 @@ class PlayerState implements \ArrayAccess
      */
     public function getFlags(): array
     {
-        return $this->flags;
+        return array_keys($this->flags);
     }
 }

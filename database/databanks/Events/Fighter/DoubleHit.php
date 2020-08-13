@@ -23,9 +23,10 @@ return [
         ],
     ],
     'conditions' => [
-        "fighter_class"
+        "fighter_class",
+        "2_players",
     ],
     'traits' => [
-        "hit", "high-dmg",
+        "hit", "high_dmg",
     ]
 ];

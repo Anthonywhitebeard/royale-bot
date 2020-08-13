@@ -18,7 +18,7 @@ return [
         ],
     ],
     'conditions' => [
-        "fighter_class", "fourth_wind"
+        "fighter_class", "fourth_wind", "2_players"
     ],
     'traits' => [
         "damage", "otk",

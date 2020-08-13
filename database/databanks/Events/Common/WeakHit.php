@@ -22,7 +22,9 @@ return [
             'params' => 'После слабой атаки %turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% обидившись, отступил',
         ],
     ],
-    'conditions' => [],
+    'conditions' => [
+        "2_players"
+    ],
     'traits' => [
         "damage", "hit",
     ]

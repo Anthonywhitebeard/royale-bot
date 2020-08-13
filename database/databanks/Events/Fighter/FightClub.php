@@ -38,7 +38,8 @@ return [
         ],
     ],
     'conditions' => [
-        "fighter_class"
+        "fighter_class",
+        "2_players"
     ],
     'traits' => [
         "heal", "self",
