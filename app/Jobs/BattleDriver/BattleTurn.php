@@ -53,13 +53,14 @@ class BattleTurn implements ShouldQueue
     private function preTurn(): void
     {
         $player = $this->state->rollPlayers();
-        $this->state->updateTurnConditions();
         $this->state->shakePlayers($player);
+        $this->state->updateTurnConditions();
     }
 
     private function turn(): void
     {
         $event = Event::rollEvent($this->state)->first();
+
         Turn::doEvent($event, $this->state);
     }
 

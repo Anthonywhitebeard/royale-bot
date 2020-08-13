@@ -53,6 +53,8 @@ class BattleClass extends Model
 
     /** @var string[] */
     protected $fillable = [
+        'name',
+        'flag',
         'state',
         'chat_id',
     ];

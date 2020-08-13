@@ -31,6 +31,7 @@ class Turn
      */
     public static function doEvent(Event $event, BattleState $state): void
     {
+        sleep(2);
         $operations = $event->eventOperations;
 
         foreach ($operations as $eventOperation) {

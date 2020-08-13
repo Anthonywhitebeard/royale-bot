@@ -18,7 +18,7 @@ class EventOperationTableCreate extends Migration
             $table->bigInteger('event_id')->unsigned();
             $table->bigInteger('operation_id')->unsigned();
             $table->string('target')->default('');
-            $table->string('params')->default('');
+            $table->string('params', '4096')->default('');
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('operation_id')->references('id')->on('operations');
             $table->timestamps();

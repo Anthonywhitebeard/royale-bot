@@ -32,6 +32,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot culture(\App\Models\Chat $chat)
  * @property int $deviance
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereDeviance($value)
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereUpdatedAt($value)
  */
 class Bot extends Model
 {

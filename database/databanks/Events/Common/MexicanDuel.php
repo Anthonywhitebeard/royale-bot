@@ -39,7 +39,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% и %turnAlivePlayers.2.name% сошлись в мексиканской дуэли %additional[0]%',
+            'params' => '%turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% и %turnAlivePlayers.2.name% сошлись в мексиканской дуэли',
         ],
         [
             'operation' => 'SEND_MSG',
@@ -88,9 +88,9 @@ return [
         ],
     ],
     'conditions' => [
-        "3 players"
+        "3_players"
     ],
     'traits' => [
-        "damage", "hit", "3 players", "tons of damage"
+        "damage", "hit", "3_players", "tons_of_damage"
     ]
 ];

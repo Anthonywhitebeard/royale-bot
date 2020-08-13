@@ -21,6 +21,7 @@ class ClassTableCreate extends Migration
             $table->bigInteger('event_id')->unsigned();
             $table->boolean('active')->default(1);
             $table->foreign('event_id')->references('id')->on('events');
+            $table->timestamps();
         });
 
         Schema::table('battles_players', function (Blueprint $table) {

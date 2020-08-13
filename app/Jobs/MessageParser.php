@@ -44,7 +44,7 @@ class MessageParser implements ShouldQueue
     public function handle()
     {
         $messageText = $this->update->callbackQuery->data ?? $this->message->get('text');;
-        $this->getReaction($messageText);
+        $this->getReaction((string)$messageText);
     }
 
     /**

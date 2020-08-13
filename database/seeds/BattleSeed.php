@@ -110,6 +110,22 @@ class BattleSeed extends Seeder
         $updateStateOperation = [
             'name' => 'ALIVE_MESSAGE',
         ];
+        $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
+
+        $updateStateOperation = [
+            'name' => 'DEACTIVATE_ABILITY',
+        ];
+        $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
+
+        $updateStateOperation = [
+            'name' => 'ACTIVATE_ABILITY',
+        ];
+
+        $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
+
+        $updateStateOperation = [
+            'name' => 'USE_ABILITY',
+        ];
 
         $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
     }
