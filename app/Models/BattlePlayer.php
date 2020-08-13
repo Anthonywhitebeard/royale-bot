@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Reliese\Coders\Model\Relations\HasMany;
 
 /**
  * App\Models\BattlePlayer
@@ -60,6 +61,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer whereTgMessageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer battlePlayer(\App\Models\Chat $chat, \App\Models\Player $player)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer byChatAndPlayer(\App\Models\Chat $chat, \App\Models\Player $player)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleAbility[] $battleAbilities
+ * @property-read int|null $battle_abilities_count
  */
 class BattlePlayer extends Model
 {
@@ -120,6 +123,14 @@ class BattlePlayer extends Model
     public function battleClass(): BelongsTo
     {
         return $this->belongsTo(BattleClass::class, 'class_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function battleAbilities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BattleAbility::class);
     }
 
     public function scopeByChatAndPlayer(Builder $builder, Chat $chat, Player $player)

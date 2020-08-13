@@ -9,12 +9,12 @@ return [
         [
             'operation' => 'MODIFY_HP',
             'target' => '0',
-            'params' => '50',
+            'params' => '10',
         ],
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% приложив подорожник, восстановил себе 50 здоровья',
+            'params' => '%turnAlivePlayers.0.name% приложив подорожник, восстановил себе 10 здоровья',
         ],
     ],
     'conditions' => [],

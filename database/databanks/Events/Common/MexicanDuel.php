@@ -39,7 +39,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% и %turnAlivePlayers.2.name% сошлись в мексиканской дуэли %additional[0]%',
+            'params' => '%turnAlivePlayers.0.name%, %turnAlivePlayers.1.name% и %turnAlivePlayers.2.name% сошлись в мексиканской дуэли',
         ],
         [
             'operation' => 'SEND_MSG',

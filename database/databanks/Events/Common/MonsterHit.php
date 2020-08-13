@@ -3,13 +3,13 @@
 return [
     'name' => 'Зверская Атака',
     'text' => 'Наносит урон 1 таргету от 0 игрока',
-    'weight' => '100',
+    'weight' => '10',
     'deviance' => '0',
     'operations' => [
         [
             'operation' => 'HIT',
             'target' => '1',
-            'params' => '0;10',
+            'params' => '0;5',
         ],
         [
             'operation' => 'DEATH_MESSAGE',

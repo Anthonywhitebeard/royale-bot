@@ -18,6 +18,9 @@ interface OperationInterface
         'DEATH_MESSAGE' => DeathMessageOperation::class,
         'ALIVE_MESSAGE' => AliveMessageOperation::class,
         'HIT' => HitOperation::class,
+        'ACTIVATE_ABILITY' => ActivateAbility::class,
+        'DEACTIVATE_ABILITY' => DeactivateAbility::class,
+        'USE_ABILITY' => UseAbility::class,
     ];
 
     public function operate(

@@ -41,13 +41,32 @@ class EventsBankSeeder extends Seeder
                 'trait' => $trait,
             ]);
         }
+        if ($abilityData = Arr::get($eventData, 'ability')) {
+            $class = \App\Models\BattleModels\BattleClass::where('flag', $abilityData['battle_class'])->firstOrFail();
+            $ability = \App\Models\Ability::make($abilityData);
+            $ability->event()->associate($event);
+            $ability->battleClass()->associate($class);
+            $ability->save();
+
+
+            $event->eventConditions()->create([
+                'condition' => 'ability_' . $ability['slug'],
+            ]);
+
+
+        }
     }
 
     private function getOperation(string $operationKey)
     {
-        if (!Arr::get($this->operations, $operationKey)) {
-            $operation = \App\Models\Operation::where('name', $operationKey)->firstOrFail();
-            $this->operations[$operationKey] = $operation;
+        try {
+            if (!Arr::get($this->operations, $operationKey)) {
+                $operation = \App\Models\Operation::where('name', $operationKey)->firstOrFail();
+                $this->operations[$operationKey] = $operation;
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            dump($operationKey);
+            throw $e;
         }
         return $this->operations[$operationKey];
     }

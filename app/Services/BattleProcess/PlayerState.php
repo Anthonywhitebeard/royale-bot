@@ -48,9 +48,19 @@ class PlayerState implements \ArrayAccess
         $this->dmg = $dmg;
     }
 
-    public function modifyHP(string $hp)
+    public function modifyHP(string $hp, ?string $minHp = null, ?string $maxHp = null)
     {
-        $this->hp = $this->hp + (int)$hp;
+        $hp = (int)$hp;
+        $newHp = $this->hp + $hp;
+        if ($minHp != null && $newHp < $minHp) {
+            $this->hp = (int)$minHp;
+            return;
+        }
+        if ($maxHp != null && $newHp > $maxHp) {
+            $this->hp = (int)$maxHp;
+            return;
+        }
+        $this->hp = $newHp;
     }
 
     public function modifyDMG(string $dmg)
