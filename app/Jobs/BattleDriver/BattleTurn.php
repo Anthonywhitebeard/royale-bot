@@ -60,7 +60,6 @@ class BattleTurn implements ShouldQueue
     private function turn(): void
     {
         $event = Event::rollEvent($this->state)->first();
-        $a = Event::rollEvent($this->state);
 
         Turn::doEvent($event, $this->state);
     }
