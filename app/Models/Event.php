@@ -114,6 +114,9 @@ class Event extends Model
     {
         $chat = $battleState->chat;
         $player = $battleState->getAlivePlayer(0);
+        if (!$player) {
+            return $builder;
+        }
         $conditions = [...$player->getFlags(), ...$battleState->turnConditions];
         return $builder->culture($chat)->inRandomOrder()
             ->doesntHave('eventConditions', 'and',

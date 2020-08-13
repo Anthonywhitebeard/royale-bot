@@ -4,8 +4,8 @@ namespace App\Jobs\BattleDriver;
 
 use App\Models\Battle;
 use App\Models\Event;
+use App\Services\BattleProcess\BattleEvents;
 use App\Services\BattleProcess\BattleState;
-use App\Services\BattleProcess\PlayerState;
 use App\Services\BattleProcess\Turn;
 use App\Services\Operations\OperationInterface;
 use App\Services\Operations\UpdateStateInChatOperation;
@@ -59,7 +59,13 @@ class BattleTurn implements ShouldQueue
 
     private function turn(): void
     {
-        $event = Event::rollEvent($this->state)->first();
+        if (!$this->state->getAlivePlayer(0)) {
+            return;
+        }
+
+        $events = Event::rollEvent($this->state)->get();
+
+        $event = BattleEvents::getRandomEvent($events);
 
         Turn::doEvent($event, $this->state);
     }

@@ -50,20 +50,20 @@ class BattleState implements Arrayable, \ArrayAccess
 
     /**
      * BattleState constructor.
-     * @param string|null $tgId
      * @param int|null $battleId
      * @param array $players
      * @param int|null $deviance
-     * @param Chat|null $chat
+     * @param array $chat
+     * @param array $pendingPlayers
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(
         ?int $battleId = null,
         array $players = [],
         ?int $deviance = null,
-        array $chat = []
-    )
-    {
+        array $chat = [],
+        array $pendingPlayers = []
+    ) {
         if ($chat) {
             $this->chat = app()->make(Chat::class, $chat);
             $this->chat->fill($chat);
@@ -76,7 +76,15 @@ class BattleState implements Arrayable, \ArrayAccess
             $playerModel = app()->make(BattlePlayer::class, $player['battlePlayer']);
             $playerModel->fill($player['battlePlayer']);
             $player['battlePlayer'] = $playerModel;
-            $this->players[] = app()->make(PlayerState::class, $player);
+            $newPlayer = app()->make(PlayerState::class, $player);
+            $this->players[] = $newPlayer;
+
+            foreach ($pendingPlayers as $pendingPlayer) {
+                if ($newPlayer->battlePlayer->id  === $pendingPlayer["battlePlayer"]["player_id"]) {
+                    $this->pendingPlayers[] = $newPlayer;
+                    break;
+                }
+            }
         }
     }
 
