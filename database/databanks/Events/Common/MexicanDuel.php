@@ -88,7 +88,8 @@ return [
         ],
     ],
     'conditions' => [
-        "3_players"
+        "3_players",
+        'default'
     ],
     'traits' => [
         "damage", "hit", "3_players", "tons_of_damage"

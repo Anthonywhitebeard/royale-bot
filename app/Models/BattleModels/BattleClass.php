@@ -36,6 +36,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass culture(\App\Models\Chat $chat)
  * @property int $deviance
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereDeviance($value)
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereUpdatedAt($value)
  */
 class BattleClass extends Model
 {

@@ -23,7 +23,8 @@ return [
         ],
     ],
     'conditions' => [
-        "2_players"
+        "2_players",
+        'default'
     ],
     'traits' => [
         "damage", "hit",
