@@ -16,8 +16,14 @@ class BattleAbilitiesTableCreate extends Migration
         Schema::create('battle_abilities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ability_id')->unsigned()->nullable();
+            $table->string('ability_name');
             $table->bigInteger('battle_player_id')->unsigned();
             $table->boolean('state');
+            $table->smallInteger('charge_last')->nullable();
+            $table->smallInteger('last_use_round')->nullable();
+            $table->smallInteger('last_use_turn')->nullable();
+            $table->smallInteger('turn_cd')->default(0);
+            $table->smallInteger('round_cd')->default(0);
             $table->timestamps();
 
             $table->foreign('ability_id')->references('id')->on('abilities');

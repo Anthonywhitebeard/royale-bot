@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\BattleAbility;
 use App\Models\BattleModels\BattleClass;
 use App\Models\BattlePlayer;
 use App\Models\Chat;
@@ -50,6 +51,24 @@ class Keyboard
             'text' => 'ability'
         ]);
         $keyboard->row($row);
+
+        return $keyboard;
+    }
+
+    /**
+     * @param BattleAbility[] $abilities
+     */
+    public static function makeAbilityKeyboard(array $abilities): TelegramKeyboard
+    {
+        $keyboard = TelegramKeyboard::make()
+            ->setSelective(true);
+
+        foreach ($abilities as $ability) {
+            $key = TelegramKeyboard::button([
+                'text' => $ability->ability_name,
+            ]);
+            $keyboard->row($key);
+        }
 
         return $keyboard;
     }

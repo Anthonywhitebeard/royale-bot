@@ -38,5 +38,7 @@ return [
         'name' => 'Поднять Щиты',
         'battle_class' => 'fighter',
         'active' => 1,
+        'round_cd' => 1,
+        'charges' => 3,
     ]
 ];

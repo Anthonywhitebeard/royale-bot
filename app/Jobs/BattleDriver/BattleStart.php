@@ -4,6 +4,7 @@ namespace App\Jobs\BattleDriver;
 
 use App\Models\Battle;
 use App\Models\Event;
+use App\Services\BattleProcess\AbilityBuilder;
 use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
 use App\Services\BattleProcess\Turn;
@@ -90,10 +91,14 @@ class BattleStart implements ShouldQueue
         ]);
     }
 
-    private function addSkills(PlayerState $playerState)
+    private function addSkills(PlayerState $playerState): void
     {
         if ($playerState->hasFlag('bot')) {
             return;
         }
+
+        $abilityBuilder = app(AbilityBuilder::class);
+        AbilityBuilder::fillBattleAbilities($playerState->battlePlayer);
+        $abilityBuilder->buildAbilityKeyboard($playerState->battlePlayer);
     }
 }

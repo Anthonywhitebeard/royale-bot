@@ -19,6 +19,9 @@ class AbilityTableCreate extends Migration
             $table->string('slug');
             $table->integer('battle_class_id')->unsigned()->nullable();
             $table->bigInteger('event_id')->unsigned();
+            $table->smallInteger('charges')->unsigned()->nullable();
+            $table->smallInteger('turn_cd')->default(0);
+            $table->smallInteger('round_cd')->default(0);
             $table->boolean('active');
             $table->timestamps();
 

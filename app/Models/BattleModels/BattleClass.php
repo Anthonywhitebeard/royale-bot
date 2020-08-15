@@ -2,6 +2,7 @@
 
 namespace App\Models\BattleModels;
 
+use App\Models\Ability;
 use App\Models\BattlePlayer;
 use App\Models\Chat;
 use App\Models\Culture;
@@ -40,6 +41,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleModels\BattleClass whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ability[] $abilities
+ * @property-read int|null $abilities_count
  */
 class BattleClass extends Model
 {
@@ -69,6 +72,14 @@ class BattleClass extends Model
     public function battlePlayers(): HasMany
     {
         return $this->hasMany(BattlePlayer::class);
+    }
+
+    /**
+     * @return HasMany|Ability
+     */
+    public function abilities(): HasMany
+    {
+        return $this->hasMany(Ability::class);
     }
 
     /**

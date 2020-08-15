@@ -26,10 +26,10 @@ class BattleState implements Arrayable, \ArrayAccess
     public ?int $battleId;
 
     /** @var int $round */
-    public ?int $round;
+    public ?int $round = 0;
 
     /** @var int $turn */
-    public ?int $turn;
+    public ?int $turn = 0;
 
     /** @var PlayerState[] $players */
     public array $players;
@@ -88,7 +88,7 @@ class BattleState implements Arrayable, \ArrayAccess
         }
     }
 
-    public function updateTurnConditions()
+    public function updateTurnConditions(): void
     {
         $this->turnConditions = [];
 
@@ -167,26 +167,6 @@ class BattleState implements Arrayable, \ArrayAccess
 
     }
 
-//    /**
-//     * @param PlayerState|null $firstPlayer
-//     */
-//    public function shakePlayers(?PlayerState $firstPlayer = null): void
-//    {
-//        $players = [];
-//
-//        foreach ($this->players as $player) {
-//            if ($player === $firstPlayer || !$player->isAlive()) {
-//                continue;
-//            }
-//
-//            $players[] = $player;
-//        }
-//
-//        shuffle($players);
-//
-//        $this->turnPlayers =  [$firstPlayer, ...$players];
-//    }
-
     /**
      * @return PlayerState
      */
@@ -194,8 +174,10 @@ class BattleState implements Arrayable, \ArrayAccess
     {
         if (!$this->pendingPlayers) {
             $this->setPendingPlayers();
+            $this->round++;
         }
 
+        $this->turn++;
         $result = $this->pendingPlayers[0];
         array_shift($this->pendingPlayers);
 

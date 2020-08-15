@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\BattleModels\BattleClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 /**
@@ -34,6 +35,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereUpdatedAt($value)
+ * @property int|null $charges
+ * @property int $turn_cd
+ * @property int $round_cd
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleAbility[] $battleAbility
+ * @property-read int|null $battle_ability_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereCharges($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereRoundCd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereTurnCd($value)
  */
 class Ability extends Model
 {
@@ -44,6 +53,9 @@ class Ability extends Model
         'active',
         'name',
         'slug',
+        'turn_cd',
+        'round_cd',
+        'charges',
     ];
 
     public function event(): BelongsTo
@@ -54,5 +66,10 @@ class Ability extends Model
     public function battleClass(): BelongsTo
     {
         return $this->belongsTo(BattleClass::class);
+    }
+
+    public function battleAbility(): HasMany
+    {
+        return $this->hasMany(BattleAbility::class);
     }
 }

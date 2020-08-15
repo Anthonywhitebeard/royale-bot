@@ -26,6 +26,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $charge_last
+ * @property int|null $last_use_round
+ * @property int|null $last_use_turn
+ * @property-read \App\Models\BattlePlayer $battlePlayer
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereChargeLast($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereLastUseRound($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereLastUseTurn($value)
+ * @property int $turn_cd
+ * @property int $round_cd
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereRoundCd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereTurnCd($value)
+ * @property string $ability_name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereAbilityName($value)
  */
 class BattleAbility extends Model
 {
@@ -34,6 +47,12 @@ class BattleAbility extends Model
     const STATUS_SHOULD_BE_USED = 2;
     protected $fillable = [
         'state',
+        'ability_name',
+        'last_use_round',
+        'last_use_turn',
+        'charge_last',
+        'turn_cd',
+        'round_cd',
     ];
 
     public function ability(): BelongsTo
@@ -41,4 +60,8 @@ class BattleAbility extends Model
         return $this->belongsTo(Ability::class);
     }
 
+    public function battlePlayer(): BelongsTo
+    {
+        return $this->belongsTo(BattlePlayer::class);
+    }
 }
