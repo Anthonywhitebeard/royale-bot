@@ -66,6 +66,7 @@ class Keyboard
         foreach ($abilities as $ability) {
             $key = TelegramKeyboard::button([
                 'text' => $ability->ability_name,
+                'callback_data' => $ability['id'],
             ]);
             $keyboard->row($key);
         }

@@ -53,6 +53,7 @@ class BattleAbility extends Model
         'charge_last',
         'turn_cd',
         'round_cd',
+        'active',
     ];
 
     public function ability(): BelongsTo

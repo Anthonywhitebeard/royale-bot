@@ -29,7 +29,6 @@ class AbilityBuilder
         foreach ($class->abilities as $ability) {
             /** @var BattleAbility $newBattleAbility */
             $newBattleAbility = $ability->battleAbility()->make([
-                'battle_player_id' => $battlePlayer,
                 'ability_name' => $ability->name,
                 'state' => BattleAbility::STATUS_COOL_DOWN,
                 'charge_last' => $ability->charges,
@@ -39,13 +38,13 @@ class AbilityBuilder
         }
     }
 
-    public function buildAbilityKeyboard(BattlePlayer $player): void
+    public function buildAbilityKeyboard(BattlePlayer $player, BattleState $state): void
     {
         $playerAbilities = $player->battleAbilities;
         $usableAbility = [];
         /** @var BattleAbility $ability */
         foreach ($playerAbilities as $ability) {
-            if ($this->isAbilityMustShown($ability)) {
+            if ($this->isAbilityMustShown($ability, $state)) {
                 $usableAbility[] = $ability;
             }
         }
@@ -59,14 +58,15 @@ class AbilityBuilder
         );
     }
 
-    private function isAbilityMustShown(BattleAbility $ability): bool
+    private function isAbilityMustShown(BattleAbility $ability, BattleState $battleState): bool
     {
-        if ($ability->charge_last === 0 && $ability->charge_last !== null) {
+        if (!$ability->active) {
             return false;
         }
 
-        /** @var BattleState $battleState */
-        $battleState = $ability->battlePlayer->battle->state;
+        if ($ability->charge_last === 0 && $ability->charge_last !== null) {
+            return false;
+        }
 
         if (($ability->last_use_turn + $ability->turn_cd) <= $battleState->turn && $ability->last_use_turn) {
             return false;

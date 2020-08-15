@@ -24,6 +24,7 @@ class BattleAbilitiesTableCreate extends Migration
             $table->smallInteger('last_use_turn')->nullable();
             $table->smallInteger('turn_cd')->default(0);
             $table->smallInteger('round_cd')->default(0);
+            $table->boolean('active');
             $table->timestamps();
 
             $table->foreign('ability_id')->references('id')->on('abilities');

@@ -99,6 +99,6 @@ class BattleStart implements ShouldQueue
 
         $abilityBuilder = app(AbilityBuilder::class);
         AbilityBuilder::fillBattleAbilities($playerState->battlePlayer);
-        $abilityBuilder->buildAbilityKeyboard($playerState->battlePlayer);
+        $abilityBuilder->buildAbilityKeyboard($playerState->battlePlayer, $this->state);
     }
 }
