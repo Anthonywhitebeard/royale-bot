@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereName($value)
  * @mixin \Eloquent
+ * @property string $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\BattleModels\BattleClass|null $battleClass
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereUpdatedAt($value)
  */
 class Ability extends Model
 {

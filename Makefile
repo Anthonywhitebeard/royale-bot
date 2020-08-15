@@ -27,7 +27,7 @@ up: # Start and run containers
 w: # Enter workspace
 	docker-compose exec workspace bash
 
-shell: workspace # Alias to workspace
+shell: w # Alias to workspace
 
 migrate: # Run Laravel migration
 	docker-compose exec -u 1000 workspace php artisan migrate --seed
@@ -77,3 +77,11 @@ t:
 	docker-compose exec -u 1000 workspace php artisan h:t
 
 m: migrate
+
+seed-classes:
+	docker-compose exec -u 1000 workspace php artisan seed classes
+
+seed-events:
+	docker-compose exec -u 1000 workspace php artisan seed events
+
+seed: mf seed-classes seed-events

@@ -18,6 +18,7 @@ class BotsTableCreate extends Migration
             $table->integer('battle_class_id')->unsigned()->nullable();
             $table->bigInteger('player_id')->unsigned();
             $table->smallInteger('deviance')->default(0);
+            $table->boolean('default_events')->default(1);
             $table->boolean('active');
             $table->timestamps();
 

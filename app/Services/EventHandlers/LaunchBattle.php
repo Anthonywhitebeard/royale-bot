@@ -123,7 +123,13 @@ class LaunchBattle implements EventHandler
             $battlePlayer->player()->associate($bot->player);
             $battlePlayer = $this->addClassIfNotExist($battlePlayer, $chat);
 
-            $state->players[] = $this->getPlayerData($battlePlayer, true);
+            $statePlayer = $this->getPlayerData($battlePlayer, true);
+
+            if ($bot->default_events) {
+                $statePlayer->addFlag(PlayerState::FLAG_DEFAULT_EVENTS);
+            }
+
+            $state->players[] = $statePlayer;
         }
         return $state;
     }
@@ -136,7 +142,7 @@ class LaunchBattle implements EventHandler
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
             'name' => $battlePlayer->user_name,
-            'flags' => [$flag => true]
+            'flags' => [$flag => true, PlayerState::FLAG_DEFAULT_EVENTS => (boolean)$bot]
         ]);
     }
 }

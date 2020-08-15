@@ -17,7 +17,9 @@ return [
             'params' => '%turnAlivePlayers.0.name% приложив подорожник, восстановил себе 10 здоровья',
         ],
     ],
-    'conditions' => [],
+    'conditions' => [
+        'default'
+    ],
     'traits' => [
         "heal", "self",
     ]

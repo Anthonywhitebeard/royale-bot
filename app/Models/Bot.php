@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereUpdatedAt($value)
+ * @property int $default_events
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereDefaultEvents($value)
  */
 class Bot extends Model
 {

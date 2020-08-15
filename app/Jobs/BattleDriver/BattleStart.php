@@ -70,6 +70,7 @@ class BattleStart implements ShouldQueue
         foreach ($this->state->players as $index => &$player) {
             $this->state->shakePlayers($player);
             Turn::doEvent($player->battlePlayer->refresh()->battleClass->event, $this->state);
+            $this->addSkills($player);
         }
 
         /** @var OperationInterface $operation */
@@ -87,5 +88,12 @@ class BattleStart implements ShouldQueue
             'chat_id' => $this->classMessage->chat->id,
             'message_id' => $this->classMessage->messageId,
         ]);
+    }
+
+    private function addSkills(PlayerState $playerState)
+    {
+        if ($playerState->hasFlag('bot')) {
+            return;
+        }
     }
 }
