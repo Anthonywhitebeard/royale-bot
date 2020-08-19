@@ -32,7 +32,7 @@ class ActivateAbility extends AbstractStateOperation
         if (!$battleAbility) {
             return $battleState;
         }
-        $battleAbility->state = BattleAbility::STATUS_SHOULD_BE_USED;
+        $battleAbility->state = BattleAbility::STATUS_CAN_BE_USED;
         $battleAbility->save();
 
         return $battleState;

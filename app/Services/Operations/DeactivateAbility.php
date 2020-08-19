@@ -29,11 +29,11 @@ class DeactivateAbility extends AbstractStateOperation
             ->whereHas('ability', function (Builder $builder) use ($params) {
             $builder->where('slug', $params);
         })->first();
-        ;
         if (!$battleAbility) {
             return $battleState;
         }
         $battleAbility->state = BattleAbility::STATUS_COOL_DOWN;
+        $battleAbility->save();
 
         return $battleState;
     }

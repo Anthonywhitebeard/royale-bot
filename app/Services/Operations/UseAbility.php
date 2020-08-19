@@ -34,6 +34,7 @@ class UseAbility extends AbstractStateOperation
             return $battleState;
         }
         $battleAbility->state = BattleAbility::STATUS_SHOULD_BE_USED;
+        $battleAbility->save();
 
         return $battleState;
     }

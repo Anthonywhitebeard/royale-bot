@@ -62,10 +62,10 @@ class AliveMessageOperation extends AbstractStateOperation
     private function checkCondition(array $targets, BattleState $battleState): bool
     {
         foreach ($targets as $index) {
-            if (!is_int($index)) {
+            if (!is_numeric($index)) {
                 return false;
             }
-            if (!$battleState->getAlivePlayer($index)) {
+            if (!$battleState->getAlivePlayer((int)$index)) {
                 return false;
             }
         }

@@ -111,10 +111,10 @@ class BattleTurn implements ShouldQueue
             $battlePlayer = $battleAbility->battlePlayer;
             $playerState = $this->state->getPlayerState($battlePlayer);
             $this->state->shakePlayers($playerState);
-            Turn::doEvent($battleAbility->ability->event, $this->state);
             $battleAbility->charge_last--;
             $battleAbility->state = BattleAbility::STATUS_CAN_BE_USED;
             $battleAbility->save();
+            Turn::doEvent($battleAbility->ability->event, $this->state);
         }
     }
 }

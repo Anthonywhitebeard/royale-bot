@@ -62,7 +62,7 @@ class AbilityBuilder
         if (!$ability->active) {
             return false;
         }
-        if ($ability->charge_last === 0 && $ability->charge_last !== null) {
+        if ($ability->charge_last <= 0 && $ability->charge_last !== null) {
             return false;
         }
         if ($ability->state === BattleAbility::STATUS_SHOULD_BE_USED) {
