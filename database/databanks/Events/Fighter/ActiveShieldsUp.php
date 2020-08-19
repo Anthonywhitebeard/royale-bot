@@ -12,12 +12,7 @@ return [
             'params' => '200',
         ],
         [
-            'operation' => 'SEND_MSG',
-            'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% почувствовав опасность, стал в защитную стойку, готовясь к возможному нападению',
-        ],
-        [
-            'operation' => 'ACTIVATE_ABILITY',
+            'operation' => 'USE_ABILITY',
             'target' => '0',
             'params' => 'shields_down',
         ],
@@ -37,6 +32,7 @@ return [
         'slug' => 'shields_up',
         'name' => 'Поднять Щиты',
         'battle_class' => 'fighter',
+        'activation_text' => '%name% почувствовав опасность, становится в защитную стойку',
         'active' => 1,
         'round_cd' => 1,
         'charges' => 3,

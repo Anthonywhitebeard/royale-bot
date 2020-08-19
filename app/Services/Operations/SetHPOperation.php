@@ -3,6 +3,7 @@
 namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
+use App\Services\BattleProcess\PlayerState;
 use App\Services\BattleProcess\Turn;
 use Illuminate\Console\Scheduling\Schedule;
 use Telegram\Bot\Api;
@@ -19,7 +20,8 @@ class SetHPOperation extends AbstractStateOperation
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState {
+    ): BattleState
+    {
         $player = $this->getAlivePlayer($battleState, $target);
 
         if (!$player) {
@@ -27,6 +29,9 @@ class SetHPOperation extends AbstractStateOperation
         }
 
         $player->setHP($params);
+        if ($params <= 0) {
+            $player->addFlag(PlayerState::FLAG_DEAD);
+        }
 
         return $battleState;
     }

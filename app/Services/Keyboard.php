@@ -27,7 +27,7 @@ class Keyboard
             foreach ($chunk as $battleClass) {
                 $row = TelegramKeyboard::inlineButton([
                     'text' => $battleClass['name'],
-                    'callback_data' => $battleClass['flag'],
+                    'callback_data' => 'class_' . $battleClass['flag'],
                 ]);
                 $keyboard->row($row);
             }
@@ -63,6 +63,9 @@ class Keyboard
         $keyboard = TelegramKeyboard::make()
             ->setSelective(true);
 
+        if (!$abilities) {
+            return $keyboard->remove();
+        }
         foreach ($abilities as $ability) {
             $key = TelegramKeyboard::button([
                 'text' => $ability->ability_name,

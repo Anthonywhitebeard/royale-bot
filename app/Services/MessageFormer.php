@@ -1,20 +1,23 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Models\BattleModels\BattleClass;
 use App\Models\BattlePlayer;
 use App\Models\Chat;
 use App\Services\BattleProcess\BattleState;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Telegram\Bot\Keyboard\Keyboard as TelegramKeyboard;
 
 class MessageFormer
 {
-
-    public static function formOperationText(string $text, BattleState $battleState)
+    /**
+     * @param string $text
+     * @param \ArrayAccess|BattleState $formerData
+     * @return string|string[]
+     */
+    public static function formOperationText(string $text, \ArrayAccess $formerData)
     {
         preg_match_all('/\%[^\%]+\%/', $text, $matches);
 
@@ -23,7 +26,7 @@ class MessageFormer
 
             $variable = trim($item, '%');
 
-            $value = Arr::get($battleState, $variable);
+            $value = Arr::get($formerData, $variable);
             if (!$value) {
                 continue;
             }

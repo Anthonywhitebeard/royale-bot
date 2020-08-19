@@ -63,6 +63,8 @@ use Reliese\Coders\Model\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer byChatAndPlayer(\App\Models\Chat $chat, \App\Models\Player $player)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BattleAbility[] $battleAbilities
  * @property-read int|null $battle_abilities_count
+ * @property string|null $keyboard_message_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattlePlayer whereKeyboardMessageId($value)
  */
 class BattlePlayer extends Model
 {
@@ -86,9 +88,11 @@ class BattlePlayer extends Model
     ];
 
     protected $fillable = [
+        'id',
         'battle_id',
         'player_id',
         'tg_message_id',
+        'keyboard_message_id',
         'class_id',
         'user_name',
         'ability_status',

@@ -25,6 +25,8 @@ class PlayerState implements \ArrayAccess
 
     public array $flags;
 
+    public string $keyboard;
+
     public function __construct(BattlePlayer $battlePlayer, int $hp, int $dmg, array $flags, string $name)
     {
         $this->battlePlayer = $battlePlayer;
@@ -93,5 +95,21 @@ class PlayerState implements \ArrayAccess
     public function getFlags(): array
     {
         return array_keys($this->flags);
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyboard(): string
+    {
+        return $this->keyboard;
+    }
+
+    /**
+     * @param string $keyboard
+     */
+    public function setKeyboard(string $keyboard): void
+    {
+        $this->keyboard = $keyboard;
     }
 }

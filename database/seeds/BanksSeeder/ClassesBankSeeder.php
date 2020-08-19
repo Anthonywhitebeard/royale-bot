@@ -40,7 +40,7 @@ class ClassesBankSeeder extends Seeder
             'target' => 0,
             'params' => $eventData['msg'],
         ]);
-        $eventOperation->operation()->associate($this->getOperation('SEND_MSG'));
+        $eventOperation->operation()->associate($this->getOperation('ABILITIES_MESSAGE'));
         $eventOperation->save();
 
         foreach (\Illuminate\Support\Arr::get($eventData, 'flags') as $flag) {

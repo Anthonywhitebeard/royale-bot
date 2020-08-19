@@ -17,6 +17,7 @@ class AbilityTableCreate extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
+            $table->text('activation_text')->nullable();
             $table->integer('battle_class_id')->unsigned()->nullable();
             $table->bigInteger('event_id')->unsigned();
             $table->smallInteger('charges')->unsigned()->nullable();

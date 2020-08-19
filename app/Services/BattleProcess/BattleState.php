@@ -80,7 +80,7 @@ class BattleState implements Arrayable, \ArrayAccess
             $this->players[] = $newPlayer;
 
             foreach ($pendingPlayers as $pendingPlayer) {
-                if ($newPlayer->battlePlayer->id  === $pendingPlayer["battlePlayer"]["player_id"]) {
+                if ($newPlayer->battlePlayer->player_id  === $pendingPlayer["battlePlayer"]["player_id"]) {
                     $this->pendingPlayers[] = $newPlayer;
                     break;
                 }
@@ -212,5 +212,15 @@ class BattleState implements Arrayable, \ArrayAccess
     public function toArray()
     {
         return get_object_vars($this);
+    }
+
+    public function getPlayerState(BattlePlayer $battlePlayer): ?PlayerState
+    {
+        foreach ($this->players as $player) {
+            if ($player->battlePlayer->player_id === $battlePlayer->player_id) {
+                return $player;
+            }
+        }
+        return null;
     }
 }
