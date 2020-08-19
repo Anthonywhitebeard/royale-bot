@@ -43,6 +43,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereCharges($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereRoundCd($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereTurnCd($value)
+ * @property string|null $activation_text
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ability whereActivationText($value)
  */
 class Ability extends Model
 {
@@ -56,6 +58,7 @@ class Ability extends Model
         'turn_cd',
         'round_cd',
         'charges',
+        'activation_text'
     ];
 
     public function event(): BelongsTo

@@ -77,19 +77,40 @@ class TelegramSender
      * @param string $message
      * @param string $replyTo
      * @param TelegramKeyboard $keyboard
+     * @return MessageObject
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
     public function sendKeyboardReplyMessage(
         string $chatId,
         string $message,
         string $replyTo,
-        TelegramKeyboard $keyboard
-    ): void
+        ?TelegramKeyboard $keyboard = null
+    ): Message
     {
-        $this->telegramApi->sendMessage([
+        return $this->telegramApi->sendMessage([
             'chat_id' => $chatId,
             'text' => $message,
             'reply_to_message_id' => $replyTo,
+            'reply_markup' => $keyboard,
+        ]);
+    }
+
+    /**
+     * @param string $chatId
+     * @param string $messageId
+     * @param ?TelegramKeyboard $keyboard
+     * @return MessageObject
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function updateKeyboardReplyMessage(
+        string $chatId,
+        string $messageId,
+        ?TelegramKeyboard $keyboard
+    ): Message
+    {
+        return $this->telegramApi->editMessageReplyMarkup([
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
             'reply_markup' => $keyboard,
         ]);
     }
@@ -105,7 +126,7 @@ class TelegramSender
     public function sendKeyboardMessage(
         string $chatId,
         string $message,
-        TelegramKeyboard $keyboard
+        ?TelegramKeyboard $keyboard
     ): Message {
         return $this->telegramApi->sendMessage([
             'chat_id' => $chatId,
@@ -120,6 +141,13 @@ class TelegramSender
             'callback_query_id' => $update->callbackQuery->id,
             'text' => $text,
             'alert' => true,
+        ]);
+    }
+
+    public function deleteMessage(string $chatId, string $messageId) {
+        $this->telegramApi->deleteMessage([
+            'chat_id' => $chatId,
+            'message_id' => $messageId
         ]);
     }
 }

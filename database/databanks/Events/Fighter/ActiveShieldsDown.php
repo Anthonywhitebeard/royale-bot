@@ -12,7 +12,7 @@ return [
             'params' => '-200;50',
         ],
         [
-            'operation' => 'SEND_MSG',
+            'operation' => 'ABILITIES_MESSAGE',
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% пережил этот ход, а время действия усиления подошло к концу',
         ],

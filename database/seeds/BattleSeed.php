@@ -128,6 +128,12 @@ class BattleSeed extends Seeder
         ];
 
         $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
+
+        $updateStateOperation = [
+            'name' => 'ABILITIES_MESSAGE',
+        ];
+
+        $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
     }
 
     private function addClasses(): void

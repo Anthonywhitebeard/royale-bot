@@ -21,6 +21,7 @@ interface OperationInterface
         'ACTIVATE_ABILITY' => ActivateAbility::class,
         'DEACTIVATE_ABILITY' => DeactivateAbility::class,
         'USE_ABILITY' => UseAbility::class,
+        'ABILITIES_MESSAGE' => SendAbilitiesMessageOperation::class,
     ];
 
     public function operate(

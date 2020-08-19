@@ -16,6 +16,7 @@ interface EventHandler
         'DestroyBattle' => DestroyBattle::class,
         'LaunchBattle' => LaunchBattle::class,
         'SelectClass' => SelectClass::class,
+        'UseAbility' => UseAbility::class,
     ];
 
     /**

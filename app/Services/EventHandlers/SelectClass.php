@@ -36,7 +36,8 @@ class SelectClass implements EventHandler
     {
         $battlePlayer = BattlePlayer::byChatAndPlayer($chat, $player)->firstOrFail();
         /** @var BattleClass $class */
-        $class = BattleClass::where('flag', $update->callbackQuery->data)->firstOrFail();
+        $class = str_replace('class_', '', $update->callbackQuery->data);
+        $class = BattleClass::where('flag', $class)->firstOrFail();
         $battlePlayer->class_id = $class->id;
         $battlePlayer->save();
 

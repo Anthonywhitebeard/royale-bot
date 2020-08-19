@@ -18,7 +18,7 @@ return [
         ],
         [
             'operation' => 'ALIVE_MESSAGE',
-            'target' => '1',
+            'target' => '0;1',
             'params' => '%turnAlivePlayers.0.name% попытался убедить %turnAlivePlayers.1.name% вступить в его клуб. Попытка выяснить что это за клуб переросла в драку, из которой оба вышли подбитыми, но довольными',
         ],
         [
@@ -33,7 +33,7 @@ return [
         ],
         [
             'operation' => 'DEATH_MESSAGE',
-            'target' => '1,2',
+            'target' => '0;1',
             'params' => '%turnAlivePlayers.0.name% попытался убедить %turnAlivePlayers.1.name% вступить в его клуб. Попытка выяснить что это за клуб переросла в драку, из которой никто не вышел победителем',
         ],
     ],
@@ -42,6 +42,6 @@ return [
         "2_players"
     ],
     'traits' => [
-        "heal", "self",
+        "damage", "self",
     ]
 ];

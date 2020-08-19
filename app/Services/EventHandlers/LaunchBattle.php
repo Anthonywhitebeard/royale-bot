@@ -44,7 +44,6 @@ class LaunchBattle implements EventHandler
      */
     public function process(Update $update, Chat $chat, Player $player): void
     {
-        $message = $update->getMessage();
         /** @var Battle $lastBattle */
         $lastBattle = Battle::where('chat_id', $chat->id)
             ->where('state', Battle::BATTLE_STATE_NEW)
@@ -91,7 +90,7 @@ class LaunchBattle implements EventHandler
      */
     private function addClassIfNotExist(BattlePlayer $battlePlayer, Chat $chat): BattlePlayer
     {
-        if ($battlePlayer->class) {
+        if ($battlePlayer->class_id) {
             return $battlePlayer;
         }
 

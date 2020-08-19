@@ -43,6 +43,7 @@ class EventsBankSeeder extends Seeder
         }
         if ($abilityData = Arr::get($eventData, 'ability')) {
             $class = \App\Models\BattleModels\BattleClass::where('flag', $abilityData['battle_class'])->firstOrFail();
+            $abilityData['name'] = '[' . $abilityData['name'] . ']';
             $ability = \App\Models\Ability::make($abilityData);
             $ability->event()->associate($event);
             $ability->battleClass()->associate($class);

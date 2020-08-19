@@ -39,6 +39,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereTurnCd($value)
  * @property string $ability_name
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereAbilityName($value)
+ * @property int $active
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereActive($value)
+ * @property string|null $activation_text
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BattleAbility whereActivationText($value)
  */
 class BattleAbility extends Model
 {
@@ -49,11 +53,13 @@ class BattleAbility extends Model
         'state',
         'ability_name',
         'last_use_round',
+        'slug',
         'last_use_turn',
         'charge_last',
         'turn_cd',
         'round_cd',
         'active',
+        'activation_text',
     ];
 
     public function ability(): BelongsTo
@@ -64,5 +70,10 @@ class BattleAbility extends Model
     public function battlePlayer(): BelongsTo
     {
         return $this->belongsTo(BattlePlayer::class);
+    }
+
+    public function battle(): BelongsTo
+    {
+        return $this->belongsTo(Battle::class);
     }
 }
