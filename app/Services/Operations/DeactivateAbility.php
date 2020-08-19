@@ -24,15 +24,20 @@ class DeactivateAbility extends AbstractStateOperation
     ): BattleState {
         $player = $this->getAlivePlayer($battleState, $target);
 
+        if (!$player) {
+            return $battleState;
+        }
+
         /** @var BattleAbility $battleAbility */
         $battleAbility = $player->battlePlayer->battleAbilities()
-            ->whereHas('ability', function (Builder $builder) use ($params) {
-            $builder->where('slug', $params);
-        })->first();
+            ->where('slug', $params)
+            ->first();
+
         if (!$battleAbility) {
             return $battleState;
         }
-        $battleAbility->state = BattleAbility::STATUS_COOL_DOWN;
+
+        $battleAbility->active = 0;
         $battleAbility->save();
 
         return $battleState;
