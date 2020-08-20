@@ -22,6 +22,11 @@ interface OperationInterface
         'DEACTIVATE_ABILITY' => DeactivateAbility::class,
         'USE_ABILITY' => UseAbility::class,
         'ABILITIES_MESSAGE' => SendAbilitiesMessageOperation::class,
+        'ADD_FLAG_ALL' => AddFlagToAll::class,
+        'REMOVE_FLAG_ALL' => RemoveFlagToAll::class,
+        'MODIFY_HP_ALL' => ModifyHPToAll::class,
+        'MODIFY_DMG_ALL' => ModifyDMGToAll::class,
+        'REMOVE_CLASS' => RemoveClass::class,
     ];
 
     public function operate(
