@@ -21,18 +21,23 @@ class ActivateAbility extends AbstractStateOperation
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState
-    {
+    ): BattleState {
         $player = $this->getAlivePlayer($battleState, $target);
+
+        if (!$player) {
+            return $battleState;
+        }
+
         /** @var BattleAbility $battleAbility */
-        $battleAbility = BattleAbility::where('battle_player_id', $player->battlePlayer->getKey())
+        $battleAbility = $player->battlePlayer->battleAbilities()
             ->where('slug', $params)
             ->first();
 
         if (!$battleAbility) {
             return $battleState;
         }
-        $battleAbility->state = BattleAbility::STATUS_CAN_BE_USED;
+
+        $battleAbility->active = 1;
         $battleAbility->save();
 
         return $battleState;
