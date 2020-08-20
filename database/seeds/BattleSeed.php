@@ -81,11 +81,40 @@ class BattleSeed extends Seeder
 
         $this->addFlagOperation = Operation::firstOrCreate($addFlagOperation);
 
-        $removeFlagOperation = [
-            'name' => 'REMOVE_FLAG',
+        $operationData = [
+            'name' => 'ADD_FLAG_ALL'
         ];
 
-        $this->removeFlagOperation = Operation::firstOrCreate($removeFlagOperation);
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'REMOVE_FLAG_ALL'
+        ];
+
+        Operation::firstOrCreate($operationData);
+        $operationData = [
+            'name' => 'REMOVE_FLAG'
+        ];
+
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'MODIFY_HP_ALL'
+        ];
+
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'MODIFY_DMG_ALL',
+        ];
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'REMOVE_CLASS',
+        ];
+        Operation::firstOrCreate($operationData);
+
+
 
         $sendMessageOperation = [
             'name' => 'SEND_MSG',

@@ -51,6 +51,13 @@ class PlayerState implements \ArrayAccess
         $this->dmg = $dmg;
     }
 
+    public function removeClass()
+    {
+        $className = $this->battlePlayer->battleClass->name;
+        $this->battlePlayer->class_id = null;
+        $this->removeFlag($className. '_class');
+    }
+
     public function modifyHP(string $hp, ?string $minHp = null, ?string $maxHp = null)
     {
         $hp = (int)$hp;
