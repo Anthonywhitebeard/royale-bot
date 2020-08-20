@@ -14,7 +14,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => 'Проповедь безумного клирика никак не оставляет в покое %turnAlivePlayers.0.name%, терзая его душу',
+            'params' => 'Сложив руки в молитве, %turnAlivePlayers.0.name% восстанавливает себе немного здоровья',
         ],
     ],
     'conditions' => [

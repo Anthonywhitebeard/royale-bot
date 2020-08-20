@@ -12,9 +12,9 @@ return [
             'params' => 'priest_class',
         ],
         [
-            'operation' => 'SEND_MSG',
+            'operation' => 'ADD_FLAG',
             'target' => '0',
-            'params' => 'Осознав свою ошибку, %turnAlivePlayers.0.name% искренне раскаивается, обретает душевный покой и вновь становится клириком',
+            'params' => 'mark_of_heresy',
         ],
         [
             'operation' => 'SET_HP',
@@ -40,6 +40,11 @@ return [
             'operation' => 'DEACTIVATE_ABILITY',
             'target' => '0',
             'params' => 'repentance' ,
+        ],
+        [
+            'operation' => 'ABILITIES_MESSAGE',
+            'target' => '0',
+            'params' => 'Осознав свою ошибку, %turnAlivePlayers.0.name% искренне раскаивается, обретает душевный покой и вновь становится клириком',
         ],
     ],
     'conditions' => [

@@ -12,14 +12,9 @@ return [
             'params' => 'dark_priest_class',
         ],
         [
-            'operation' => 'SEND_MSG',
-            'target' => '0',
-            'params' => 'Разочаровавшись во всем, %turnAlivePlayers.0.name% проклинает свою веру. А после - заключает сделку с демоном, обменяв святость и здоровье на силу',
-        ],
-        [
             'operation' => 'SET_HP',
             'target' => '0',
-            'params' => '25',
+            'params' => '50',
         ],
         [
             'operation' => 'MODIFY_DMG',
@@ -40,6 +35,11 @@ return [
             'operation' => 'DEACTIVATE_ABILITY',
             'target' => '0',
             'params' => 'abdication' ,
+        ],
+        [
+            'operation' => 'ABILITIES_MESSAGE',
+            'target' => '0',
+            'params' => 'Разочаровавшись во всем, %turnAlivePlayers.0.name% проклинает свою веру. А после - заключает сделку с демоном, обменяв святость и здоровье на силу',
         ],
     ],
     'conditions' => [
