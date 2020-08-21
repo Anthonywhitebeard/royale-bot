@@ -67,6 +67,9 @@ class RegistrationInBattle implements EventHandler
         $newBattlePlayer = $lastBattle->battlePlayers()->make([
             'user_name' => $message->from->playername ?? $message->from->firstName,
             'tg_message_id' => $message->messageId,
+            'start_mmr' => $player->mmr,
+            'start_rp' => $player->rp,
+            'start_skill' => $player->skill,
         ]);
 
         $newBattlePlayer->player()->associate($player)->save();

@@ -17,7 +17,7 @@ class BattleStatesTableCteate extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('battle_id')->unsigned();
             $table->foreign('battle_id')->references('id')->on('battles');
-            $table->text('state');
+            $table->longText('state');
             $table->timestamps();
         });
     }

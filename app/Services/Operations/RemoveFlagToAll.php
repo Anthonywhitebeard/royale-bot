@@ -21,7 +21,7 @@ class RemoveFlagToAll extends AbstractStateOperation
     {
 
         foreach ($battleState->getAlivePlayers() as $player) {
-            $player->addFlag($params);
+            $player->removeFlag($params);
         }
         return $battleState;
     }

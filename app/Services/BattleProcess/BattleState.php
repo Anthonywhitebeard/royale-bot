@@ -63,7 +63,8 @@ class BattleState implements Arrayable, \ArrayAccess
         ?int $deviance = null,
         array $chat = [],
         array $pendingPlayers = []
-    ) {
+    )
+    {
         if ($chat) {
             $this->chat = app()->make(Chat::class, $chat);
             $this->chat->fill($chat);
@@ -80,7 +81,7 @@ class BattleState implements Arrayable, \ArrayAccess
             $this->players[] = $newPlayer;
 
             foreach ($pendingPlayers as $pendingPlayer) {
-                if ($newPlayer->battlePlayer->player_id  === $pendingPlayer["battlePlayer"]["player_id"]) {
+                if ($newPlayer->battlePlayer->player_id === $pendingPlayer["battlePlayer"]["player_id"]) {
                     $this->pendingPlayers[] = $newPlayer;
                     break;
                 }
@@ -129,13 +130,14 @@ class BattleState implements Arrayable, \ArrayAccess
 
     /**
      * @param int $index
+     * @param bool $force
      * @return PlayerState|null
      */
-    public function getAlivePlayer(int $index): ?PlayerState
+    public function getAlivePlayer(int $index, bool $force = false): ?PlayerState
     {
         $player = Arr::get($this->turnAlivePlayers, $index);
 
-        if (!$player || !$player->isAlive()) {
+        if (!$force && (!$player || !$player->isAlive())) {
             return null;
         }
 

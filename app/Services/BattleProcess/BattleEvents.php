@@ -12,11 +12,16 @@ class BattleEvents
 {
     /**
      * @param Collection $events
-     * @return Event
+     * @return Event|null
      * @throws \Exception
      */
-    public static function getRandomEvent(Collection $events): Event
+    public static function getRandomEvent(Collection $events): ?Event
     {
+        dump('1');
+        if ($events->count() === 0) {
+            return null;
+        }
+        dump($events);
         $getWeight = function ($element) {
             /** @var array $element */
             return $element['weight'];

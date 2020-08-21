@@ -16,6 +16,7 @@ class EventsTableCreate extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug')->nullable()->unique();
             $table->string('text');
             $table->integer('weight');
             $table->smallInteger('deviance')->default(0);

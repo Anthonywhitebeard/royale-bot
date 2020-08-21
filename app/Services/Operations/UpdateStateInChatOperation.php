@@ -65,7 +65,7 @@ class UpdateStateInChatOperation extends AbstractStateOperation
     private function formatState(PlayerState $player, BattleClass $battleClass): string
     {
         return sprintf(self::STATE_TEXT_TEMPLATE,
-            $player->battlePlayer->battleClass->name,
+            $player->className,
             $player->battlePlayer->user_name,
             $player->hp,
             $player->dmg

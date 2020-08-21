@@ -9,7 +9,7 @@ return
         'dmg' => '5',
         'msg' => '%turnAlivePlayers.0.name% вдруг во что-то уверовал и решил посвятить этому жизнь. Отныне %turnAlivePlayers.0.name% клирик',
         'conditions' => ['get_priest_class'],
-        'flags' => ['preaching'],
+        'flags' => ['preaching', \App\Services\BattleProcess\PlayerState::FLAG_DEFAULT_EVENTS],
         'traits' => ['class', 'priest'],
         'active' => 1
     ];

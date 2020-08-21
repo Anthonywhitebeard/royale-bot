@@ -2,6 +2,7 @@
 
 namespace App\Services\BattleProcess;
 
+use App\Models\BattleModels\BattleClass;
 use App\Models\BattlePlayer;
 use App\Traits\ArrayAccess;
 use Illuminate\Support\Arr;
@@ -26,14 +27,16 @@ class PlayerState implements \ArrayAccess
     public array $flags;
 
     public string $keyboard;
+    public string $className;
 
-    public function __construct(BattlePlayer $battlePlayer, int $hp, int $dmg, array $flags, string $name)
+    public function __construct(BattlePlayer $battlePlayer, int $hp, int $dmg, array $flags, string $name, string $className = null)
     {
         $this->battlePlayer = $battlePlayer;
         $this->hp = $hp;
         $this->dmg = $dmg;
         $this->flags = $flags;
         $this->name = $name;
+        $this->className = $className ?? $battlePlayer->battleClass->name;
     }
 
     public function addFlag(string $flag)
@@ -51,11 +54,11 @@ class PlayerState implements \ArrayAccess
         $this->dmg = $dmg;
     }
 
-    public function removeClass()
+    public function updateClass(BattleClass $newClass)
     {
-        $className = $this->battlePlayer->battleClass->name;
-        $this->battlePlayer->class_id = null;
-        $this->removeFlag($className. '_class');
+        $this->className = $newClass->name;
+        $this->removeFlag($this->battlePlayer->battleClass->name. '_class');
+        $this->addFlag($newClass->name. '_class');
     }
 
     public function modifyHP(string $hp, ?string $minHp = null, ?string $maxHp = null)

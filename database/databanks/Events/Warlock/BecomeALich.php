@@ -5,6 +5,7 @@ return [
     'text' => 'Активное умение, восскрешает персонажа личем, если он умер на этом ходу. Снимает 50 хп',
     'weight' => '0',
     'deviance' => '0',
+    'active' => 0,
     'operations' => [
         [
             'operation' => 'MODIFY_HP',
@@ -14,7 +15,7 @@ return [
         [
             'operation' => 'USE_ABILITY',
             'target' => '0',
-            'params' => '',
+            'params' => 'resurrect_as_lich',
         ],
     ],
     'conditions' => [
@@ -24,12 +25,12 @@ return [
         "add_damage", "self_damage", "ability"
     ],
     'ability' => [
-        'slug' => 'flash_sacrifice',
-        'name' => 'Жертва плоти',
+        'slug' => 'becoming_lich',
+        'name' => 'Становление личом',
         'battle_class' => 'warlock',
-        'activation_text' => '%name% сделал надрез на своей ладони и зашептал заклятие на кровь',
+        'activation_text' => '%name% начинает древний ритуал',
         'active' => 1,
         'round_cd' => 1,
-        'charges' => null,
+        'charges' => 1,
     ]
 ];

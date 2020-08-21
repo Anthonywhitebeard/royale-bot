@@ -110,7 +110,12 @@ class BattleSeed extends Seeder
         Operation::firstOrCreate($operationData);
 
         $operationData = [
-            'name' => 'REMOVE_CLASS',
+            'name' => 'UPDATE_CLASS',
+        ];
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'CONDITIONAL_EVENT',
         ];
         Operation::firstOrCreate($operationData);
 

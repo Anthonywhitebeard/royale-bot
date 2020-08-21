@@ -141,7 +141,8 @@ class LaunchBattle implements EventHandler
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
             'name' => $battlePlayer->user_name,
-            'flags' => [$flag => true, PlayerState::FLAG_DEFAULT_EVENTS => (boolean)$bot]
+            'flags' => [$flag => true],
+            'className' => $battlePlayer->battleClass->name
         ]);
     }
 }

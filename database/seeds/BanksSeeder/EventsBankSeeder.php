@@ -12,12 +12,14 @@ class EventsBankSeeder extends Seeder
 
     public function run(array $eventData)
     {
+
         /** @var \App\Models\Event $event */
         $event = \App\Models\Event::create([
             'name' => $eventData['name'],
             'text' => $eventData['text'],
             'weight' => $eventData['weight'],
             'deviance' => $eventData['deviance'],
+            'slug' => Arr::get($eventData, 'slug'),
             'active' => 1
         ]);
         foreach (Arr::get($eventData, 'operations', []) as $operationData) {
