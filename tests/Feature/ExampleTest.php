@@ -14,7 +14,6 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $battleState;
-
+        $this->assertTrue(true);
     }
 }
