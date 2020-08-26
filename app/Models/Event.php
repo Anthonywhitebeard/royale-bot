@@ -70,6 +70,7 @@ class Event extends Model
         'text',
         'weight',
         'deviance',
+        'slug',
         'active'
     ];
 

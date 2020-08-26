@@ -21,11 +21,16 @@ return [
             'target' => '0',
             'params' => 'elder_2',
         ],
+        [
+            'operation' => 'MODIFY_DMG_ALL',
+            'target' => '0',
+            'params' => '-10',
+        ],
     ],
     'conditions' => [
         "elder_1",
     ],
     'traits' => [
-        'warlock', 'damage', 'wtf', 'elder', 'cthulhu'
+        'cultist', 'damage', 'wtf', 'elder', 'cthulhu'
     ]
 ];

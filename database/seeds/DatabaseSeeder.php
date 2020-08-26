@@ -14,5 +14,11 @@ class DatabaseSeeder extends Seeder
          $this->call(TriggersSeed::class);
          $this->call(BattleSeed::class);
          $this->call(BotsSeed::class);
+
+         if (App::runningUnitTests()) {
+             $this->call(BattleStateTestSeed::class);
+//             \Illuminate\Support\Facades\Artisan::call('seed classes');
+//             \Illuminate\Support\Facades\Artisan::call('seed events');
+         }
     }
 }

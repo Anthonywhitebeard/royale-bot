@@ -12,7 +12,6 @@ class EventsBankSeeder extends Seeder
 
     public function run(array $eventData)
     {
-
         /** @var \App\Models\Event $event */
         $event = \App\Models\Event::create([
             'name' => $eventData['name'],
