@@ -14,12 +14,12 @@ return [
         [
             'operation' => 'ALIVE_MESSAGE',
             'target' => '0',
-            'params' => 'Проповедь безумного клирика никак не оставляет в покое %turnAlivePlayers.0.name%, терзая его душу',
+            'params' => 'Проповедь безумного жреца никак не оставляет в покое %turnAlivePlayers.0.name%, терзая его душу',
         ],
         [
             'operation' => 'DEATH_MESSAGE',
             'target' => '0',
-            'params' => 'Проповедь безумного клирика доводит %turnAlivePlayers.0.name% до *роскомнадзор*',
+            'params' => 'Проповедь безумного жреца доводит %turnAlivePlayers.0.name% до *роскомнадзор*',
         ],
     ],
     'conditions' => [

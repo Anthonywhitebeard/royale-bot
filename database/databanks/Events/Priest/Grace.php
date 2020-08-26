@@ -3,7 +3,7 @@
 return [
     'name' => 'Молитва',
     'text' => 'лечит, увеличивает урон',
-    'weight' => '20',
+    'weight' => '200',
     'deviance' => '0',
     'operations' => [
         [
