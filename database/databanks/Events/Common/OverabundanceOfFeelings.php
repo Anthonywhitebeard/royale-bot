@@ -2,14 +2,14 @@
 
 return [
     'name' => 'Переизбыток чувств',
-    'text' => 'Уменьшает урон и здоровье игроку 0',
+    'text' => 'Уменьшает здоровье игроку 0',
     'weight' => '100',
     'deviance' => '0',
     'operations' => [
         [
             'operation' => 'MODIFY_HP',
             'target' => '0',
-            'params' => '-30    ',
+            'params' => '-30',
         ],
         [
             'operation' => 'DEATH_MESSAGE',
