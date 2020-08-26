@@ -24,12 +24,12 @@ class UseAbility extends AbstractStateOperation
     ): BattleState {
         $player = $this->getAlivePlayer($battleState, $target);
 
+
         /** @var BattleAbility $battleAbility */
         $battleAbility = $player->battlePlayer->battleAbilities()
             ->whereHas('ability', function (Builder $builder) use ($params) {
             $builder->where('slug', $params);
         })->first();
-        ;
         if (!$battleAbility) {
             return $battleState;
         }

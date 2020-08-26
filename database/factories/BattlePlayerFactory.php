@@ -21,8 +21,7 @@ use Illuminate\Support\Str;
 
 $factory->define(\App\Models\BattlePlayer::class, function (Faker $faker) {
     /** @var BattleClass $randomClass */
-    $randomClass = BattleClass::inRandomOrder()->first();
     return [
-        'class_id' => $randomClass->id,
+        'class_id' => null,
     ];
 });

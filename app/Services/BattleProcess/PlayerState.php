@@ -57,8 +57,9 @@ class PlayerState implements \ArrayAccess
     public function updateClass(BattleClass $newClass)
     {
         $this->className = $newClass->name;
-        $this->removeFlag($this->battlePlayer->battleClass->name. '_class');
-        $this->addFlag($newClass->name. '_class');
+        $this->removeFlag($this->battlePlayer->battleClass->flag. '_class');
+        $this->battlePlayer->battleClass->flag = $newClass->flag;
+        $this->addFlag($newClass->flag. '_class');
     }
 
     public function modifyHP(string $hp, ?string $minHp = null, ?string $maxHp = null)

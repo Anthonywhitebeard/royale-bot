@@ -119,6 +119,26 @@ class BattleSeed extends Seeder
         ];
         Operation::firstOrCreate($operationData);
 
+        $operationData = [
+            'name' => 'SLEEP',
+        ];
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'RAND_MODIFY_HP',
+        ];
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'ALIVE_ATTACK',
+        ];
+        Operation::firstOrCreate($operationData);
+
+        $operationData = [
+            'name' => 'FLAG_MSG',
+        ];
+        Operation::firstOrCreate($operationData);
+
 
 
         $sendMessageOperation = [

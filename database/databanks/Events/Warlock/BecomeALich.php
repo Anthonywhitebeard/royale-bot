@@ -10,7 +10,7 @@ return [
         [
             'operation' => 'MODIFY_HP',
             'target' => '0',
-            'params' => '-50;0',
+            'params' => '-50;1',
         ],
         [
             'operation' => 'USE_ABILITY',

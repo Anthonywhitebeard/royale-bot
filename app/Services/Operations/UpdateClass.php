@@ -28,8 +28,8 @@ class UpdateClass extends AbstractStateOperation
         if (!$class) {
             return $battleState;
         }
-        $player->updateClass($class);
         $player->battlePlayer->battleAbilities()->update(['active' => 0]);
+        $player->updateClass($class);
 
         AbilityBuilder::fillBattleAbilities($player->battlePlayer, $class);
 

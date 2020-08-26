@@ -14,6 +14,11 @@ return [
             'params' => \App\Services\BattleProcess\PlayerState::FLAG_DEAD,
         ],
         [
+            'operation' => 'REMOVE_FLAG',
+            'target' => '0',
+            'params' => 'failed_lich',
+        ],
+        [
             'operation' => 'SET_HP',
             'target' => '0',
             'params' => 500,

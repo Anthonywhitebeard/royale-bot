@@ -31,6 +31,7 @@ interface OperationInterface
         'UPDATE_CLASS' => UpdateClass::class,
         'CONDITIONAL_EVENT' => ConditionalEvent::class,
         'SLEEP' => SleepOperation::class,
+        'FLAG_MSG' => SendFlagMessageOperation::class,
     ];
 
     public function operate(

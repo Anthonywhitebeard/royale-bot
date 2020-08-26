@@ -50,6 +50,8 @@ class BattleAbility extends Model
     const STATUS_COOL_DOWN = 0;
     const STATUS_SHOULD_BE_USED = 2;
     protected $fillable = [
+        'battle_id',
+        'battle_player_id',
         'state',
         'ability_name',
         'last_use_round',
