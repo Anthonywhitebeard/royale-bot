@@ -6,7 +6,7 @@ use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
 use Telegram\Bot\Api;
 
-class HitOperation extends AbstractStateOperation
+class AliveAttackOperation extends AbstractStateOperation
 {
     /**
      * @param BattleState $battleState
@@ -18,11 +18,10 @@ class HitOperation extends AbstractStateOperation
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState
-    {
+    ): BattleState {
         [$source, $scale] = explode(';', $params);
-        $target = $this->getAnyPlayer($battleState, $target);
-        $source = $this->getAnyPlayer($battleState, $source);
+        $target = $this->getAlivePlayer($battleState, $target);
+        $source = $this->getAlivePlayer($battleState, $source);
         if (!$target || !$source) {
             return $battleState;
         }

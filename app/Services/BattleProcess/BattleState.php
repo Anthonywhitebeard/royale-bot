@@ -140,7 +140,15 @@ class BattleState implements Arrayable, \ArrayAccess
         }
 
         return $player;
+    }
 
+    /**
+     * @param int $index
+     * @return PlayerState|null
+     */
+    public function getAnyPlayer(int $index): ?PlayerState
+    {
+        return Arr::get($this->turnAlivePlayers, $index);
     }
 
     /**

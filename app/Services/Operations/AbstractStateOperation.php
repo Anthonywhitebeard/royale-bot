@@ -12,6 +12,11 @@ abstract class AbstractStateOperation implements OperationInterface
         return $battleState->getAlivePlayer((int)$target);
     }
 
+    public function getAnyPlayer(BattleState $battleState, string $target): ?PlayerState
+    {
+        return $battleState->getAnyPlayer((int)$target);
+    }
+
     public function logError($params)
     {
         \Log::error('Wrong Params (' . $params . ') for ' . get_class(static::class) . ' Operation');
