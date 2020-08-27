@@ -7,9 +7,9 @@ use App\Services\BattleProcess\PlayerState;
 
 abstract class AbstractStateOperation implements OperationInterface
 {
-    public function getAlivePlayer(BattleState $battleState, string $target): ?PlayerState
+    public function getAlivePlayer(BattleState $battleState, string $target, bool $force = false): ?PlayerState
     {
-        return $battleState->getAlivePlayer((int)$target);
+        return $battleState->getAlivePlayer((int)$target, $force);
     }
 
     public function getAnyPlayer(BattleState $battleState, string $target): ?PlayerState

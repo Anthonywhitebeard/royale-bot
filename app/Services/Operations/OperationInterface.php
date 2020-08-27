@@ -28,8 +28,10 @@ interface OperationInterface
         'REMOVE_FLAG_ALL' => RemoveFlagToAll::class,
         'MODIFY_HP_ALL' => ModifyHPToAll::class,
         'MODIFY_DMG_ALL' => ModifyDMGToAll::class,
-        'REMOVE_CLASS' => RemoveClass::class,
+        'UPDATE_CLASS' => UpdateClass::class,
+        'CONDITIONAL_EVENT' => ConditionalEvent::class,
         'SLEEP' => SleepOperation::class,
+        'FLAG_MSG' => SendFlagMessageOperation::class,
     ];
 
     public function operate(

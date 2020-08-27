@@ -5,6 +5,7 @@ return [
     'text' => 'Вторая часть умения "Поднять щиты", которая активируется в конце хода',
     'weight' => '0',
     'deviance' => '0',
+    'active' => 0,
     'operations' => [
         [
             'operation' => 'MODIFY_HP',

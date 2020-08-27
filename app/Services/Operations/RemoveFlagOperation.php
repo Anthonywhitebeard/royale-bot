@@ -17,7 +17,7 @@ class RemoveFlagOperation extends AbstractStateOperation implements OperationInt
         string $params,
         string $target
     ): BattleState {
-        $player = $this->getAlivePlayer($battleState, $target);
+        $player = $this->getAlivePlayer($battleState, $target, true);
 
         if (!$player) {
             return $battleState;
@@ -27,9 +27,4 @@ class RemoveFlagOperation extends AbstractStateOperation implements OperationInt
         return $battleState;
     }
 
-    //TODO:parse message
-    private function parseMessage(string $params)
-    {
-        return 'RemoveFLAG Operation: ' . $params;
-    }
 }

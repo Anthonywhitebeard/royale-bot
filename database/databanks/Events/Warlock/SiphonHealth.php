@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'Вытягивание Здоровья',
+    'name' => 'Вытягивание Здоровья Лича',
     'text' => 'Наносит урон 1 цели, восстанавливает кастеру',
     'weight' => '200',
     'deviance' => '0',
@@ -14,7 +14,7 @@ return [
         [
             'operation' => 'MODIFY_HP',
             'target' => '0',
-            'params' => '-50',
+            'params' => '50',
         ],
         [
             'operation' => 'DEATH_MESSAGE',

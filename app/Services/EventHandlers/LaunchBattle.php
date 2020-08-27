@@ -69,9 +69,10 @@ class LaunchBattle implements EventHandler
      * @param Chat $chat
      * @return BattleState
      */
-    private function initState(Battle $battle, Chat $chat): BattleState
+    public function initState(Battle $battle, Chat $chat): BattleState
     {
         $state = app(BattleState::class);
+        $state->players = [];
         foreach ($battle->battlePlayers as $battlePlayer) {
             $battlePlayer = $this->addClassIfNotExist($battlePlayer, $chat);
             $state->players[] = $this->getPlayerData($battlePlayer);
@@ -141,7 +142,8 @@ class LaunchBattle implements EventHandler
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
             'name' => $battlePlayer->user_name,
-            'flags' => [$flag => true, PlayerState::FLAG_DEFAULT_EVENTS => (boolean)$bot]
+            'flags' => [$flag => true],
+            'className' => $battlePlayer->battleClass->flag
         ]);
     }
 }

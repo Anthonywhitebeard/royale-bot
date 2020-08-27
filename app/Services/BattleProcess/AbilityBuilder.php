@@ -6,6 +6,7 @@ namespace App\Services\BattleProcess;
 
 use App\Models\Ability;
 use App\Models\BattleAbility;
+use App\Models\BattleModels\BattleClass;
 use App\Models\BattlePlayer;
 use App\Services\Keyboard;
 use App\Services\TelegramSender;
@@ -22,10 +23,11 @@ class AbilityBuilder
 
     /**
      * @param BattlePlayer $battlePlayer
+     * @param BattleClass|null $battleClass
      */
-    public static function fillBattleAbilities(BattlePlayer $battlePlayer): void
+    public static function fillBattleAbilities(BattlePlayer $battlePlayer, ?BattleClass $battleClass = null): void
     {
-        $class = $battlePlayer->battleClass;
+        $class = $battleClass ?? $battlePlayer->battleClass;
         /** @var Ability $ability */
         foreach ($class->abilities as $ability) {
             /** @var BattleAbility $newBattleAbility */

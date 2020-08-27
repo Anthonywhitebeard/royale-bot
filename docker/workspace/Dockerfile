@@ -415,7 +415,7 @@ RUN if [ ${INSTALL_XDEBUG} = false -a ${INSTALL_BLACKFIRE} = true ]; then \
 # ssh:
 ###########################################################################
 
-ARG INSTALL_WORKSPACE_SSH=false
+ARG INSTALL_WORKSPACE_SSH=true
 
 COPY insecure_id_rsa /tmp/id_rsa
 COPY insecure_id_rsa.pub /tmp/id_rsa.pub

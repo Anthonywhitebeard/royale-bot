@@ -11,6 +11,7 @@ class ClassesBankSeeder extends Seeder
     public function run(array $eventData)
     {
 
+
         $event = \App\Models\Event::create([
             'name' => $eventData['name'] . ' class set',
             'text' => $eventData['name'] . ' class set',
