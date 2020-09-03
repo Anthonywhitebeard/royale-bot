@@ -81,4 +81,12 @@ class Battle extends Model
     {
         return $this->hasMany(BattleAbility::class);
     }
+
+    /**
+     * @return HasOne|BattleResult
+     */
+    public function battleResult(): HasOne
+    {
+        return $this->hasOne(BattleResult::class);
+    }
 }
