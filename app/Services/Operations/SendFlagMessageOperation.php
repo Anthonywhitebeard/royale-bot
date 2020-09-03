@@ -37,15 +37,22 @@ class SendFlagMessageOperation implements OperationInterface
         string $target
     ): BattleState
     {
-        $activePlayer = $battleState->getAlivePlayer(0);
+        $target = $battleState->getAlivePlayer($target);
         $params = explode(';', $params);
         if ($params<2) {
             return $battleState;
         }
         $message = array_shift($params);
         foreach ($params as $flag) {
-            if (!$activePlayer->hasFlag($flag)) {
-                return $battleState;
+            if (strrpos($flag, '!') === 0) {
+                $flag = ltrim($flag, '!');
+                if ($target->hasFlag($flag)) {
+                    return $battleState;
+                }
+            } else {
+                if (!$target->hasFlag($flag)) {
+                    return $battleState;
+                }
             }
         }
         $this->telegram->sendChatMessage(MessageFormer::formOperationText($message, $battleState),

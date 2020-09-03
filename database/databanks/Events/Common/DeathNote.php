@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'Грозный взгляд',
+    'name' => 'Преступление и преступление',
     'text' => 'Наноситурон игроку 1',
     'weight' => '100',
     'deviance' => '0',
@@ -14,7 +14,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% находит потрёпанную тетрадь и аккуратно выводит в ней "%turnAlivePlayers.1.name%"',
+            'params' => '%turnAlivePlayers.0.name% находит потрёпанную тетрадь и у него возникает непреодолимое желание убить %turnAlivePlayers.1.name% и всех участников расследования',
         ],
         [
             'operation' => 'SLEEP',
