@@ -9,12 +9,12 @@ return [
         [
             'operation' => 'HIT',
             'target' => '1',
-            'params' => '0, 1',
+            'params' => '0;1',
         ],
         [
             'operation' => 'HIT',
             'target' => '0',
-            'params' => '1, 1',
+            'params' => '1;1',
         ],
         [
             'operation' => 'SEND_MSG',

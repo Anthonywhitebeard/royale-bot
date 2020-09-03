@@ -125,6 +125,11 @@ class BattleState implements Arrayable, \ArrayAccess
         shuffle($this->turnDeadPlayers);
         shuffle($players);
 
+        if (!$firstPlayer) {
+            $this->turnAlivePlayers = $players;
+            return;
+        }
+
         $this->turnAlivePlayers = [$firstPlayer, ...$players];
     }
 
