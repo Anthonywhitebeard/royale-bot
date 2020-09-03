@@ -3,7 +3,7 @@
 return [
     'name' => 'Фхтагн',
     'text' => 'Кхм-кхм',
-    'weight' => '50',
+    'weight' => '200',
     'deviance' => '0',
     'operations' => [
         [
@@ -28,10 +28,10 @@ return [
         ],
     ],
     'conditions' => [
-        "warlock_class",
+        "cultist_class",
         "necronomicon_1",
     ],
     'traits' => [
-        'warlock', 'damage', 'wtf', 'elder', 'cthulhu'
+        'damage', 'wtf', 'elder', 'cthulhu'
     ]
 ];

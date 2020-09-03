@@ -83,10 +83,8 @@ class BattleTurn implements ShouldQueue
         $event = BattleEvents::getRandomEvent($events);
 
         if ($event === null) {
-            dump('No event for ' . $this->state->getAlivePlayer(0)->name);
             return;
         }
-        dump($event->name);
 
         Turn::doEvent($event, $this->state);
     }

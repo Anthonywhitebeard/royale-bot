@@ -84,4 +84,15 @@ seed-classes:
 seed-events:
 	docker-compose exec -u 1000 workspace php artisan seed events
 
+test-seed-classes:
+	docker-compose exec -u 1000 workspace php artisan seed classes --env=testing
+
+test-seed-events:
+	docker-compose exec -u 1000 workspace php artisan seed events --env=testing
+
 seed: mf seed-classes seed-events
+
+test-migrate :
+	docker-compose exec -u 1000 workspace php artisan migrate:fresh --seed --env=testing
+
+test: test-migrate test-seed-classes test-seed-events
