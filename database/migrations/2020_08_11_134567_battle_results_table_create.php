@@ -15,7 +15,7 @@ class BattleResultsTableCreate extends Migration
     {
         Schema::create('battle_results', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('battle_id')->unsigned();
+            $table->bigInteger('battle_id')->unsigned();
             $table->smallInteger('round_last');
             $table->smallInteger('turn_last');
             $table->timestamps();

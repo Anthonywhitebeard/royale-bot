@@ -41,6 +41,6 @@ class SelectClass implements EventHandler
         $battlePlayer->class_id = $class->id;
         $battlePlayer->save();
 
-        $this->telegram->notify($update, __('Класс выбран'));
+        $this->telegram->notify($update, __('confirm_class'));
     }
 }
