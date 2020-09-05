@@ -75,9 +75,11 @@ class BattleEnd implements ShouldQueue
      */
     private function battleWinMessage(PlayerState $winner): void
     {
-        $this->telegram->sendChatMessage('ОСТАЛСЯ ТОЛЬКО ОДИН', $this->state->chat->tg_id);
+        $this->telegram->sendChatMessage(__('win_end_message'), $this->state->chat->tg_id);
         sleep(3);
-        $winText = 'Побеждает' . PHP_EOL . '👑' . $winner->name . '👑';
+        $this->telegram->sendChatMessage(__('win_pre_message'), $this->state->chat->tg_id);
+        sleep(3);
+        $winText = __('win_message') . PHP_EOL . '👑' . $winner->name . '👑';
         $this->telegram->sendChatMessage($winText, $this->state->chat->tg_id);
     }
 
@@ -86,8 +88,8 @@ class BattleEnd implements ShouldQueue
      */
     private function battleLoseMessage(): void
     {
-        $this->telegram->sendChatMessage('В КОРОЛЕВСКОЙ БИТВЕ', $this->state->chat->tg_id);
+        $this->telegram->sendChatMessage(__('win_end_message'), $this->state->chat->tg_id);
         sleep(3);
-        $this->telegram->sendChatMessage('💀💀НИКТО НЕ ВЫЖИЛ💀💀', $this->state->chat->tg_id);
+        $this->telegram->sendChatMessage(__('win_nobody'), $this->state->chat->tg_id);
     }
 }

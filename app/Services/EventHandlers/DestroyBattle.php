@@ -44,7 +44,6 @@ class DestroyBattle implements EventHandler
 
         $battle->state = Battle::BATTLE_STATE_FINISHED;
         $battle->save();
-        $this->telegram->sendMessage("Поезд сделал бум " . PHP_EOL
-            . '!جاء إلى المستشفى. تحدث للتسجيل. تحدث مع الطبيب. فقدت طفلها', $message);
+        $this->telegram->sendMessage(__('battle_cancel'), $message);
     }
 }
