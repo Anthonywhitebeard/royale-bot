@@ -43,13 +43,13 @@ class RegistrationInBattle implements EventHandler
             ->first();
 
         if (!$lastBattle) {
-            $this->telegram->sendMessage('Никакой битвы не планируется, но ее можно создать', $message);
+            $this->telegram->sendMessage(__('refuse_no_battle_exists'), $message);
 
             return;
         }
 
         if ($lastBattle->state === Battle::BATTLE_STATE_IN_PROCESS) {
-            $this->telegram->sendMessage('А все уже, раньше надо было', $message);
+            $this->telegram->sendMessage(__('refuse_battle_started'), $message);
 
             return;
         }
@@ -58,7 +58,7 @@ class RegistrationInBattle implements EventHandler
             ->where('player_id', $player->id)->first();
 
         if ($oldBattlePlayer) {
-            $this->telegram->sendMessage('Двічі в одну річку не ввійдеш', $message);
+            $this->telegram->sendMessage(__('refuse_already_registrated'), $message);
 
             return;
         }
@@ -73,6 +73,6 @@ class RegistrationInBattle implements EventHandler
         ]);
 
         $newBattlePlayer->player()->associate($player)->save();
-        $this->telegram->sendMessage('Добро пожаловать в метрополитен', $message);
+        $this->telegram->sendMessage(__('registration_success'), $message);
     }
 }

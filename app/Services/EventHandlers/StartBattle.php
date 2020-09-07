@@ -49,7 +49,7 @@ class StartBattle implements EventHandler
         $chat->battles()->create([
             'state' => Battle::BATTLE_STATE_NEW,
         ]);
-        $this->telegram->sendMessage('Метро приземлилось. Заходите!', $message);
+        $this->telegram->sendMessage(__('battle_created'), $message);
     }
 
     /**
@@ -59,9 +59,9 @@ class StartBattle implements EventHandler
     private function refuseBattleStartText(Battle $lastBattle): string
     {
         if ($lastBattle->state === Battle::BATTLE_STATE_NEW) {
-            return 'Битва вот-вот начнется, запрыгивай!';
+            return __('refuse_battle_exists');
         }
 
-        return 'А все уже, раньше надо было';
+        return __('refuse_battle_started');
     }
 }

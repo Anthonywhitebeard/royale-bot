@@ -56,7 +56,7 @@ class LaunchBattle implements EventHandler
 
         $classMessage = $this->telegram->sendKeyboardMessage(
             $chat->tg_id,
-            __('Выберите ваш класс'),
+            __('select_class_message'),
             Keyboard::battleClasses($chat),
         );
         $lastBattle->state = Battle::BATTLE_STATE_CLASS_SELECT;

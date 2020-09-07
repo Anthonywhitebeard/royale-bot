@@ -9,12 +9,12 @@ return [
         [
             'operation' => 'RAND_MODIFY_HP',
             'target' => '1',
-            'params' => '0, 1',
+            'params' => '0;1',
         ],
         [
             'operation' => 'RAND_MODIFY_HP',
             'target' => '1',
-            'params' => '1, 1',
+            'params' => '1;1',
         ],
         [
             'operation' => 'DEATH_MESSAGE',

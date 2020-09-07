@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \App::setLocale(env('APP_LOCALE'));
         $this->app->singleton(Api::class);
         $this->app->singleton(TelegramSender::class);
 

@@ -6,7 +6,10 @@ namespace App\Jobs\BattleDriver;
 
 
 use App\Models\Battle;
+use App\Models\BattlePlayer;
 use App\Services\BattleProcess\BattleState;
+use App\Services\BattleProcess\CalculatingResult;
+use App\Services\BattleProcess\PlayerState;
 use App\Services\TelegramSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,12 +38,20 @@ class BattleEnd implements ShouldQueue
         $this->battle = $battle;
     }
 
-    public function handle(TelegramSender $telegram) {
+    /**
+     * @param TelegramSender $telegram
+     * @param CalculatingResult $calculator
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function handle(TelegramSender $telegram, CalculatingResult $calculator) {
         $this->telegram = $telegram;
         $state = json_decode($this->battle->battleState->state, true);
         $this->state = app()->make(BattleState::class, $state);
 
+        $this->state->shakePlayers();
         $this->endGame();
+        $calculator->endGameCalculations($this->state);
     }
 
     /**
@@ -50,6 +61,35 @@ class BattleEnd implements ShouldQueue
     {
         $this->battle->state = Battle::BATTLE_STATE_FINISHED;
         $this->battle->save();
-        $this->telegram->sendChatMessage('Наконец то', $this->state->chat->tg_id);
+        if ($winner = $this->state->getAlivePlayer(0)) {
+            $this->battleWinMessage($winner);
+            return;
+        }
+
+        $this->battleLoseMessage();
+    }
+
+    /**
+     * @param PlayerState $winner
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    private function battleWinMessage(PlayerState $winner): void
+    {
+        $this->telegram->sendChatMessage(__('win_end_message'), $this->state->chat->tg_id);
+        sleep(3);
+        $this->telegram->sendChatMessage(__('win_pre_message'), $this->state->chat->tg_id);
+        sleep(3);
+        $winText = __('win_message') . PHP_EOL . '👑' . $winner->name . '👑';
+        $this->telegram->sendChatMessage($winText, $this->state->chat->tg_id);
+    }
+
+    /**
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    private function battleLoseMessage(): void
+    {
+        $this->telegram->sendChatMessage(__('win_end_message'), $this->state->chat->tg_id);
+        sleep(3);
+        $this->telegram->sendChatMessage(__('win_nobody'), $this->state->chat->tg_id);
     }
 }

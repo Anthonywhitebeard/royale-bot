@@ -64,19 +64,15 @@ class AbilityBuilder
         if (!$ability->active) {
             return false;
         }
+
         if ($ability->charge_last <= 0 && $ability->charge_last !== null) {
             return false;
         }
+
         if ($ability->state === BattleAbility::STATUS_SHOULD_BE_USED) {
             return false;
         }
-//        if (($ability->last_use_turn + $ability->turn_cd) <= $battleState->turn && $ability->last_use_turn) {
-//            return false;
-//        }
-//
-//        if (($ability->last_use_round + $ability->round_cd) <= $battleState->round && $ability->last_use_round) {
-//            return false;
-//        }
+
         return true;
     }
 }

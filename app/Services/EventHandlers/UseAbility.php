@@ -82,7 +82,7 @@ class UseAbility implements EventHandler
         if ($playerState->hasFlag(PlayerState::FLAG_DEAD)) {
             $this->telegram->sendKeyboardReplyMessage(
                 $battle->chat->tg_id,
-                __('Вы мертвы'),
+                __('ability_refuse_dead'),
                 (string)$message->messageId,
                 Keyboard::makeAbilityKeyboard([]),
             );
