@@ -3,7 +3,7 @@
 return [
     'name' => 'Фхтагн',
     'text' => 'Кхм-кхм',
-    'weight' => '200',
+    'weight' => '150',
     'deviance' => '0',
     'operations' => [
         [
