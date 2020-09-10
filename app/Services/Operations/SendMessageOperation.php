@@ -7,6 +7,7 @@ use App\Services\MessageFormer;
 use App\Services\TelegramSender;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramOtherException;
+use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class SendMessageOperation implements OperationInterface
 {
@@ -29,20 +30,19 @@ class SendMessageOperation implements OperationInterface
      * @param string $params
      * @param string $target
      * @return BattleState
-     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     * @throws TelegramSDKException
      */
     public function operate(
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState
-    {
+    ): BattleState {
         try {
             $this->telegram->sendChatMessage(MessageFormer::formOperationText($params, $battleState),
                 $battleState->chat->tg_id);
 
         } catch (TelegramOtherException $e) {
-            //need to handle to many request exception
+            /** @todo handle to many request exception */
         }
 
         return $battleState;

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Services\EventHandlers;
 
@@ -25,7 +26,7 @@ use Telegram\Bot\Objects\Update;
 class LaunchBattle implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -41,6 +42,7 @@ class LaunchBattle implements EventHandler
      * @param Chat $chat
      * @param Player $player
      * @return void
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
     public function process(Update $update, Chat $chat, Player $player): void
     {
@@ -56,7 +58,7 @@ class LaunchBattle implements EventHandler
 
         $classMessage = $this->telegram->sendKeyboardMessage(
             $chat->tg_id,
-            __('select_class_message'),
+            __('battle.select_class_message'),
             Keyboard::battleClasses($chat),
         );
         $lastBattle->state = Battle::BATTLE_STATE_CLASS_SELECT;
@@ -131,19 +133,24 @@ class LaunchBattle implements EventHandler
 
             $state->players[] = $statePlayer;
         }
+
         return $state;
     }
 
-    private function getPlayerData(BattlePlayer $battlePlayer, $bot = false): PlayerState
+    private function getPlayerData(BattlePlayer $battlePlayer, $isBot = false): PlayerState
     {
-        $flag = $bot ? PlayerState::FLAG_BOT : PlayerState::FLAG_PLAYER;
+        $flag = $isBot ? PlayerState::FLAG_BOT : PlayerState::FLAG_PLAYER;
+        $playerAlias = $isBot
+            ? $battlePlayer->user_name
+            : '@' . $battlePlayer->user_name;
+
         return app()->make(PlayerState::class, [
             'battlePlayer' => $battlePlayer,
             'hp' => BattleClass::DEFAULT_HP,
             'dmg' => BattleClass::DEFAULT_DMG,
-            'name' => $battlePlayer->user_name,
+            'name' => $playerAlias,
             'flags' => [$flag => true],
-            'className' => $battlePlayer->battleClass->flag
+            'className' => $battlePlayer->battleClass->flag,
         ]);
     }
 }

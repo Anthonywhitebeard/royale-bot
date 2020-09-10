@@ -49,7 +49,7 @@ class BattleClass extends Model
     use Culture;
 
     /** @var string  */
-    const BATTLE_CLASS_PREFIX = 'class_';
+    public const BATTLE_CLASS_PREFIX = 'class_';
 
     /** @var int */
     public const DEFAULT_HP = 100;

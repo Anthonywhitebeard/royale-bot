@@ -45,8 +45,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Player extends Model
 {
-    const DEFAULT_MMR = 1200;
-    const DEFAULT_SKILL = 1000;
+    public const DEFAULT_MMR = 1200;
+    public const DEFAULT_SKILL = 1000;
 
 	protected $table = 'players';
 

@@ -31,7 +31,7 @@ use Telegram\Bot\Objects\Update;
 class UseAbility implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -82,7 +82,7 @@ class UseAbility implements EventHandler
         if ($playerState->hasFlag(PlayerState::FLAG_DEAD)) {
             $this->telegram->sendKeyboardReplyMessage(
                 $battle->chat->tg_id,
-                __('ability_refuse_dead'),
+                __('battle.ability_refuse_dead'),
                 (string)$message->messageId,
                 Keyboard::makeAbilityKeyboard([]),
             );

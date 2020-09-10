@@ -13,7 +13,7 @@ use Telegram\Bot\Objects\Update;
 class DestroyBattle implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -44,6 +44,6 @@ class DestroyBattle implements EventHandler
 
         $battle->state = Battle::BATTLE_STATE_FINISHED;
         $battle->save();
-        $this->telegram->sendMessage(__('battle_cancel'), $message);
+        $this->telegram->sendMessage(__('battle.battle_cancel'), $message);
     }
 }

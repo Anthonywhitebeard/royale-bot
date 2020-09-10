@@ -14,7 +14,7 @@ use Telegram\Bot\Objects\Update;
 class StartBattle implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -49,7 +49,7 @@ class StartBattle implements EventHandler
         $chat->battles()->create([
             'state' => Battle::BATTLE_STATE_NEW,
         ]);
-        $this->telegram->sendMessage(__('battle_created'), $message);
+        $this->telegram->sendMessage(__('battle.battle_created'), $message);
     }
 
     /**
@@ -59,9 +59,9 @@ class StartBattle implements EventHandler
     private function refuseBattleStartText(Battle $lastBattle): string
     {
         if ($lastBattle->state === Battle::BATTLE_STATE_NEW) {
-            return __('refuse_battle_exists');
+            return __('battle.refuse_battle_exists');
         }
 
-        return __('refuse_battle_started');
+        return __('battle.refuse_battle_started');
     }
 }

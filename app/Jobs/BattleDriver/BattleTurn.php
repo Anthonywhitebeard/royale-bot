@@ -13,7 +13,9 @@ use App\Services\BattleProcess\Turn;
 use App\Services\Operations\OperationInterface;
 use App\Services\Operations\UpdateStateInChatOperation;
 use App\Services\TelegramSender;
+use Exception;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -50,9 +52,10 @@ class BattleTurn implements ShouldQueue
     /**
      * @param TelegramSender $telegram
      * @param AbilityBuilder $abilityBuilder
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
+     * @throws Exception
      */
-    public function handle(TelegramSender $telegram, AbilityBuilder $abilityBuilder)
+    public function handle(TelegramSender $telegram, AbilityBuilder $abilityBuilder): void
     {
         $this->abilityBuilder = $abilityBuilder;
         $this->telegram = $telegram;
@@ -72,6 +75,9 @@ class BattleTurn implements ShouldQueue
         $this->state->updateTurnConditions();
     }
 
+    /**
+     * @throws Exception
+     */
     private function turn(): void
     {
         if (!$this->state->getAlivePlayer(0)) {
@@ -107,7 +113,7 @@ class BattleTurn implements ShouldQueue
         self::dispatch($this->battle)->delay(Turn::getDelay());
     }
 
-    private function runAbilities()
+    private function runAbilities(): void
     {
         /** @var BattleAbility[] $battleAbilities */
         $battleAbilities = $this->battle->battleAbility()->where('state', BattleAbility::STATUS_SHOULD_BE_USED)->get();

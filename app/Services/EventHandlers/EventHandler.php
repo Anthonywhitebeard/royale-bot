@@ -10,7 +10,7 @@ use Telegram\Bot\Objects\Update;
 interface EventHandler
 {
     /** @var string[] */
-    const TYPES = [
+    public const TYPES = [
         'StartBattle' => StartBattle::class,
         'RegistrationInBattle' => RegistrationInBattle::class,
         'DestroyBattle' => DestroyBattle::class,

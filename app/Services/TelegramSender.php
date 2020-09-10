@@ -12,8 +12,12 @@ use Telegram\Bot\Objects\Update;
 
 class TelegramSender
 {
+    public const PARSE_MOD_MARKDOWN = 'Markdown';
+    public const PARSE_MOD_MARKDOWN_TWO = 'MarkdownV2';
+    public const PARSE_MOD_HTML = 'HTML';
+
     /** @var Api $telegramApi */
-    private $telegramApi;
+    private Api $telegramApi;
 
     public function __construct(Api $telegramApi)
     {
@@ -32,6 +36,7 @@ class TelegramSender
         $params = [
             'text' => $text,
             'chat_id' => $message->chat->id,
+            'parse_mode' => self::PARSE_MOD_MARKDOWN,
         ];
 
         if ($reply) {
@@ -50,6 +55,7 @@ class TelegramSender
         $params = [
             'text' => $text,
             'chat_id' => $tgChatId,
+            'parse' => 'Markdown ',
         ];
         $this->telegramApi->sendMessage($params);
     }

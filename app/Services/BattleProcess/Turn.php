@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Log;
 
 class Turn
 {
-    const MIN_DELAY = 5;
-    const MAX_DELAY = 10;
+    private const MIN_DELAY = 5;
+    private const MAX_DELAY = 10;
 
     /**
      * @var BattleState

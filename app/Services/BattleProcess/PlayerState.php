@@ -11,10 +11,10 @@ class PlayerState implements \ArrayAccess
 {
     use ArrayAccess;
 
-    const FLAG_BOT = 'bot';
-    const FLAG_PLAYER = 'player';
-    const FLAG_DEAD = 'dead';
-    const FLAG_DEFAULT_EVENTS = 'default';
+    public const FLAG_BOT = 'bot';
+    public const FLAG_PLAYER = 'player';
+    public const FLAG_DEAD = 'dead';
+    public const FLAG_DEFAULT_EVENTS = 'default';
 
     public BattlePlayer $battlePlayer;
 

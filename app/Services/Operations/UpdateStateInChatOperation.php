@@ -40,7 +40,7 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         string $params,
         string $target
     ): BattleState {
-        $text = __('state_message_text:') . PHP_EOL;
+        $text = __('battle.state_message_text') . PHP_EOL;
         $classes = $this->getClasses();
 
 

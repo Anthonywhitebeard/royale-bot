@@ -16,7 +16,7 @@ use Telegram\Bot\Objects\Update;
 class RegistrationInBattle implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -43,13 +43,13 @@ class RegistrationInBattle implements EventHandler
             ->first();
 
         if (!$lastBattle) {
-            $this->telegram->sendMessage(__('refuse_no_battle_exists'), $message);
+            $this->telegram->sendMessage(__('battle.refuse_no_battle_exists'), $message);
 
             return;
         }
 
         if ($lastBattle->state === Battle::BATTLE_STATE_IN_PROCESS) {
-            $this->telegram->sendMessage(__('refuse_battle_started'), $message);
+            $this->telegram->sendMessage(__('battle.refuse_battle_started'), $message);
 
             return;
         }
@@ -58,7 +58,7 @@ class RegistrationInBattle implements EventHandler
             ->where('player_id', $player->id)->first();
 
         if ($oldBattlePlayer) {
-            $this->telegram->sendMessage(__('refuse_already_registrated'), $message);
+            $this->telegram->sendMessage(__('battle.refuse_already_registrated'), $message);
 
             return;
         }
@@ -73,6 +73,6 @@ class RegistrationInBattle implements EventHandler
         ]);
 
         $newBattlePlayer->player()->associate($player)->save();
-        $this->telegram->sendMessage(__('registration_success'), $message);
+        $this->telegram->sendMessage(__('battle.registration_success'), $message);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Services\BattleProcess;
 use App\Models\Battle;
 use App\Models\BattlePlayer;
 use App\Models\Chat;
+use Illuminate\Contracts\Container\BindingResolutionException as BindingResolutionExceptionAlias;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Telegram\Bot\Objects\Message;
@@ -13,11 +14,6 @@ use App\Traits\ArrayAccess;
 class BattleState implements Arrayable, \ArrayAccess
 {
     use ArrayAccess;
-
-    const PLAYERS_COUNT = 10;
-
-    /** @var string */
-    public ?string $stateId;
 
     /** @var Chat $chat */
     public Chat $chat;
@@ -55,7 +51,7 @@ class BattleState implements Arrayable, \ArrayAccess
      * @param int|null $deviance
      * @param array $chat
      * @param array $pendingPlayers
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionExceptionAlias
      */
     public function __construct(
         ?int $battleId = null,

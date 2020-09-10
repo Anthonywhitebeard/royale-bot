@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\BattleProcess;
 
+use App\Models\BattlePlayer;
 use App\Models\BattleResult;
 
 class CalculatingResult
@@ -25,8 +26,12 @@ class CalculatingResult
      */
     private function markWinner(PlayerState $playerState): void
     {
-        $battlePlayer = $playerState->battlePlayer;
-        $battlePlayer->refresh();
+        $battlePlayer = BattlePlayer::whereKey($playerState->battlePlayer->id)->first();
+
+        if (!$battlePlayer) {
+            return;
+        }
+
         $battlePlayer->place = 1;
         $battlePlayer->save();
     }

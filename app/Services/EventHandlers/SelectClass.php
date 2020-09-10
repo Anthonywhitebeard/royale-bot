@@ -14,7 +14,7 @@ use Telegram\Bot\Objects\Update;
 class SelectClass implements EventHandler
 {
     /** @var TelegramSender $telegram */
-    private $telegram;
+    private TelegramSender $telegram;
 
     /**
      * StartBattle constructor.
@@ -41,6 +41,6 @@ class SelectClass implements EventHandler
         $battlePlayer->class_id = $class->id;
         $battlePlayer->save();
 
-        $this->telegram->notify($update, __('confirm_class'));
+        $this->telegram->notify($update, __('battle.confirm_class'));
     }
 }
