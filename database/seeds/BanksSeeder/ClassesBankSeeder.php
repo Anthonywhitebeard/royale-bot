@@ -17,7 +17,7 @@ class ClassesBankSeeder extends Seeder
             'text' => $eventData['name'] . ' class set',
             'weight' => 0,
             'deviance' => $eventData['deviance'],
-            'active' => 1
+            'active' => $eventData['active'],
         ]);
 
         //Set Hp

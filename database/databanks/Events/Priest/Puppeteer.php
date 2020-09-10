@@ -18,7 +18,7 @@ return [
         ],
         [
             'operation' => 'ALIVE_MESSAGE',
-            'target' => '1, 2',
+            'target' => '1;2',
             'params' => 'Словно кукловод, %turnAlivePlayers.0.name% заставляет подратся %turnAlivePlayers.1.name% и %turnAlivePlayers.2.name%',
         ],
         [

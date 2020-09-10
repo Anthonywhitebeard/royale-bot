@@ -32,6 +32,11 @@ class Turn
     public static function doEvent(Event $event, BattleState $state): void
     {
         $operations = $event->eventOperations;
+        $eventLog = [
+            'event' => $event->name,
+            'players' => $state->getPlayersStats(),
+        ];
+        $state->eventLog[] = $eventLog;
 
         foreach ($operations as $eventOperation) {
             $operationModel = $eventOperation->operation;
@@ -44,7 +49,6 @@ class Turn
             $operation = app($operationName);
             $state = $operation->operate($state, $eventOperation->params, $eventOperation->target);
         }
-
     }
 
     public static function getDelay(): \Carbon\Carbon

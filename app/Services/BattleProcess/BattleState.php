@@ -42,7 +42,11 @@ class BattleState implements Arrayable, \ArrayAccess
     /** @var array $pendingUsers */
     public array $pendingPlayers = [];
 
+    /** @var array */
     public array $turnConditions = [];
+
+    /** @var array */
+    public array $eventLog = [];
 
     /**
      * BattleState constructor.
@@ -51,6 +55,7 @@ class BattleState implements Arrayable, \ArrayAccess
      * @param int|null $deviance
      * @param array $chat
      * @param array $pendingPlayers
+     * @param array $eventLog
      * @throws BindingResolutionExceptionAlias
      */
     public function __construct(
@@ -58,7 +63,8 @@ class BattleState implements Arrayable, \ArrayAccess
         array $players = [],
         ?int $deviance = null,
         array $chat = [],
-        array $pendingPlayers = []
+        array $pendingPlayers = [],
+        array $eventLog = []
     )
     {
         if ($chat) {
@@ -68,6 +74,7 @@ class BattleState implements Arrayable, \ArrayAccess
 
         $this->battleId = $battleId;
         $this->deviance = $deviance;
+        $this->eventLog = $eventLog;
 
         foreach ($players as $player) {
             $playerModel = app()->make(BattlePlayer::class, $player['battlePlayer']);
@@ -205,6 +212,22 @@ class BattleState implements Arrayable, \ArrayAccess
             }
         }
         return $alivePlayers < 2;
+    }
+
+    public function getPlayersStats(): array
+    {
+        $stats = [];
+
+        foreach ([...$this->turnAlivePlayers, ...$this->turnDeadPlayers] as $player) {
+            $stats[] = [
+                'name' => $player->name,
+                'hp' => $player->hp,
+                'dmg' => $player->dmg,
+                'flags' => $player->getFlags(),
+            ];
+        }
+
+        return $stats;
     }
 
     private function setPendingPlayers(): void

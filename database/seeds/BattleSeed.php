@@ -18,6 +18,7 @@ class BattleSeed extends Seeder
             'message' => 'Выбран дефолтный класс',
             'weight' => 100,
             'deviance' => 0,
+            'active' => 0,
         ],
     ];
 
