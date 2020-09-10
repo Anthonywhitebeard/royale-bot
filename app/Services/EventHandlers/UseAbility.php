@@ -95,7 +95,6 @@ class UseAbility implements EventHandler
                 $battle->chat->tg_id,
                 __('battle.ability_refuse_dead'),
                 (string)$message->messageId,
-                Keyboard::makeAbilityKeyboard([]),
             );
             return;
         }
@@ -104,15 +103,10 @@ class UseAbility implements EventHandler
         }
         $battleAbility->state = BattleAbility::STATUS_SHOULD_BE_USED;
         $battleAbility->save();
-        $abilityBuilder = app(AbilityBuilder::class);
         if ($battleAbility->charge_last) {
             $battleAbility->charge_last--;
         }
         $battleAbility->state = BattleAbility::STATUS_CAN_BE_USED;
-        $modifiedAbilities = [
-            $battleAbility->slug => $battleAbility
-        ];
-        $keyboard = $abilityBuilder->buildAbilityKeyboard($battlePlayer, $modifiedAbilities);
 
         if ($battleAbility->activation_text) {
             $text = MessageFormer::formOperationText($battleAbility->activation_text, collect([
@@ -122,7 +116,6 @@ class UseAbility implements EventHandler
                 $battle->chat->tg_id,
                 $text,
                 (string)$message->messageId,
-                $keyboard
             );
             $battlePlayer->tg_message_id = $message->messageId;
             $battlePlayer->save();

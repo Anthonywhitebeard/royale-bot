@@ -13,11 +13,6 @@ return [
             'params' => '-200;50',
         ],
         [
-            'operation' => 'DEACTIVATE_ABILITY',
-            'target' => '0',
-            'params' => 'shields_down',
-        ],
-        [
             'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% пережил этот ход, а время действия усиления подошло к концу',

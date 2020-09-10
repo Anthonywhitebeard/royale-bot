@@ -6,7 +6,7 @@ return
         'flag' => 'kreml',
         'deviance' => '0',
         'hp' => '200',
-        'dmg' => '-10',
+        'dmg' => '10',
         'msg' => 'Кремлебот проверяет методички',
         'conditions' => ['kremlebot'],
         'flags' => [\App\Services\BattleProcess\PlayerState::FLAG_DEFAULT_EVENTS],

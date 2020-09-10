@@ -30,6 +30,8 @@ class BattleTurn implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    const SUDDEN_DEATH_TURN = 60;
+
     /** @var Battle $battle */
     private Battle $battle;
     /** @var BattleState $state */
@@ -58,6 +60,7 @@ class BattleTurn implements ShouldQueue
      */
     public function handle(TelegramSender $telegram, AbilityBuilder $abilityBuilder): void
     {
+//        sleep(5);
         $this->abilityBuilder = $abilityBuilder;
         $this->telegram = $telegram;
         $state = json_decode($this->battle->battleState->state, true);
@@ -102,14 +105,12 @@ class BattleTurn implements ShouldQueue
 
         $this->suddenDeath();
 
-
-
-        $battleStateModel = \App\Models\BattleState::where('battle_id', $this->state->battleId)->first();
-        $battleStateModel->update(['state' => $this->state->toJson()]);
-
         /** @var OperationInterface $operation */
         $operation = app(UpdateStateInChatOperation::class);
         $operation->operate($this->state, '', '');
+
+        $battleStateModel = \App\Models\BattleState::where('battle_id', $this->state->battleId)->first();
+        $battleStateModel->update(['state' => $this->state->toJson()]);
 
         if ($this->state->winCondition()) {
             BattleEnd::dispatch($this->battle);
@@ -134,6 +135,9 @@ class BattleTurn implements ShouldQueue
     }
 
     private function suddenDeath() {
+        if ($this->state->turn < self::SUDDEN_DEATH_TURN) {
+            return;
+        }
         $suddenDeathEventsTraits = EventTrait::where('trait', 'sudden_death')->get()->all();
         /** @var EventTrait $trait */
         $trait = Arr::random($suddenDeathEventsTraits);

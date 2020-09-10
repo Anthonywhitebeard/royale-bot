@@ -17,11 +17,6 @@ return [
             'target' => '0',
             'params' => 'shields_down',
         ],
-        [
-            'operation' => 'DEACTIVATE_ABILITY',
-            'target' => '0',
-            'params' => 'shields_up',
-        ],
     ],
     'conditions' => [
         'fighter_class',

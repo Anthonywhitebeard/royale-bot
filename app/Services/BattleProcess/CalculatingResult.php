@@ -6,13 +6,14 @@ namespace App\Services\BattleProcess;
 
 use App\Models\BattlePlayer;
 use App\Models\BattleResult;
+use Illuminate\Support\Arr;
 
 class CalculatingResult
 {
     public function endGameCalculations(BattleState $state): void
     {
         $alivePlayers = $state->getAlivePlayers();
-        $battlePlayer = $alivePlayers[0];
+        $battlePlayer = Arr::get($alivePlayers, 0);
 
         if ($battlePlayer) {
             $this->markWinner($battlePlayer);

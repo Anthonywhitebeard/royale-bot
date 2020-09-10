@@ -5,7 +5,6 @@ namespace App\Services\Operations;
 use App\Services\BattleProcess\BattleState;
 use App\Services\MessageFormer;
 use App\Services\TelegramSender;
-use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramOtherException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 

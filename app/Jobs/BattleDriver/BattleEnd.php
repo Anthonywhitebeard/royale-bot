@@ -88,7 +88,7 @@ class BattleEnd implements ShouldQueue
      */
     private function battleLoseMessage(): void
     {
-        $this->telegram->sendChatMessage(__('battle.win_end_message'), $this->state->chat->tg_id);
+        $this->telegram->sendChatMessage(__('battle.win_pre_message'), $this->state->chat->tg_id);
         sleep(3);
         $this->telegram->sendChatMessage(__('battle.win_nobody'), $this->state->chat->tg_id);
     }
