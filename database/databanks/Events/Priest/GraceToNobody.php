@@ -3,7 +3,7 @@
 return [
     'name' => 'Молитва в пустоту',
     'text' => 'Разочаровывает',
-    'weight' => '200',
+    'weight' => '500',
     'deviance' => '0',
     'operations' => [
         [

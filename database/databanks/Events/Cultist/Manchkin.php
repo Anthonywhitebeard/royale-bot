@@ -3,7 +3,7 @@
 return [
     'name' => 'Стук в дверь',
     'text' => 'Игрок стучит в дверь',
-    'weight' => '300',
+    'weight' => '500',
     'deviance' => '0',
     'operations' => [
         [

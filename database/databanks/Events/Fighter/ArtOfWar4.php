@@ -3,7 +3,7 @@
 return [
     'name' => 'Разделяй и властвуй',
     'text' => 'Это вообще-то не Сунь Цзы',
-    'weight' => '150',
+    'weight' => '400',
     'deviance' => '0',
     'operations' => [
         [

@@ -19,10 +19,11 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '-%turnAlivePlayers.0.name%
-            -%turnAlivePlayers.1.name%
-            -Oh? You\'re approaching me? Instead of running away you\'re coming right to me?
-            -Well, I can\'t beat the shit out of you without getting closer'
+            'params' => '—%turnAlivePlayers.1.name%'. PHP_EOL.
+            '—%turnAlivePlayers.0.name%'. PHP_EOL.
+                '—Приближаешься? Не бежишь, а идёшь прямо ко мне?'. PHP_EOL.
+                '—Мне не выбить из тебя дерьмо, пока я не подберусь достаточно близко' . PHP_EOL .
+                '—Тогда подходи так близко, как можешь'
         ],
         [
             'operation' => 'SLEEP',

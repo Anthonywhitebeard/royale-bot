@@ -16,7 +16,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% использовал мощное проклятие на %turnAlivePlayers.1.name%. Сама судьба противника чернокнижника была проклята и уничтожена этим проклятием. Смотря на рассыпавшегося в прах соперника, %turnAlivePlayers.0.name% почувствовал приток жизненной энергии',
+            'params' => '%turnAlivePlayers.0.name% жертвует здоровьем %turnAlivePlayers.1.name%, лишь бы себе было лучше',
         ],
     ],
     'conditions' => [

@@ -3,7 +3,7 @@
 return [
     'name' => 'Исскуство войны 3',
     'text' => 'Война любит победу',
-    'weight' => '50',
+    'weight' => '300',
     'deviance' => '0',
     'operations' => [
         [

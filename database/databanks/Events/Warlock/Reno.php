@@ -3,7 +3,7 @@
 return [
     'name' => 'Нас Ждет Богатство!',
     'text' => 'Взывает к силам Рено',
-    'weight' => '100',
+    'weight' => '200',
     'deviance' => '0',
     'operations' => [
         [

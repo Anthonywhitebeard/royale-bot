@@ -3,7 +3,7 @@
 return [
     'name' => 'Приятные мечты',
     'text' => 'Кхм-кхм',
-    'weight' => '100',
+    'weight' => '250',
     'deviance' => '0',
     'operations' => [
         [

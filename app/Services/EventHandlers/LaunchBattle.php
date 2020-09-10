@@ -150,7 +150,7 @@ class LaunchBattle implements EventHandler
             'dmg' => BattleClass::DEFAULT_DMG,
             'name' => $playerAlias,
             'flags' => [$flag => true],
-            'className' => $battlePlayer->battleClass->flag,
+            'className' => $battlePlayer->battleClass->name,
         ]);
     }
 }

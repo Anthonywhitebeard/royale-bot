@@ -3,7 +3,7 @@
 return [
     'name' => 'Второе Дыхание',
     'text' => 'Восстанавливает 30 здоровья 0 цели',
-    'weight' => '200',
+    'weight' => '300',
     'deviance' => '0',
     'operations' => [
         [
@@ -14,7 +14,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% нежиданно для самого себя открыл второе дыхание и восстановил 30 здоровья',
+            'params' => '%turnAlivePlayers.0.name% нежиданно для самого себя открывает второе дыхание и восстановил 30 здоровья',
         ],
         [
             'operation' => 'ADD_FLAG',

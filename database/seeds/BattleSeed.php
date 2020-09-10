@@ -47,7 +47,6 @@ class BattleSeed extends Seeder
     public function run(): void
     {
         $this->addOperations();
-        $this->addClasses();
     }
 
     private function addOperations(): void
@@ -189,73 +188,6 @@ class BattleSeed extends Seeder
         ];
 
         $this->updateStateOperation = Operation::firstOrCreate($updateStateOperation);
-    }
-
-    private function addClasses(): void
-    {
-        foreach (self::BATTLE_CLASSES_SEED as $class) {
-            $eventCreateBaseClass = [
-                'name' => $class['name'],
-                'text' => $class['message'],
-                'weight' => $class['weight'],
-                'deviance' => $class['deviance'],
-            ];
-
-            $eventCreateBaseClass = Event::create($eventCreateBaseClass);
-
-            $condition = [
-                'event_id' => $eventCreateBaseClass->id,
-                'condition' => 'setting_class',
-            ];
-
-            $eventCreateBaseClass->eventTraits()->create(
-                [
-                    'trait' => 'class'
-                ]
-            );
-            $conditionSetBaseClass = EventCondition::create($condition);
-
-            $newClass = [
-                [
-                    'name' => $class['name'],
-                    'event_id' => $eventCreateBaseClass->id,
-                    'flag' => $class['flag']
-                ],
-            ];
-
-            $newClass = BattleClass::insertOrIgnore($newClass);
-
-            $addBadeClassEventOperations = [
-                [
-                    'event_id' => $eventCreateBaseClass->id,
-                    'operation_id' => $this->addFlagOperation->id,
-                    'params' => 'class_' . $class['flag'],
-                    'target' => 0,
-                ],
-                [
-                    'event_id' => $eventCreateBaseClass->id,
-                    'operation_id' => $this->setHpOperation->id,
-                    'params' => 100,
-                    'target' => 0,
-                ],
-                [
-                    'event_id' => $eventCreateBaseClass->id,
-                    'operation_id' => $this->setDmgOperation->id,
-                    'params' => 20,
-                    'target' => 0,
-                ],
-                [
-                    'event_id' => $eventCreateBaseClass->id,
-                    'operation_id' => $this->sendMessageOperation->id,
-                    'params' => 'Выбран дефолтный класс',
-                    'target' => 0,
-                ],
-            ];
-
-            foreach ($addBadeClassEventOperations as $eventOperation) {
-                $this->insertEventOperation($eventOperation);
-            }
-        }
     }
 
     /**

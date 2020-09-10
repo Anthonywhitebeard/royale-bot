@@ -73,6 +73,7 @@ class ClassesBankSeeder extends Seeder
             'name' => $eventData['name'],
             'flag' => $eventData['flag'],
             'deviance' => $eventData['deviance'],
+            'active' => $eventData['active'],
         ]);
 
         $class->event()->associate($event);

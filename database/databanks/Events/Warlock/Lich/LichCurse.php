@@ -3,7 +3,7 @@
 return [
     'name' => 'Удар Лича',
     'text' => 'Наносит урон магией',
-    'weight' => '200',
+    'weight' => '500',
     'deviance' => '0',
     'operations' => [
         [

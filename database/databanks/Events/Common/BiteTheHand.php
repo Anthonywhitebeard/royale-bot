@@ -24,7 +24,7 @@ return [
         [
             'operation' => 'ALIVE_MESSAGE',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name%   жаждет крови и кусает свою руку. Вкус крови пребавляет сил',
+            'params' => '%turnAlivePlayers.0.name%   жаждет крови и кусает свою руку. Вкус крови прибавляет сил',
         ],
     ],
     'conditions' => [

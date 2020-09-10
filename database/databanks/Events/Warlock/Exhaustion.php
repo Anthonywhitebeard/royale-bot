@@ -3,7 +3,7 @@
 return [
     'name' => 'Изнурение',
     'text' => 'Уменьшает урон 1 цели',
-    'weight' => '200',
+    'weight' => '300',
     'deviance' => '0',
     'operations' => [
         [

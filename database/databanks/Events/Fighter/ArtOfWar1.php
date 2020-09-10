@@ -3,7 +3,7 @@
 return [
     'name' => 'Исскуство войны 1',
     'text' => 'Пишет в чат цитату Сунь Цзы',
-    'weight' => '50',
+    'weight' => '400',
     'deviance' => '0',
     'operations' => [
         [

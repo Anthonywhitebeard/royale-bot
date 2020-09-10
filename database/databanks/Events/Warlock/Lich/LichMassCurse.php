@@ -3,18 +3,18 @@
 return [
     'name' => 'Глобальное проклятие лича',
     'text' => 'Наносит урон всем игрокам',
-    'weight' => '50',
+    'weight' => '300',
     'deviance' => '0',
     'operations' => [
         [
             'operation' => 'MODIFY_HP',
             'target' => '0',
-            'params' => '-200;1',
+            'params' => '-100;1',
         ],
         [
             'operation' => 'MODIFY_HP_ALL',
             'target' => '0',
-            'params' => '-60',
+            'params' => '-50',
         ],
         [
             'operation' => 'ALIVE_MESSAGE',

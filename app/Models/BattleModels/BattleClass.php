@@ -64,6 +64,7 @@ class BattleClass extends Model
         'flag',
         'state',
         'chat_id',
+        'active',
     ];
 
     /**

@@ -107,7 +107,7 @@ class MessageParser implements ShouldQueue
             return $player;
         }
 
-        return Player::create([
+        return factory(Player::class)->create([
             'tg_id' => $this->message->from->id,
             'name' => $this->message->from->username,
         ]);

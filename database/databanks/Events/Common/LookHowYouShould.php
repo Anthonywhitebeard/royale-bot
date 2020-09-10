@@ -19,13 +19,13 @@ return [
         [
             'operation' => 'DEATH_MESSAGE',
             'target' => '1',
-            'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.0.name%.' . PHP_EOL
+            'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.1.name%.' . PHP_EOL
                 . '"Слабо! Смотри, как надо" - отвечает соперник и бьет себя как надо',
         ],
         [
             'operation' => 'ALIVE_MESSAGE',
             'target' => '1',
-            'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.0.name%.' . PHP_EOL
+            'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.1.name%.' . PHP_EOL
                 . '"Слабо! Смотри, как надо" - отвечает соперник и убивает себя как надо',
         ],
     ],

@@ -17,7 +17,7 @@ class BotsSeed extends Seeder
     public function run(): void
     {
         $sorakaBotPlayer = factory(\App\Models\Player::class)->create([
-            'name' => "Сорака Бот",
+            'name' => "Сорака",
         ]);
         /** @var BattleClass $sorakaBotClass */
         $sorakaBotClass = BattleClass::where('flag', 'soraka')->first();
@@ -27,10 +27,10 @@ class BotsSeed extends Seeder
         ]);
 
         $kremleBotPlayer = factory(\App\Models\Player::class)->create([
-            'name' => "Сталексей Овальный",
+            'name' => "Евгений Пригожин",
         ]);
         /** @var BattleClass $kremleBotClass */
-        $kremleBotClass = BattleClass::where('flag', 'kremlebot')->first();
+        $kremleBotClass = BattleClass::where('flag', 'kreml')->first();
         $kremleBotPlayer->bot()->create([
             'battle_class_id' => $kremleBotClass->id,
             'active' => 1
