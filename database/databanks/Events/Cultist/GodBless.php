@@ -3,27 +3,22 @@
 return [
     'name' => 'Благословление древнего',
     'text' => 'увеличивает урон 0 игроку',
-    'weight' => '50',
+    'weight' => '300',
     'deviance' => '0',
     'operations' => [
         [
             'operation' => 'FLAG_MSG',
             'target' => '1',
-            'params' => '%turnAlivePlayers.0.name% беспечно шагая, раздумывает о Древних. Внезапная встреча с %turnAlivePlayers.1.name% сбивает его с мысли, что вызывает гнев у Дрвнх чт првдт к бслтн нпрдвдннму рзльтт. б трт нмнг здрвь',
+            'params' => 'За верную службу культу, %turnAlivePlayers.0.name% получает благословление древних. И хотя к новому щупальцу ещё придется привыкнуть, оно точно поможет ему в бою, ',
         ],
         [
-            'operation' => 'MODIFY_HP',
+            'operation' => 'MODIFY_DMG',
             'target' => '0',
-            'params' => '-10',
-        ],
-        [
-            'operation' => 'MODIFY_HP',
-            'target' => '1',
-            'params' => '-20',
+            'params' => '20',
         ],
     ],
     'conditions' => [
-        "elder_cult",
+        "cultist_class",
     ],
     'traits' => [
         'elder_cult', 'damage', 'wtf', 'elder'

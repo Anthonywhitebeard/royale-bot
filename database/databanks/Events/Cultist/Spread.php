@@ -17,15 +17,15 @@ return [
             'params' => '%turnAlivePlayers.0.name% мирно поболтал с %turnAlivePlayers.1.name% о Древних. Всё же как хорошо встретить единомышленника в этом полном злых людей мире;cultist_class',
         ],
         [
-            'operation' => 'ADD_FLAG',
+            'operation' => 'UPDATE_CLASS',
             'target' => '1',
-            'params' => 'cultist_class',
+            'params' => 'cultist',
         ],
     ],
     'conditions' => [
         "cultist_class",
     ],
     'traits' => [
-        'cultist', 'damage', 'wtf', 'elder', 'cthulhu'
+        'cultist', 'change_class'
     ]
 ];
