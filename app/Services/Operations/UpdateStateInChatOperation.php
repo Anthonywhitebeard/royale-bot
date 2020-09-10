@@ -12,7 +12,7 @@ use Telegram\Bot\Api;
 
 class UpdateStateInChatOperation extends AbstractStateOperation
 {
-    private const STATE_TEXT_TEMPLATE = '%s %s  - HP: %s, DMG: %s' . PHP_EOL;
+    private const STATE_TEXT_TEMPLATE = '%s %s - HP: %s, DMG: %s' . PHP_EOL;
 
     /**
      * @var Api
@@ -42,7 +42,6 @@ class UpdateStateInChatOperation extends AbstractStateOperation
     ): BattleState {
         $text = __('battle.state_message_text') . PHP_EOL;
         $classes = $this->getClasses();
-
 
         foreach ($battleState->players as $player) {
             if ($player->isAlive()) {

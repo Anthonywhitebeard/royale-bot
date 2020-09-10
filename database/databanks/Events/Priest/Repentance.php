@@ -42,7 +42,7 @@ return [
             'params' => 'repentance' ,
         ],
         [
-            'operation' => 'ABILITIES_MESSAGE',
+            'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => 'Осознав свою ошибку, %turnAlivePlayers.0.name% искренне раскаивается, обретает душевный покой и вновь становится жрецом',
         ],

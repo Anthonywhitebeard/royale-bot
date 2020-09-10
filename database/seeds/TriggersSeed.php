@@ -41,6 +41,10 @@ class TriggersSeed extends Seeder
                 'reg_exp' => '^\[.+]$',
                 'event' => 'UseAbility',
             ],
+            [
+                'reg_exp' => '/skill',
+                'event' => 'UseAbility',
+            ],
         ];
         Trigger::insertOrIgnore($rows);
     }

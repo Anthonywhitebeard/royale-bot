@@ -57,7 +57,7 @@ class BattleStart implements ShouldQueue
      */
     public function handle(Api $telegram): void
     {
-//        sleep(5);
+        sleep(5);
         $this->battle->state = Battle::BATTLE_STATE_IN_PROCESS;
         $this->battle->save();
         $this->clearSelectClassMessage($telegram);

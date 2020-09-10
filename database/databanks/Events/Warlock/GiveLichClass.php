@@ -34,7 +34,7 @@ return [
             'params' => 'lich',
         ],
         [
-            'operation' => 'ABILITIES_MESSAGE',
+            'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% завершил один из темнейших ритуалов, став необычайно сильной нежитью - Личом. Однако несовершенность ритуала скорее всего еще даст о себе знать',
         ],

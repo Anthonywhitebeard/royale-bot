@@ -37,7 +37,7 @@ return [
             'params' => 'abdication' ,
         ],
         [
-            'operation' => 'ABILITIES_MESSAGE',
+            'operation' => 'SEND_MSG',
             'target' => '0',
             'params' => 'Разочаровавшись во всем, %turnAlivePlayers.0.name% проклинает свою веру. А после - заключает сделку с демоном, обменяв святость и здоровье на силу',
         ],

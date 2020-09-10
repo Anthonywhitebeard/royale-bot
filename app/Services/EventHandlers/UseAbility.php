@@ -69,6 +69,17 @@ class UseAbility implements EventHandler
         }
         /** @var BattleAbility $battleAbility */
         $battleAbility = $battlePlayer->battleAbilities()->where('ability_name', $message->text)->first();
+
+        if (!$battleAbility) {
+            $battleAbility = $battlePlayer->battleAbilities()
+                ->where('active', 1)
+                ->where(static function (Builder $builder) {
+                    $builder->whereNull('charge_last');
+                    $builder->orWhere('charge_last', '>', 0);
+                })
+                ->first();
+        }
+
         if (!$battleAbility) {
             return;
         }
