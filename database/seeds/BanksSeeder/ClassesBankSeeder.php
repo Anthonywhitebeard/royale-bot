@@ -36,6 +36,14 @@ class ClassesBankSeeder extends Seeder
         $eventOperation->operation()->associate($this->getOperation('SET_DMG'));
         $eventOperation->save();
 
+        //Set DMG
+        $eventOperation = $event->eventOperations()->make([
+            'target' => 0,
+            'params' => $eventData['flag'],
+        ]);
+        $eventOperation->operation()->associate($this->getOperation('UPDATE_CLASS'));
+        $eventOperation->save();
+
         //Send MSG
         $eventOperation = $event->eventOperations()->make([
             'target' => 0,

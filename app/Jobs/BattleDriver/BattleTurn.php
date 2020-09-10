@@ -5,6 +5,7 @@ namespace App\Jobs\BattleDriver;
 use App\Models\Battle;
 use App\Models\BattleAbility;
 use App\Models\Event;
+use App\Models\EventTrait;
 use App\Services\BattleProcess\AbilityBuilder;
 use App\Services\BattleProcess\BattleEvents;
 use App\Services\BattleProcess\BattleState;
@@ -99,6 +100,10 @@ class BattleTurn implements ShouldQueue
     {
         $this->runAbilities();
 
+        $this->suddenDeath();
+
+
+
         $battleStateModel = \App\Models\BattleState::where('battle_id', $this->state->battleId)->first();
         $battleStateModel->update(['state' => $this->state->toJson()]);
 
@@ -126,5 +131,12 @@ class BattleTurn implements ShouldQueue
             $battleAbility->save();
             Turn::doEvent($battleAbility->ability->event, $this->state);
         }
+    }
+
+    private function suddenDeath() {
+        $suddenDeathEventsTraits = EventTrait::where('trait', 'sudden_death')->get()->all();
+        /** @var EventTrait $trait */
+        $trait = Arr::random($suddenDeathEventsTraits);
+        Turn::doEvent($trait->event, $this->state);
     }
 }

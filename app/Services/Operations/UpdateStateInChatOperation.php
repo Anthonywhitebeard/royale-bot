@@ -41,11 +41,10 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         string $target
     ): BattleState {
         $text = __('battle.state_message_text') . PHP_EOL;
-        $classes = $this->getClasses();
 
         foreach ($battleState->players as $player) {
             if ($player->isAlive()) {
-                $text .= $this->formatState($player, $classes->get($player->battlePlayer->class_id));
+                $text .= $this->formatState($player);
             }
         }
 
@@ -61,7 +60,7 @@ class UpdateStateInChatOperation extends AbstractStateOperation
      * @param PlayerState $player
      * @return string
      */
-    private function formatState(PlayerState $player, BattleClass $battleClass): string
+    private function formatState(PlayerState $player): string
     {
         return sprintf(self::STATE_TEXT_TEMPLATE,
             $player->className,

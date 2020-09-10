@@ -7,23 +7,23 @@ return [
     'deviance' => '0',
     'operations' => [
         [
-            'operation' => 'RAND_MODIFY_HP',
+            'operation' => 'HIT',
             'target' => '1',
             'params' => '0;1',
         ],
         [
-            'operation' => 'RAND_MODIFY_HP',
+            'operation' => 'HIT',
             'target' => '1',
             'params' => '1;1',
         ],
         [
-            'operation' => 'DEATH_MESSAGE',
+            'operation' => 'ALIVE_MESSAGE',
             'target' => '1',
             'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.1.name%.' . PHP_EOL
                 . '"Слабо! Смотри, как надо" - отвечает соперник и бьет себя как надо',
         ],
         [
-            'operation' => 'ALIVE_MESSAGE',
+            'operation' => 'DEATH_MESSAGE',
             'target' => '1',
             'params' => '%turnAlivePlayers.0.name% бьет %turnAlivePlayers.1.name%.' . PHP_EOL
                 . '"Слабо! Смотри, как надо" - отвечает соперник и убивает себя как надо',

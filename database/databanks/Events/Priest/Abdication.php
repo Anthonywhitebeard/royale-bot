@@ -7,9 +7,9 @@ return [
     'deviance' => '0',
     'operations' => [
         [
-            'operation' => 'ADD_FLAG',
+            'operation' => 'UPDATE_CLASS',
             'target' => '0',
-            'params' => 'dark_priest_class',
+            'params' => 'dark_priest',
         ],
         [
             'operation' => 'SET_HP',
@@ -20,11 +20,6 @@ return [
             'operation' => 'MODIFY_DMG',
             'target' => '0',
             'params' => '150',
-        ],
-        [
-            'operation' => 'REMOVE_FLAG',
-            'target' => '0',
-            'params' => 'priest_class' ,
         ],
         [
             'operation' => 'ACTIVATE_ABILITY',
