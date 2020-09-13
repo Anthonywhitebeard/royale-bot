@@ -4,6 +4,7 @@ namespace App\Services\Operations;
 
 use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
+use App\Services\MessageFormer;
 use App\Services\TelegramSender;
 
 class UpdateStateInChatOperation extends AbstractStateOperation
@@ -61,19 +62,10 @@ class UpdateStateInChatOperation extends AbstractStateOperation
     private function formatState(PlayerState $player): string
     {
         return sprintf(self::STATE_TEXT_TEMPLATE,
-            $this->getName($player->battlePlayer->user_name),
+            MessageFormer::getName($player->battlePlayer->user_name),
             $player->className,
             $player->hp,
             $player->dmg
         );
-    }
-
-    private function getName($name): string
-    {
-        $name = str_replace('_', '\\_', $name);
-        $name = str_replace('*', '\\*', $name);
-        $name = str_replace('[', '\\[', $name);
-        $name = str_replace('`', '\\`', $name);
-        return  $name;
     }
 }

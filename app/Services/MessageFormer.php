@@ -37,4 +37,13 @@ class MessageFormer
         }
         return $text;
     }
+
+    public static function getName($name): string
+    {
+        $name = str_replace('_', '\\_', $name);
+        $name = str_replace('*', '\\*', $name);
+        $name = str_replace('[', '\\[', $name);
+        $name = str_replace('`', '\\`', $name);
+        return  $name;
+    }
 }

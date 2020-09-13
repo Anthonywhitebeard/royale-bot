@@ -36,6 +36,7 @@ class TelegramSender
         $params = [
             'text' => $text,
             'chat_id' => $message->chat->id,
+            'parse_mode' => self::PARSE_MOD_MARKDOWN,
         ];
 
         if ($reply) {
@@ -54,7 +55,7 @@ class TelegramSender
         $params = [
             'text' => $text,
             'chat_id' => $tgChatId,
-            'parse' => 'Markdown ',
+            'parse_mode' => self::PARSE_MOD_MARKDOWN,
         ];
         return $this->telegramApi->sendMessage($params);
     }
