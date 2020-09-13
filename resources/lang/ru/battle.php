@@ -2,6 +2,7 @@
 
 return [
     'state_message_text' => 'В битве остались:',
+    'turn_message' => 'Ход: ',
     'select_class_message' => 'Выберите ваш класс, или этот выбор сделают за вас!',
     'confirm_class' => 'Класс выбран',
     'ability_refuse_dead' => 'Вы мертвы',

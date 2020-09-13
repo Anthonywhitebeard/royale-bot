@@ -38,7 +38,7 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         string $target
     ): BattleState
     {
-        $text = __('battle.state_message_text') . PHP_EOL;
+        $text = __('battle.turn_message') . $battleState->turn  .'. ' . __('battle.state_message_text') . PHP_EOL;
 
         foreach ($battleState->players as $player) {
             if ($player->isAlive()) {
