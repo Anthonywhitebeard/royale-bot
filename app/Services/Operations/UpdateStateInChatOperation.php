@@ -49,7 +49,6 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         if ($battleState->stateMessageId) {
             $this->telegram->deleteMessage($battleState->chat->tg_id, $battleState->stateMessageId);
         }
-        dump($text);
         $stateMessage = $this->telegram->sendMarkdownMessage($text, $battleState->chat->tg_id);
 
         $battleState->stateMessageId = $stateMessage->messageId;
@@ -63,7 +62,7 @@ class UpdateStateInChatOperation extends AbstractStateOperation
     private function formatState(PlayerState $player): string
     {
         return sprintf(self::STATE_TEXT_TEMPLATE,
-            MessageFormer::getName($player->battlePlayer->user_name),
+            $player->battlePlayer->user_name,
             $player->className,
             $player->hp,
             $player->dmg
