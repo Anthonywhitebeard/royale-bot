@@ -42,12 +42,12 @@ return [
         ],
         [
             'operation' => 'DEATH_MESSAGE',
-            'target' => '0,1',
+            'target' => '0;1',
             'params' => 'Перекрикивание "ORAORAORA" и "MUDAMUDAMUDA" закончились смертью обоих',
         ],
         [
             'operation' => 'ALIVE_MESSAGE',
-            'target' => '0,1',
+            'target' => '0;1',
             'params' => 'После недолгого перекрикивания "ORAORAORA" и "MUDAMUDAMUDA", оба отстали друг от друга',
         ],
     ],

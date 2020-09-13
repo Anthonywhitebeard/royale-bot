@@ -8,7 +8,7 @@ use App\Services\TelegramSender;
 
 class UpdateStateInChatOperation extends AbstractStateOperation
 {
-    private const STATE_TEXT_TEMPLATE = "%s _(%s)_" . PHP_EOL . "     _HP: %s, DMG: %s_" . PHP_EOL;
+    private const STATE_TEXT_TEMPLATE = "```%s (%s)" . PHP_EOL . "     HP: %s, DMG: %s```" . PHP_EOL;
 
     /**
      * @var TelegramSender
