@@ -2,28 +2,24 @@
 
 namespace App\Services\Operations;
 
-use App\Models\BattleModels\BattleClass;
 use App\Services\BattleProcess\BattleState;
 use App\Services\BattleProcess\PlayerState;
-use App\Services\BattleProcess\Turn;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Collection;
-use Telegram\Bot\Api;
+use App\Services\TelegramSender;
 
 class UpdateStateInChatOperation extends AbstractStateOperation
 {
-    private const STATE_TEXT_TEMPLATE = '%s %s - HP: %s, DMG: %s' . PHP_EOL;
+    private const STATE_TEXT_TEMPLATE = "%s _(%s)_" . PHP_EOL . "     _HP: %s, DMG: %s_" . PHP_EOL;
 
     /**
-     * @var Api
+     * @var TelegramSender
      */
-    private Api $telegram;
+    private TelegramSender $telegram;
 
     /**
      * SendMessageOperation constructor.
-     * @param Api $telegram
+     * @param TelegramSender $telegram
      */
-    public function __construct(Api $telegram)
+    public function __construct(TelegramSender $telegram)
     {
         $this->telegram = $telegram;
     }
@@ -39,7 +35,8 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         BattleState $battleState,
         string $params,
         string $target
-    ): BattleState {
+    ): BattleState
+    {
         $text = __('battle.state_message_text') . PHP_EOL;
 
         foreach ($battleState->players as $player) {
@@ -48,11 +45,12 @@ class UpdateStateInChatOperation extends AbstractStateOperation
             }
         }
 
-        $this->telegram->sendMessage([
-            'text' => $text,
-            'chat_id' => $battleState->chat->tg_id,
-        ]);
+        if ($battleState->stateMessageId) {
+            $this->telegram->deleteMessage($battleState->chat->tg_id, $battleState->stateMessageId);
+        }
+        $stateMessage = $this->telegram->sendMarkdownMessage($text, $battleState->chat->tg_id);
 
+        $battleState->stateMessageId = $stateMessage->messageId;
         return $battleState;
     }
 
@@ -63,15 +61,19 @@ class UpdateStateInChatOperation extends AbstractStateOperation
     private function formatState(PlayerState $player): string
     {
         return sprintf(self::STATE_TEXT_TEMPLATE,
+            $this->getName($player->battlePlayer->user_name),
             $player->className,
-            $player->battlePlayer->user_name,
             $player->hp,
             $player->dmg
         );
     }
 
-    private function getClasses(): Collection
+    private function getName($name): string
     {
-        return BattleClass::all()->keyBy('id');
+        $name = str_replace('_', '\\_', $name);
+        $name = str_replace('*', '\\*', $name);
+        $name = str_replace('[', '\\[', $name);
+        $name = str_replace('`', '\\`', $name);
+        return  $name;
     }
 }

@@ -14,7 +14,7 @@ class TriggersSeed extends Seeder
     {
         $rows = [
             [
-                'reg_exp' => '1',
+                'reg_exp' => '^Вызывайте метро',
                 'event' => 'StartBattle',
             ],
             [

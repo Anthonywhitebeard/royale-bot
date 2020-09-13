@@ -29,6 +29,7 @@ class UpdateClass extends AbstractStateOperation
             return $battleState;
         }
         if ($player->battlePlayer->class_id === $class->id) {
+            $player->className = $class->name;
             return $battleState;
         }
         $player->battlePlayer->battleAbilities()->update(['active' => 0]);

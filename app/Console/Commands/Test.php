@@ -50,24 +50,9 @@ class Test extends Command
      */
     public function handle(Api $telegram, Message $message, AbilityBuilder $abilityBuilder, TelegramSender $sender): void
     {
-
-        $a = app(AbilityBuilder::class);
-        /** @var BattlePlayer $player */
-        $player = BattlePlayer::where('id', 1)->firstOrFail();
-        $state = json_decode($player->battle->battleState->state, true);
-        /** @var BattleState $state */
-        $state = app()->make(BattleState::class, $state);
+        $sender->sendMarkdownMessage('assdf\\_sdfsd', -434080569);
 
 
-//        $player = $state->players[0];
-        $keyboard = $a->buildAbilityKeyboard($player);
-
-        $sender->sendKeyboardReplyMessage(
-            $player->battle->chat->tg_id,
-            'блабла',
-            $player->tg_message_id,
-            $keyboard
-        );
     }
 }
 

@@ -36,7 +36,6 @@ class TelegramSender
         $params = [
             'text' => $text,
             'chat_id' => $message->chat->id,
-            'parse_mode' => self::PARSE_MOD_MARKDOWN,
         ];
 
         if ($reply) {
@@ -50,14 +49,30 @@ class TelegramSender
      * @param $tgChatId
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
-    public function sendChatMessage(string $text, string $tgChatId): void
+    public function sendChatMessage(string $text, string $tgChatId): Message
     {
         $params = [
             'text' => $text,
             'chat_id' => $tgChatId,
             'parse' => 'Markdown ',
         ];
-        $this->telegramApi->sendMessage($params);
+        return $this->telegramApi->sendMessage($params);
+    }
+
+    /**
+     * @param string $text
+     * @param string $tgChatId
+     * @return MessageObject
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+     */
+    public function sendMarkdownMessage(string $text, string $tgChatId): Message
+    {
+        $params = [
+            'text' => $text,
+            'chat_id' => $tgChatId,
+            'parse_mode' => self::PARSE_MOD_MARKDOWN,
+        ];
+        return $this->telegramApi->sendMessage($params);
     }
 
     /**
@@ -151,9 +166,11 @@ class TelegramSender
     }
 
     public function deleteMessage(string $chatId, string $messageId) {
-        $this->telegramApi->deleteMessage([
-            'chat_id' => $chatId,
-            'message_id' => $messageId
-        ]);
+        try {
+            $this->telegramApi->deleteMessage([
+                'chat_id' => $chatId,
+                'message_id' => $messageId
+            ]);
+        } catch (\Throwable $t) {}
     }
 }

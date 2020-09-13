@@ -75,6 +75,10 @@ class PlayerState implements \ArrayAccess
             return;
         }
         $this->hp = $newHp;
+
+        if ($this->hp <= 0) {
+            $this->addFlag(self::FLAG_DEAD);
+        }
     }
 
     public function modifyDMG(string $dmg)

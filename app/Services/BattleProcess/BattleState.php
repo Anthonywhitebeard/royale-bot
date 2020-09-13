@@ -28,7 +28,7 @@ class BattleState implements Arrayable, \ArrayAccess
     public ?int $turn = 0;
 
     /** @var PlayerState[] $players */
-    public array $players;
+    public array $players = [];
 
     /** @var PlayerState[] $turnPlayers */
     public array $turnAlivePlayers = [];
@@ -48,6 +48,9 @@ class BattleState implements Arrayable, \ArrayAccess
     /** @var array */
     public array $eventLog = [];
 
+    /** @var string */
+    public string $stateMessageId = '';
+
     /**
      * BattleState constructor.
      * @param int|null $battleId
@@ -56,6 +59,8 @@ class BattleState implements Arrayable, \ArrayAccess
      * @param array $chat
      * @param array $pendingPlayers
      * @param array $eventLog
+     * @param int $turn
+     * @param string $stateMessageId
      * @throws BindingResolutionExceptionAlias
      */
     public function __construct(
@@ -64,7 +69,9 @@ class BattleState implements Arrayable, \ArrayAccess
         ?int $deviance = null,
         array $chat = [],
         array $pendingPlayers = [],
-        array $eventLog = []
+        array $eventLog = [],
+        int $turn = 0,
+        string $stateMessageId = ''
     )
     {
         if ($chat) {
@@ -75,6 +82,8 @@ class BattleState implements Arrayable, \ArrayAccess
         $this->battleId = $battleId;
         $this->deviance = $deviance;
         $this->eventLog = $eventLog;
+        $this->stateMessageId = $stateMessageId;
+        $this->turn = $turn;
 
         foreach ($players as $player) {
             $playerModel = app()->make(BattlePlayer::class, $player['battlePlayer']);

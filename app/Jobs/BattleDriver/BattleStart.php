@@ -88,10 +88,12 @@ class BattleStart implements ShouldQueue
      */
     private function clearSelectClassMessage(Api $telegram): void
     {
-        $telegram->deleteMessage([
-            'chat_id' => $this->classMessage->chat->id,
-            'message_id' => $this->classMessage->messageId,
-        ]);
+        try {
+            $telegram->deleteMessage([
+                'chat_id' => $this->classMessage->chat->id,
+                'message_id' => $this->classMessage->messageId,
+            ]);
+        } catch (\Throwable $t) {}
     }
 
     private function addSkills(PlayerState $playerState): void

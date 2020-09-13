@@ -14,7 +14,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% выпиваетт найденнуую зеленку и чувствует себя на все сто',
+            'params' => '%turnAlivePlayers.0.name% выпивает найденную зеленку и чувствует себя на все сто',
         ],
     ],
     'conditions' => [
