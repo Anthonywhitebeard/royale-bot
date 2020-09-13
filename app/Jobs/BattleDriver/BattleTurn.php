@@ -60,7 +60,6 @@ class BattleTurn implements ShouldQueue
      */
     public function handle(TelegramSender $telegram, AbilityBuilder $abilityBuilder): void
     {
-//        sleep(5);
         $this->abilityBuilder = $abilityBuilder;
         $this->telegram = $telegram;
         $state = json_decode($this->battle->battleState->state, true);

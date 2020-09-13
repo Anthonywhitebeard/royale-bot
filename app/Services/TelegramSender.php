@@ -166,9 +166,11 @@ class TelegramSender
     }
 
     public function deleteMessage(string $chatId, string $messageId) {
-        $this->telegramApi->deleteMessage([
-            'chat_id' => $chatId,
-            'message_id' => $messageId
-        ]);
+        try {
+            $this->telegramApi->deleteMessage([
+                'chat_id' => $chatId,
+                'message_id' => $messageId
+            ]);
+        } catch (\Throwable $t) {}
     }
 }
