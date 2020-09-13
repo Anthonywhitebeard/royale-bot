@@ -26,6 +26,8 @@ class BattleStart implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 1800;
+
     /** @var Battle $battle */
     private Battle $battle;
     /** @var BattleState $state */
