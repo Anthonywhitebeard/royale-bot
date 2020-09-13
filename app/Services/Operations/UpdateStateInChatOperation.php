@@ -48,7 +48,6 @@ class UpdateStateInChatOperation extends AbstractStateOperation
         if ($battleState->stateMessageId) {
             $this->telegram->deleteMessage($battleState->chat->tg_id, $battleState->stateMessageId);
         }
-        dump($text);
         $stateMessage = $this->telegram->sendMarkdownMessage($text, $battleState->chat->tg_id);
 
         $battleState->stateMessageId = $stateMessage->messageId;
