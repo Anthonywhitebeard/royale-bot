@@ -14,24 +14,31 @@ class TriggersSeed extends Seeder
     {
         $rows = [
             [
-                'reg_exp' => '^Вызывайте метро',
+                'reg_exp' => __('triggers.regexp_init_battle'),
                 'event' => 'StartBattle',
             ],
             [
-                'reg_exp' => '2',
+                'reg_exp' => __('triggers.regexp_registration_in_battle'),
                 'event' => 'RegistrationInBattle',
             ],
             [
-                'reg_exp' => '0',
+                'reg_exp' => __('triggers.regexp_destroy_battle'),
                 'event' => 'DestroyBattle',
             ],
             [
-                'reg_exp' => '3',
+                'reg_exp' => __('triggers.regexp_launch_battle'),
                 'event' => 'LaunchBattle',
+            ],            [
+                'reg_exp' => '^/battle',
+                'event' => 'StartBattle',
             ],
             [
-                'reg_exp' => '4',
-                'event' => 'UseAbility',
+                'reg_exp' => '^/reg',
+                'event' => 'RegistrationInBattle',
+            ],
+            [
+                'reg_exp' => '^/start',
+                'event' => 'LaunchBattle',
             ],
             [
                 'reg_exp' => '(class_)',
@@ -42,7 +49,7 @@ class TriggersSeed extends Seeder
                 'event' => 'UseAbility',
             ],
             [
-                'reg_exp' => '/skill',
+                'reg_exp' => '^/skill',
                 'event' => 'UseAbility',
             ],
         ];
