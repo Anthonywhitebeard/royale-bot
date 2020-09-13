@@ -30,7 +30,7 @@ class BattleTurn implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    const SUDDEN_DEATH_TURN = 60;
+    const SUDDEN_DEATH_TURN = 40;
 
     /** @var Battle $battle */
     private Battle $battle;
@@ -100,9 +100,8 @@ class BattleTurn implements ShouldQueue
 
     private function postTurn(): void
     {
-        $this->runAbilities();
-
         $this->suddenDeath();
+        $this->runAbilities();
 
         /** @var OperationInterface $operation */
         $operation = app(UpdateStateInChatOperation::class);

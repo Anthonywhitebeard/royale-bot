@@ -32,6 +32,9 @@ class MessageFormer
             }
             $text = str_replace($item, $value, $text);
         }
-        return $text;
+        if (strpos($text, '@') === 0){
+            return $text;
+        }
+        return '`'.$text.'`';
     }
 }

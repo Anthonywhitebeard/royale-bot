@@ -38,12 +38,12 @@ return [
         ],
         [
             'operation' => 'DEATH_MESSAGE',
-            'target' => '0,1',
+            'target' => '0;1',
             'params' => 'Оба разлетаются на осколки',
         ],
         [
             'operation' => 'ALIVE_MESSAGE',
-            'target' => '0,1',
+            'target' => '0;1',
             'params' => 'У обоих звенит в ушах',
         ],
     ],

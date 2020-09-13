@@ -70,7 +70,7 @@ class BattleStart implements ShouldQueue
     private function preBattle(): void
     {
         foreach ($this->state->players as $index => &$player) {
-            sleep(3);
+            sleep(6);
             $player->battlePlayer->refresh();
             $this->state->shakePlayers($player);
             $this->addSkills($player);
