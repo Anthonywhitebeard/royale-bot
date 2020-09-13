@@ -35,7 +35,7 @@ class DestroyBattle implements EventHandler
     {
         $message = $update->getMessage();
         $battle = Battle::where('chat_id', $chat->id)
-            ->where('state', Battle::BATTLE_STATE_NEW)
+            ->where('state', '<>', Battle::BATTLE_STATE_FINISHED)
             ->first();
 
         if (!$battle) {

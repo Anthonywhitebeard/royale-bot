@@ -30,11 +30,11 @@ class MessageFormer
             if (!$value) {
                 continue;
             }
+            if (strpos($value, '@') !== 0) {
+                $value = '`' . $value . '`';
+            }
             $text = str_replace($item, $value, $text);
         }
-        if (strpos($text, '@') === 0){
-            return $text;
-        }
-        return '`'.$text.'`';
+        return $text;
     }
 }
