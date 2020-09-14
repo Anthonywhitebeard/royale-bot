@@ -103,3 +103,5 @@ start: run
 
 stop: # Stops containers
 	docker-compose stop php-worker
+worker-status:
+	docker-compose exec php-worker supervisorctl status
