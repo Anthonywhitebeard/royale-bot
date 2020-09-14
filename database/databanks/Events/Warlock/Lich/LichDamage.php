@@ -22,6 +22,11 @@ return [
             'target' => '0',
             'params' => '%turnAlivePlayers.0.name% пал жертвой своего собственного проклятия. Никто не будет сожалеть об этом',
         ],
+        [
+            'operation' => 'ACTIVATE_ABILITY',
+            'target' => '0',
+            'params' => 'lich_curse',
+        ],
     ],
     'conditions' => [
         'lich_class',
