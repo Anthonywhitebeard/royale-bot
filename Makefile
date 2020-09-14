@@ -18,9 +18,6 @@ endif
 down: # Stop and destroy containers
 	docker-compose down
 
-stop: # Stops containers
-	docker-compose stop
-
 up: # Start and run containers
 	docker-compose up -d --remove-orphans $(CONTAINERS)
 
@@ -98,3 +95,11 @@ test-migrate :
 	docker-compose exec -u 1000 workspace php artisan migrate:fresh --seed --env=testing
 
 test: test-migrate test-seed-classes test-seed-events
+
+run:
+	docker-compose up -d php-worker
+
+start: run
+
+stop: # Stops containers
+	docker-compose stop php-worker

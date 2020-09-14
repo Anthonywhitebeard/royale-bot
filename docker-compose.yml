@@ -27,12 +27,15 @@ services:
           - INSTALL_XDEBUG=true
           - INSTALL_PHPREDIS=true
           - NVM_NODEJS_ORG_MIRROR=false
+          - WORKSPACE_INSTALL_SUPERVISOR=true
+          - WORKSPACE_INSTALL_PYTHON=true
           - http_proxy
           - https_proxy
           - no_proxy
       volumes:
         - ../:/var/www/:cached
         - docker-in-docker:/certs/client
+        - ./docker/php-worker/supervisord.d:/etc/supervisord.d
       extra_hosts:
         - "dockerhost:10.0.75.1"
       ports:
@@ -51,6 +54,23 @@ services:
         - backend
       links:
         - docker-in-docker
+### PHP Worker ############################################
+    php-worker:
+      build:
+        context: ./docker/php-worker
+        args:
+          - LARADOCK_PHP_VERSION=7.4
+          - PUID=1000
+          - PGID=1000
+      volumes:
+        - ../:/var/www:cached
+        - ./docker/php-worker/supervisord.d:/etc/supervisord.d
+      depends_on:
+        - workspace
+      extra_hosts:
+        - "dockerhost:10.0.75.1"
+      networks:
+        - backend
 
 ### MySQL ################################################
     mysql:
@@ -78,7 +98,7 @@ services:
       volumes:
         - ~/.docker/data/redis:/data
       ports:
-        - "6380:6379"
+        - "6379:6379"
       networks:
         - backend
 
