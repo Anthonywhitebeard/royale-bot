@@ -19,7 +19,7 @@ return [
         [
             'operation' => 'SEND_MSG',
             'target' => '0',
-            'params' => '%turnAlivePlayers.0.name% и %turnAlivePlayers.1.name% технику зеркального копирования и зеркально бьют друг друга лбами ',
+            'params' => '%turnAlivePlayers.0.name% и %turnAlivePlayers.1.name% применяют технику зеркального копирования и зеркально бьют друг друга лбами ',
         ],
         [
             'operation' => 'SLEEP',

@@ -50,7 +50,7 @@ class Test extends Command
      */
     public function handle(Api $telegram, Message $message, AbilityBuilder $abilityBuilder, TelegramSender $sender): void
     {
-        $sender->sendMarkdownMessage('assdf\\_sdfsd', -434080569);
+        $sender->sendMarkdownMessage('Нет ты иди', -1001289293236);
 
 
     }

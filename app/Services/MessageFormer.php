@@ -32,6 +32,8 @@ class MessageFormer
             }
             if (strpos($value, '@') !== 0) {
                 $value = '`' . $value . '`';
+            } else {
+                $value = self::getName($value);
             }
             $text = str_replace($item, $value, $text);
         }

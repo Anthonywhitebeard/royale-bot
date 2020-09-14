@@ -23,7 +23,7 @@ return [
         ],
     ],
     'conditions' => [
-        "kremlebot_class",
+        "kreml_class",
         "2_players"
     ],
     'traits' => [
