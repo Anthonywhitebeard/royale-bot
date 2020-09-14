@@ -109,7 +109,7 @@ class MessageParser implements ShouldQueue
 
         return factory(Player::class)->create([
             'tg_id' => $this->message->from->id,
-            'name' => $this->message->from->username,
+            'name' => $this->message->from->username ?? $this->message->from->firstName,
         ]);
     }
 }
