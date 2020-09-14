@@ -110,7 +110,7 @@ class UseAbility implements EventHandler
 
         if ($battleAbility->activation_text) {
             $text = MessageFormer::formOperationText($battleAbility->activation_text, collect([
-                'name' => $battlePlayer->user_name
+                'name' => '@'.$battlePlayer->user_name
             ]));
             $message = $this->telegram->sendKeyboardReplyMessage(
                 $battle->chat->tg_id,
