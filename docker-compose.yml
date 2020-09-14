@@ -64,6 +64,7 @@ services:
         - MYSQL_PASSWORD=111
         - MYSQL_ROOT_PASSWORD=root
         - TZ=UTC
+        - MYSQL_DATABASE=royale
       volumes:
         - ~/.docker/data/mysql:/var/lib/mysql
       ports:
