@@ -30,7 +30,7 @@ class BattleTurn implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    const SUDDEN_DEATH_TURN = 40;
+    const SUDDEN_DEATH_TURN = 45;
 
     /** @var Battle $battle */
     private Battle $battle;
