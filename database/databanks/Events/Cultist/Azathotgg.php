@@ -28,7 +28,7 @@ return [
         ],
     ],
     'conditions' => [
-        "elder_4",
+        "azathot_gg",
     ],
     'traits' => [
         'damage', 'otk',
