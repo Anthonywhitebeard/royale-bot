@@ -3,7 +3,7 @@
 return [
     'name' => 'Богатырышник',
     'text' => 'Увеличивает урон',
-    'weight' => '100',
+    'weight' => '50',
     'deviance' => '0',
     'operations' => [
         [

@@ -21,7 +21,7 @@ return [
         [
             'operation' => 'SET_HP',
             'target' => '0',
-            'params' => 500,
+            'params' => 300,
         ],
         [
             'operation' => 'SET_DMG',

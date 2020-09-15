@@ -3,7 +3,7 @@
 return [
     'name' => 'Проповедь',
     'text' => 'вешает на противника сомнения',
-    'weight' => '800',
+    'weight' => '1000',
     'deviance' => '0',
     'operations' => [
         [

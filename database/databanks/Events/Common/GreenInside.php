@@ -3,7 +3,7 @@
 return [
     'name' => 'Выпить зеленки',
     'text' => 'Устанавливает здоровье в 100',
-    'weight' => '100',
+    'weight' => '50',
     'deviance' => '0',
     'operations' => [
         [
