@@ -3,7 +3,7 @@
 return [
     'name' => 'Время расплаты',
     'text' => 'Наносит себе урон',
-    'weight' => '600',
+    'weight' => '1500',
     'deviance' => '0',
     'operations' => [
         [

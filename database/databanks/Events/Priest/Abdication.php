@@ -22,6 +22,11 @@ return [
             'params' => '150',
         ],
         [
+            'operation' => 'ADD_FLAG',
+            'target' => '0',
+            'params' => 'mark_of_heresy',
+        ],
+        [
             'operation' => 'ACTIVATE_ABILITY',
             'target' => '0',
             'params' => 'repentance' ,
